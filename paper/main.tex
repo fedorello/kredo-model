@@ -433,6 +433,22 @@ $\mathbb{E}[\pi]$ bound ($\V$) & $290$ & $407$ & $311$ & $-48$ & $-277$\\
 \label{tab:fraud}
 \end{table}
 
+\section{Design guidance}\label{sec:guidance}
+
+The analysis yields a small set of parameter conditions a deployment must satisfy. We collect them here; each is derived above and is a lever the community can tune by governance.
+
+\begin{description}[leftmargin=*,itemsep=3pt]
+\item[Bounded inflation.] Keep $\varepsilon\le K^*-1$ via \eqref{eq:epsilon}, so $\Supply/P_{\mathrm{net}}\le K^*$ (Theorem~\ref{thm:stability}, Proposition~\ref{prop:genstab}). A smaller $K^*$ tightens the money-to-value ratio. Default $K^*=1.5$.
+\item[Non-declining price.] Require external revenue $\lambda_{\mathrm{rev}}\ge(\mathrm{EmissionRate}\cdot P-\lambda_{\mathrm{inv}})/\mu$; the price then tends to $(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/\mathrm{EmissionRate}$ (Propositions~\ref{prop:survival} and~\ref{prop:longrun}). The multiplier $\mu=12$ and the investment inflow are the levers.
+\item[Fund solvency under a run.] The discount engages at coverage $\rho<\rho^*$ and keeps $F=F_0(S/S_0)^{1/\rho^*}>0$ for all $S>0$ (Theorem~\ref{thm:norun}); the emission ceiling $\Delta S_{\max}=(F-F_{\min})/P_{\mathrm{target}}$ preserves buy-back capacity. Default $\rho^*=0.3$.
+\item[Bounded single-agent exposure.] The credit limit $L(r)=100\,(1+0.5\ln(1+r))$ caps any one member's default loss (I4): at most $560~\V$ even at $\R=10^4$.
+\item[Gated emission.] Mint only when $\confidence(\tau)\ge\theta_{\min}$ (I2). Default $\theta_{\min}=0.6$.
+\item[Capital and Sybil resistance.] Vote by $\sqrt{\R}$ with $\R$ soulbound under a dual quorum $\theta$; capital buys no votes, and $q$ votes cost $q^2/r_0$ genuine accounts (Proposition~\ref{prop:sybil}). Defaults $\theta=0.5$ ($0.66$ for constitutional changes).
+\item[Fraud deterrence.] Ensure the per-cluster forfeitable stake $L\ge\bar N/\ln(1/(1-a))\approx\bar N/a$ (Theorem~\ref{thm:deter}). The levers are the audit rate $a$, the lock-up $\tau_{\mathrm{lock}}$, and required collateral. \emph{The illustrative defaults ($a=0.03$, $\bar N=50$, $L=300~\V$) fall short of the threshold ($\approx1642~\V$) and must be strengthened.}
+\end{description}
+
+Of the illustrative defaults only the last condition is unmet; the rest hold as stated. Choosing $K^*$, $\mu$, $\rho^*$, $\theta_{\min}$, and the stake/audit parameters within these bounds is the whole of a deployment's economic tuning.
+
 \section{Empirical validation}\label{sec:empirical}
 
 \subsection{Method}

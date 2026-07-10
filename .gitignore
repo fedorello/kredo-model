@@ -2,3 +2,9 @@ __pycache__/
 *.pyc
 .venv/
 .DS_Store
+
+# latex build artifacts
+*.aux
+*.log
+*.out
+*.toc

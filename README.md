@@ -18,6 +18,7 @@ behind it — open for anyone to read, check, run, and build on.
 
 | Path | What it is |
 |---|---|
+| [`paper/`](paper) | Academic preprint (LaTeX + compiled PDF), formatted for arXiv / journal submission |
 | [`docs/en/whitepaper.md`](docs/en/whitepaper.md) | Accessible explanation of the whole model (English) |
 | [`docs/en/mathematics.md`](docs/en/mathematics.md) | The full formal model: axioms, invariants, formulas, theorems |
 | [`docs/en/validation.md`](docs/en/validation.md) | Experiment protocols and results |

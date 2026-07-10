@@ -1,0 +1,296 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{axiom}{Axiom}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\V}{\mathrm{V}}
+\newcommand{\R}{\mathrm{R}}
+\newcommand{\confidence}{\operatorname{confidence}}
+\newcommand{\Supply}{\operatorname{Supply}}
+\newcommand{\VerifiedValue}{\operatorname{VerifiedValue}}
+\newcommand{\ExtRev}{\mathrm{ExtRev}}
+\newcommand{\Turnover}{\operatorname{Turnover}}
+
+\title{\textbf{Kredo}: A Contribution-Based Mutual-Credit Economy\\
+with Soulbound Reputation and Compensatory Emission}
+
+\author{Fedor Chishchin\\
+\small Independent Researcher\\
+\small \texttt{fedorstartup@gmail.com}}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present \emph{Kredo}, an economic mechanism designed to reward the creation of value rather than the position of ownership. The design is derived top-down: five philosophical axioms are formalized as seven state invariants, and every transition function is required to preserve them. The economy uses two assets: a transferable contribution token $\V$ (working money and a claim on the club's external profit) and a non-transferable ``soulbound'' reputation token $\R$. Credit is issued at the moment of a confirmed transaction and accompanied by a \emph{compensatory emission}---a deferred, escrowed ``dividend to all'' whose magnitude is governed by a dynamic coefficient $\varepsilon$ that shrinks as the observed default rate grows. We prove that this coefficient keeps the money supply bounded relative to verified value under a nonzero default rate (Theorem~\ref{thm:stability}), and that operations against the liquidity fund are price-neutral (Theorem~\ref{thm:neutrality}), so the token's price responds only to fundamentals. Governance uses quadratic ($\sqrt{\R}$) voting under a dual reputation-and-stake quorum, which, together with the soulbound property of $\R$, makes capture by capital or by Sybil accounts economically unprofitable. We derive a minimal external-revenue \emph{survival condition} for a non-declining price. A deterministic agent-based simulator implementing the full mechanism is exercised across $315$ runs (Monte~Carlo, a $192$-point parameter sweep, combined-attack stress tests, and regime analysis); no run produced an economic collapse. All code, derivations, and results are released openly.
+\end{abstract}
+
+\noindent\textbf{Keywords:} mutual credit; complementary currency; mechanism design; token economics; quadratic voting; Sybil resistance; agent-based simulation.
+
+\section{Introduction}
+
+Two widely deployed classes of economic organization each embed a structural unfairness. In \emph{rent-based capitalism}, the holder of capital earns without contributing: value is extracted from a position of ownership rather than created, and the producer of value and the recipient of profit are frequently distinct agents. In \emph{egalitarian cooperatives and communes}, all members are treated equally, but the absence of a growth-and-reward mechanism yields the classical free-rider problem: contribution is not differentially rewarded, active members bear disproportionate cost, and the system stagnates.
+
+This paper studies a mechanism, \emph{Kredo}, intended as a third option: reward proportional to the creation of value, in which active members earn more than passive ones yet no member is left with nothing, and in which the system defends itself against inflation, panic, and fraud without discretionary intervention.
+
+Our contributions are as follows.
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+    \item A top-down design method: five axioms (Section~\ref{sec:axioms}) are formalized as seven invariants that every transition function must preserve (Section~\ref{sec:invariants}), yielding a specification in which the intended ethics are machine-checkable properties.
+    \item A compensatory-emission mechanism with a dynamic coefficient $\varepsilon$, and a proof that it bounds supply relative to verified value under nonzero defaults (Theorem~\ref{thm:stability}).
+    \item A pricing rule tied strictly to fundamentals, with a proof that fund operations are price-neutral (Theorem~\ref{thm:neutrality}), plus a discounted-withdrawal mechanism for bank-run resilience.
+    \item A governance design combining $\sqrt{\R}$ voting with a dual quorum and a soulbound reputation token, and an argument that both capital and Sybil capture are unprofitable (Proposition~\ref{prop:sybil}).
+    \item A minimal external-revenue survival condition (Proposition~\ref{prop:survival}) and an empirical validation over $315$ simulated runs.
+\end{enumerate}
+
+All artifacts---the mechanism, its derivations, the simulator, the experiment protocols, and the raw results---are publicly available.\footnote{\url{https://github.com/fedorello/kredo-model}}
+
+\section{Related work}\label{sec:related}
+
+The idea that money should not accrue rent to idle holders traces to Gesell's proposal of a carrying cost on currency \cite{gesell1916}. Mutual-credit systems, in which the money supply is created endogenously by bilateral trade and nets to zero, have a long practical history \cite{greco2009}; empirical work on the Swiss WIR/\emph{Wirtschaftsring} documents their counter-cyclical, macro-stabilizing behavior \cite{stodder2009}. Contemporary blockchain-based complementary currencies such as Circles~UBI \cite{circles2020} and GoodDollar \cite{gooddollar2021} distribute newly issued units broadly; Kredo's ``dividend to all'' is a deferred, contribution-weighted, default-conditioned variant of this idea. Trustless issuance and the avoidance of pre-mine follow the design ethos of permissionless value systems \cite{nakamoto2008}. Our governance draws on quadratic voting \cite{lalley2018} and quadratic funding \cite{buterin2019}, whose square-root weighting limits plutocratic dominance; the soulbound (non-transferable) treatment of reputation is what makes the quadratic weighting robust to vote-buying. Resistance to Sybil attacks is analyzed in the tradition of Douceur \cite{douceur2002}. Finally, we evaluate the mechanism with agent-based simulation \cite{bonabeau2002}, the standard tool for studying emergent behavior of many interacting agents when closed-form analysis is intractable.
+
+\section{The model}
+
+\subsection{Axioms}\label{sec:axioms}
+
+\begin{axiom}[Value is created, not extracted]\label{ax:create}
+Reward must correspond to the creation of value, not to a position of ownership.
+\end{axiom}
+\begin{axiom}[Value is subjective but consensual]\label{ax:price}
+A fair price is the one two parties agree upon voluntarily under the availability of alternatives.
+\end{axiom}
+\begin{axiom}[Symmetry of gain and loss]\label{ax:symmetry}
+All participants are structurally bound to the fate of the system; no class is shielded from the risks of the others.
+\end{axiom}
+\begin{axiom}[No privileged knowledge]\label{ax:transparency}
+All rules, balances, and decisions are transparent.
+\end{axiom}
+\begin{axiom}[Power from contribution]\label{ax:power}
+Influence over the rules follows from demonstrated useful participation, not from accumulated capital.
+\end{axiom}
+
+\subsection{State}
+
+\begin{definition}[System state]
+At discrete time $t$ the state is the tuple
+\[
+S_t = (M_t,\ b_t,\ r_t,\ d_t,\ F_t,\ E_t,\ G_t,\ H_t),
+\]
+where $M_t$ is the finite set of members; $b_t: M_t \to \mathbb{R}$ the $\V$-balance (which may be negative up to a credit limit); $r_t: M_t \to \mathbb{R}_{\ge 0}$ the reputation; $d_t: M_t \to \mathbb{R}_{\ge 0}$ accumulated debt; $F_t \in \mathbb{R}_{\ge 0}$ the liquidity fund (in an external stable asset, USDC); $E_t \in \mathbb{R}_{\ge 0}$ the distribution escrow; $G_t \in \mathbb{R}_{\ge 0}$ the genesis pool; and $H_t$ the append-only transaction history.
+\end{definition}
+
+\subsection{Invariants}\label{sec:invariants}
+
+The seven invariants below formalize Axioms~\ref{ax:create}--\ref{ax:power}. Write $\Supply(t) = \sum_{m} \max(0,b_t(m)) + E_t + G_t$ and $\VerifiedValue(t) = \sum_{\tau \in H_t}\, N_{\mathrm{credit}}(\tau)\,\confidence(\tau)$, where $N_{\mathrm{credit}}(\tau)$ is the newly issued (credit) portion of transaction $\tau$ and $\confidence(\tau)\in[0,1]$ is defined in Section~\ref{sec:confidence}.
+
+\begin{description}[leftmargin=*,itemsep=3pt]
+    \item[(I1) Conservation on transfers.] For any pure transfer, $\sum_{m} b_{t}(m) = \sum_{m} b_{t+1}(m)$.
+    \item[(I2) Gated emission.] $\V$ is minted only within the confirmation protocol and only if $\confidence(\tau) \ge \theta_{\min}$.
+    \item[(I3) Supply tracks value.] $\bigl|\Supply(t) - \VerifiedValue(t)\bigr| \le \epsilon_{\mathrm{tol}}\,\Supply(t)$, with $\epsilon_{\mathrm{tol}} = 0.05$ absorbing detection lag.
+    \item[(I4) Credit limit.] $b_t(m) \ge -L\bigl(r_t(m)\bigr)$ for all $m,t$.
+    \item[(I5) Fundamental price.] $P_t = \bigl(F_t + \mu\,\ExtRev_t\bigr)/\Supply(t)$ is always computed, never assigned.
+    \item[(I6) Soulbound reputation.] No transfer map for $\R$ exists; $\R$ is only minted (for merit) and burned (for violations).
+    \item[(I7) Universal rules.] Every function depends only on observable state $(b,r,d)$, not on member identity.
+\end{description}
+
+The admissible transition functions are \textsc{Join}, \textsc{Leave}, \textsc{Transact}, \textsc{Repay}, \textsc{Default}, \textsc{Convert}, \textsc{Invest}, together with derived periodic operations; each is required to preserve (I1)--(I7).
+
+\section{Credit and confidence}\label{sec:confidence}
+
+\subsection{Credit limit}
+
+\begin{equation}\label{eq:limit}
+L(r) = L_0\bigl(1 + \alpha \ln(1+r)\bigr), \qquad L_0 = 100~\V,\ \ \alpha = 0.5.
+\end{equation}
+The logarithm bounds exposure: a member with $r = 10^4$ borrows at most $\approx 560~\V$, only $5.6\times$ a newcomer's limit (Table~\ref{tab:limit}). No single agent can therefore threaten solvency by defaulting.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrrrr}
+\toprule
+$r$ & $0$ & $1$ & $10$ & $100$ & $1000$ & $10000$\\
+\midrule
+$L(r)$ & $100$ & $135$ & $220$ & $330$ & $445$ & $560$\\
+\bottomrule
+\end{tabular}
+\caption{Credit limit \eqref{eq:limit} as a function of reputation.}
+\label{tab:limit}
+\end{table}
+
+\subsection{Confidence}
+
+Axiom~\ref{ax:price} forbids the mechanism from setting prices; instead it estimates how much a declared price can be trusted before minting against it. For a transaction $\tau=(A,B,N,c)$ with provider $A$, receiver $B$, declared value $N$, and category $c$,
+\begin{equation}
+\confidence(\tau) = w_a s_a(\tau) + w_r s_r(\tau) + w_x s_x(\tau), \qquad w_a+w_r+w_x=1 .
+\end{equation}
+The \emph{auto-score} compares $N$ to the category's recent price distribution. With sample mean $\mu_c$ and standard deviation $\sigma_c$ over a $90$-day window and $z = (N-\mu_c)/\sigma_c$,
+\begin{equation}\label{eq:autoscore}
+s_a(\tau) = \begin{cases} 1, & |z| \le 1,\\[3pt] \exp\!\left(-\dfrac{(|z|-1)^2}{2}\right), & |z| > 1. \end{cases}
+\end{equation}
+Thus $s_a = 0.61,\,0.14,\,0.01$ at $z = 2,3,4$. The \emph{review-score} $s_r$ is the median vote of randomly drawn reviewers (robust to outliers), and the \emph{audit-score} $s_x$ is $1$ unless a stochastic audit finds a violation. Review is triggered when $|z|>1$, when $N$ exceeds the auto-approval limit $N_{\mathrm{auto}} = 50\sqrt{r_A r_B + 1}$, when a party is under monitoring, or when the $3\%$ random audit selects $\tau$.
+
+\section{Emission and the compensation coefficient}
+
+\subsection{Mechanics}
+
+In \textsc{Transact}, the credit portion is $N_{\mathrm{credit}} = \max\bigl(0,\ N - \max(0,b_B)\bigr)$; the provider is credited $N$, and $B$'s balance decreases by $N$, opening a debt. Simultaneously a \emph{compensatory emission} enters escrow,
+\begin{equation}\label{eq:comp}
+\Delta E = \varepsilon(t)\, N_{\mathrm{credit}} .
+\end{equation}
+The escrow is released pro rata upon repayment and \emph{burned} upon default. Released amounts are distributed across members in proportion to active turnover $\Turnover(m,t) = \sum_{\tau: t-\tau<90d,\, m\in\tau} N(\tau)\confidence(\tau)$,
+\begin{equation}
+\mathrm{Share}(m,t) = \frac{\Turnover(m,t) + \xi}{\sum_{m'}\Turnover(m',t) + n_t\,\xi}, \qquad \xi = 1,
+\end{equation}
+so the ``dividend to all'' rewards active contribution rather than idle holdings. The coefficient is dynamic in the observed default rate $\delta_t$:
+\begin{equation}\label{eq:epsilon}
+\varepsilon(t) = \max\!\Bigl(0,\ \min\bigl(\varepsilon_{\max},\ K^* - 1 - \kappa\,(\delta_t - \delta^*)\bigr)\Bigr),
+\end{equation}
+with defaults $K^* = 1.5$, $\delta^* = 0.05$, $\kappa = 2$, $\varepsilon_{\max}=0.95$. Hence $\varepsilon$ ranges from $0.60$ at $\delta=0$ down to $0$ at $\delta = 0.30$.
+
+\subsection{Stability under defaults}
+
+\begin{theorem}[Bounded supply under defaults]\label{thm:stability}
+Consider a stationary regime with constant default rate $\delta \le \tfrac12$ and $\varepsilon$ given by \eqref{eq:epsilon}. Let $P_{\mathrm{net}} = \VerifiedValue \cdot (1-\delta)$ denote net verified value. Then
+\[
+\frac{\Supply}{P_{\mathrm{net}}} \le K^*.
+\]
+\end{theorem}
+
+\begin{proof}
+In a stationary regime with total issuance $N_{\mathrm{tot}}$, defaulted credits and their compensation are burned, so the surviving supply is $\Supply = N_{\mathrm{tot}}(1+\varepsilon)(1-\delta)$ while $P_{\mathrm{net}} = N_{\mathrm{tot}}(1-\delta)$. Hence $\Supply/P_{\mathrm{net}} = 1 + \varepsilon$. By \eqref{eq:epsilon}, $\varepsilon \le K^*-1$, giving $\Supply/P_{\mathrm{net}} \le K^*$. For $\delta > \delta^*$ the term $-\kappa(\delta-\delta^*)$ makes $\varepsilon$ strictly smaller, tightening the bound.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:stability} is the inflation brake: as realized defaults rise, $\varepsilon$ falls automatically, and at $\delta = 0.30$ compensation is disabled entirely (strict conservation). The system does not assume full repayment; it bounds the money-to-value ratio for any $\delta \le \tfrac12$.
+\end{remark}
+
+The genesis grant to a joining member, $g_0 = \min\bigl(100,\ G_t/\mathbb{E}[\text{new members}]\bigr)$, is likewise self-limiting: it contracts if growth outpaces the pool's inflow, so no subsidy is created \emph{ex nihilo}.
+
+\section{Reputation and governance}
+
+Reputation accrues through concave (activity) and linear (quality) terms and burns for failures:
+\begin{align}
+\Delta \R &= \beta_1 \ln(1 + n_{\mathrm{tx}}) + \beta_2\, a_{\mathrm{audit}} + \beta_3 \ln(1 + \text{tenure}/30) + \beta_4\, n_{\mathrm{disputes}},\\
+\Delta \R^{-} &= \gamma_1 f_{\mathrm{review}} + \gamma_2 f_{\mathrm{dispute}} + \gamma_3\, \mathrm{DefaultPenalty} + \gamma_4\, \mathrm{Fraud},
+\end{align}
+with $\gamma_4 = 100$: proven fraud erases years of reputation. Concavity in bulk actions prevents reputation farming by volume.
+
+Voting power is $\sqrt{\R(m)}$. Strategic decisions require a \emph{dual quorum}: a reputation quorum $\sum_{\text{voters}}\sqrt{r}\,\big/\sum_{M}\sqrt{r} > \theta$ and a stake quorum $\sum_{\text{voters}} b \,\big/ \sum_{M}\max(0,b) > \theta$, with $\theta = 0.5$ ($0.66$ for constitutional changes). Because $\R$ and $\V$ are distributed differently, the dual quorum blocks capture by activists and by whales simultaneously.
+
+\begin{proposition}[Capital and Sybil resistance]\label{prop:sybil}
+Under invariant (I6), an attacker with capital $C$ obtains zero reputation votes, since $\R$ is non-transferable. A Sybil attacker operating $k$ accounts of base reputation $r_0$ obtains $k\sqrt{r_0}$ reputation votes; to reach $V$ votes requires $k = V^2/r_0$ accounts. At $r_0 = 0.5$, $100$ votes require $2\times 10^4$ accounts, each of which must clear identity screening and perform genuine activity to earn any $\R$.
+\end{proposition}
+
+\begin{proof}
+The first claim is immediate from (I6): capital purchases $\V$ but no $\R$, and voting weight is a function of $\R$ only. For the second, additivity of $\sqrt{\R}$ across identically endowed accounts gives $k\sqrt{r_0}$; setting $k\sqrt{r_0} = V$ yields $k = V^2/r_0$. Substituting $r_0=0.5$, $V=100$ gives $k = 2\times 10^4$.
+\end{proof}
+
+\section{Pricing and the liquidity fund}
+
+The price is fixed by (I5), $P_t = (F_t + \mu\,\ExtRev_t)/\Supply(t)$ with $\mu = 12$ (a price-to-earnings multiple capitalizing annual external revenue).
+
+\begin{theorem}[Neutrality of fund operations]\label{thm:neutrality}
+\textsc{Invest} (deposit $\Delta U$ of USDC for $\Delta V = \Delta U/P_t$ of $\V$) and \textsc{Convert} (sell $\Delta V$ of $\V$ for $\Delta U = \Delta V\,P_t$) leave the price unchanged: $P_{t+1} = P_t$.
+\end{theorem}
+
+\begin{proof}
+For \textsc{Invest}, $F_{t+1} = F_t + \Delta U$ and $S_{t+1} = S_t + \Delta U/P_t$, where $S=\Supply$. Using $F_t = P_t S_t - \mu\,\ExtRev_t$,
+\[
+P_{t+1} = \frac{F_t + \Delta U + \mu\,\ExtRev_t}{S_t + \Delta U/P_t}
+= \frac{P_t S_t + \Delta U}{S_t + \Delta U/P_t}
+= \frac{P_t(P_t S_t + \Delta U)}{P_t S_t + \Delta U} = P_t.
+\]
+The argument for \textsc{Convert} is symmetric, with $F_{t+1} = F_t - \Delta V\,P_t$ and $S_{t+1} = S_t - \Delta V$.
+\end{proof}
+
+Thus price responds only to fundamentals ($F$ and $\ExtRev$); no fund operation manipulates it. A credit emission, by contrast, dilutes the price in the moment, $P_{t+1} = P_t\, S_t / \bigl(S_t + N_{\mathrm{credit}}(1+\varepsilon)\bigr) < P_t$, and is recovered only by growth in $\ExtRev$. Consequently internal turnover alone creates no external wealth---the mechanism's central honest conclusion.
+
+\paragraph{Bank-run resilience.} Let coverage $\rho_t = F_t/(P_t S_t)$. When $\rho_t < \rho^* = 0.3$, conversions are queued and discounted, $P_{\mathrm{actual}} = P_t \min(1, \rho_t/\rho^*)$. The discount both protects the fund and incentivizes counter-cyclical investment at the bottom, restoring $\rho$; it also imposes a structural emission ceiling $\Delta S_{\max} = (F - F_{\min})/P_{\mathrm{target}}$.
+
+\section{Stationarity and the survival condition}
+
+Price is stationary when supply growth matches asset growth, $\dot S/S = \dot A/A$ with $A = F + \mu\,\ExtRev$. This partitions dynamics into a growth regime, a stable regime, and a falling regime.
+
+\begin{proposition}[Survival condition]\label{prop:survival}
+A non-declining price requires an external-revenue growth rate satisfying
+\[
+\lambda_{\mathrm{rev}} \ \ge\ \frac{1}{\mu}\Bigl(\mathrm{EmissionRate}\cdot P - \lambda_{\mathrm{inv}}\Bigr),
+\]
+where $\lambda_{\mathrm{inv}}$ is the investment inflow rate.
+\end{proposition}
+
+\begin{proof}[Sketch]
+Stationarity $\dot A / A = \dot S / S$ with $\dot A = \lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}}$ and $\dot S = \mathrm{EmissionRate}$ (net of burns) gives, for a non-negative price derivative, $\lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}} \ge \mathrm{EmissionRate}\cdot P$; solving for $\lambda_{\mathrm{rev}}$ yields the stated bound.
+\end{proof}
+
+For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}$ and investment $2000~\text{USDC}/\text{month}$, the club must earn at least $250~\text{USDC}/\text{month}$ externally. A permanently falling price in the absence of external revenue is therefore a mathematical necessity, not a design defect.
+
+\section{Empirical validation}
+
+\subsection{Method}
+
+We implemented the full mechanism as a deterministic agent-based simulator with an injected, seeded pseudo-random source, so that a seed reproduces a run bit-for-bit. Stability is graded by five criteria: (C1) price does not reach zero; (C2) fund coverage $\rho \ge 0.05$ on at least $95\%$ of ticks; (C3) at most $20\%$ of members frozen; (C4) non-negative supply; (C5) invariants clean. We report (C1)--(C4) as \emph{economically stable} separately from (C5), because the (I3) bookkeeping check has a known drift during the auto-repay/escrow-distribution lifecycle. The protocol comprises: reproduction of reference scenarios (V1); Monte~Carlo over $4$ scenarios $\times\ 30$ seeds (V3); a $192$-point sweep over $(K^*,\mu,\delta^*,\rho^*)$ (V4); combined-attack stress tests (V5); and regime analysis (V6).
+
+\subsection{Results}
+
+Across $315$ runs, no run produced an economic collapse (Table~\ref{tab:results}). The parameter sweep was stable at all $192$ points, indicating the mechanism is not brittle to parameter choice. Combined fraud-plus-bank-run and $70\%$ simultaneous-exit stress tests remained economically stable via the withdrawal queue and escrow burn, and the three predicted price regimes were reproduced.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+Protocol & Runs & Economic collapses\\
+\midrule
+Monte Carlo (V3) & $120$ & $0$\\
+Parameter sweep (V4) & $192$ & $0$\\
+Stress tests (V5) & $3$ & $0$\\
+\midrule
+Total & $315$ & $0$\\
+\bottomrule
+\end{tabular}
+\caption{Validation summary. Full raw outputs accompany the released code.}
+\label{tab:results}
+\end{table}
+
+\section{Limitations}
+
+Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation, collusion, and political organization by real participants are out of scope, as is a game-theoretically optimal adversary (we test fixed attack strategies only). Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
+
+\section{Conclusion}
+
+Kredo demonstrates that a coherent ethical stance---reward for creation, symmetry of fate, transparency, and power from contribution---can be compiled into a precise mechanism whose intended properties are provable and machine-checkable. The compensatory-emission coefficient bounds inflation under defaults, fund operations are price-neutral, governance resists both capital and Sybil capture, and a minimal external-revenue condition governs survival. A deterministic simulator corroborates structural resilience across $315$ runs. The open release invites replication, adversarial analysis, and extension toward a small live deployment.
+
+\section*{Data and code availability}
+
+The mechanism specification, full derivations, the simulator, the experiment protocols, and the raw results are openly available at \url{https://github.com/fedorello/kredo-model} under the MIT license.
+
+\begin{thebibliography}{99}
+\bibitem{gesell1916} S.~Gesell. \emph{The Natural Economic Order}. Self-published, 1916 (English translation, Peter Owen, 1958).
+\bibitem{greco2009} T.~H.~Greco. \emph{The End of Money and the Future of Civilization}. Chelsea Green, 2009.
+\bibitem{stodder2009} J.~Stodder. Complementary credit networks and macroeconomic stability: Switzerland's Wirtschaftsring. \emph{Journal of Economic Behavior \& Organization}, 72(1):79--95, 2009.
+\bibitem{circles2020} Circles~UBI. \emph{Circles: A Basic Income Money System} (whitepaper). 2020.
+\bibitem{gooddollar2021} GoodDollar. \emph{GoodDollar: A Distributed Basic Income} (whitepaper), v2. 2021.
+\bibitem{nakamoto2008} S.~Nakamoto. \emph{Bitcoin: A Peer-to-Peer Electronic Cash System}. 2008.
+\bibitem{lalley2018} S.~P.~Lalley and E.~G.~Weyl. Quadratic voting: how mechanism design can radicalize democracy. \emph{AEA Papers and Proceedings}, 108:33--37, 2018.
+\bibitem{buterin2019} V.~Buterin, Z.~Hitzig, and E.~G.~Weyl. A flexible design for funding public goods. \emph{Management Science}, 65(11):5171--5187, 2019.
+\bibitem{douceur2002} J.~R.~Douceur. The Sybil attack. In \emph{Proc.\ IPTPS}, LNCS 2429, pp.~251--260, 2002.
+\bibitem{bonabeau2002} E.~Bonabeau. Agent-based modeling: methods and techniques for simulating human systems. \emph{PNAS}, 99(suppl.~3):7280--7287, 2002.
+\end{thebibliography}
+
+\end{document}

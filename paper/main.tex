@@ -190,7 +190,7 @@ Per unit of confirmed contribution the mechanism mints one unit of principal and
 \end{proof}
 
 \begin{remark}
-Theorem~\ref{thm:stability} is the inflation brake: as realized defaults rise, $\varepsilon$ falls automatically, and at $\delta = 0.30$ compensation is disabled entirely (strict conservation). The system does not assume full repayment; it bounds the money-to-value ratio for any $\delta \le \tfrac12$.
+Theorem~\ref{thm:stability} is the inflation brake: as realized defaults rise, $\varepsilon$ falls automatically, and at $\delta = 0.30$ compensation is disabled entirely (strict conservation). The system does not assume full repayment; it bounds the money-to-value ratio for any $\delta \le \tfrac12$. The remediation hypothesis isolates the adversarial (fraud) case; a good-faith default instead retains principal backed by the work actually delivered, which then counts toward net value, so the bound continues to hold.
 \end{remark}
 
 The genesis grant to a joining member, $g_0 = \min\bigl(100,\ G_t/\mathbb{E}[\text{new members}]\bigr)$, is likewise self-limiting: it contracts if growth outpaces the pool's inflow, so no subsidy is created \emph{ex nihilo}.
@@ -211,11 +211,11 @@ with $\gamma_4 = 100$: proven fraud erases years of reputation. Concavity in bul
 Voting power is $\sqrt{\R(m)}$. Strategic decisions require a \emph{dual quorum}: a reputation quorum $\sum_{\text{voters}}\sqrt{r}\,\big/\sum_{M}\sqrt{r} > \theta$ and a stake quorum $\sum_{\text{voters}} b \,\big/ \sum_{M}\max(0,b) > \theta$, with $\theta = 0.5$ ($0.66$ for constitutional changes). Because $\R$ and $\V$ are distributed differently, the dual quorum blocks capture by activists and by whales simultaneously. A distinguished set of provisions is \emph{constitutional}---the seven invariants, the soulbound property of $\R$, and the prohibitions on pre-mine, founder allocations, and class-specific rules---and is amendable only by super-majority referendum, never by ordinary parameter governance.
 
 \begin{proposition}[Capital and Sybil resistance]\label{prop:sybil}
-Under invariant (I6), an attacker with capital $C$ obtains zero reputation votes, since $\R$ is non-transferable. A Sybil attacker operating $k$ accounts of base reputation $r_0$ obtains $k\sqrt{r_0}$ reputation votes; to reach $V$ votes requires $k = V^2/r_0$ accounts. At $r_0 = 0.5$, $100$ votes require $2\times 10^4$ accounts, each of which must clear identity screening and perform genuine activity to earn any $\R$.
+Under invariant (I6), an attacker with arbitrary capital obtains zero reputation votes, since $\R$ is non-transferable. A Sybil attacker operating $k$ accounts of base reputation $r_0$ obtains $k\sqrt{r_0}$ reputation votes; to reach a target of $q$ votes requires $k = q^2/r_0$ accounts. At $r_0 = 0.5$, $q = 100$ votes require $2\times 10^4$ accounts, each of which must clear identity screening and perform genuine activity to earn any $\R$.
 \end{proposition}
 
 \begin{proof}
-The first claim is immediate from (I6): capital purchases $\V$ but no $\R$, and voting weight is a function of $\R$ only. For the second, additivity of $\sqrt{\R}$ across identically endowed accounts gives $k\sqrt{r_0}$; setting $k\sqrt{r_0} = V$ yields $k = V^2/r_0$. Substituting $r_0=0.5$, $V=100$ gives $k = 2\times 10^4$.
+The first claim is immediate from (I6): capital purchases $\V$ but no $\R$, and voting weight is a function of $\R$ only. For the second, additivity of $\sqrt{\R}$ across identically endowed accounts gives $k\sqrt{r_0}$; setting $k\sqrt{r_0} = q$ yields $k = q^2/r_0$. Substituting $r_0=0.5$, $q=100$ gives $k = 2\times 10^4$.
 \end{proof}
 
 \section{Pricing and the liquidity fund}
@@ -244,7 +244,7 @@ Thus price responds only to fundamentals ($F$ and $\ExtRev$); no fund operation 
 
 \section{Stationarity and the survival condition}
 
-Price is stationary when supply growth matches asset growth, $\dot S/S = \dot A/A$ with $A = F + \mu\,\ExtRev$. This partitions dynamics into a growth regime, a stable regime, and a falling regime.
+Price is stationary when supply growth matches asset growth, $\dot S/S = \dot{\mathcal{A}}/\mathcal{A}$ with $\mathcal{A} = F + \mu\,\ExtRev$. This partitions dynamics into a growth regime, a stable regime, and a falling regime.
 
 \begin{proposition}[Survival condition]\label{prop:survival}
 A non-declining price requires an external-revenue growth rate satisfying
@@ -255,7 +255,7 @@ where $\lambda_{\mathrm{inv}}$ is the investment inflow rate.
 \end{proposition}
 
 \begin{proof}[Sketch]
-Stationarity $\dot A / A = \dot S / S$ with $\dot A = \lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}}$ and $\dot S = \mathrm{EmissionRate}$ (net of burns) gives, for a non-negative price derivative, $\lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}} \ge \mathrm{EmissionRate}\cdot P$; solving for $\lambda_{\mathrm{rev}}$ yields the stated bound.
+Since $P = \mathcal{A}/S$, differentiation gives $\dot P = (\dot{\mathcal{A}} - P\dot S)/S$, so a non-declining price ($\dot P \ge 0$) is equivalent to $\dot{\mathcal{A}} \ge P\,\dot S$. Substituting $\dot{\mathcal{A}} = \lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}}$ and $\dot S = \mathrm{EmissionRate}$ (net of burns) yields $\lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}} \ge \mathrm{EmissionRate}\cdot P$; solving for $\lambda_{\mathrm{rev}}$ gives the stated bound.
 \end{proof}
 
 For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}$ and investment $2000~\text{USDC}/\text{month}$, the club must earn at least $250~\text{USDC}/\text{month}$ externally. A permanently falling price in the absence of external revenue is therefore a mathematical necessity, not a design defect.
@@ -264,7 +264,7 @@ For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}
 
 \subsection{Method}
 
-We implemented the full mechanism as a deterministic agent-based simulator with an injected, seeded pseudo-random source, so that a seed reproduces a run bit-for-bit. Stability is graded by five criteria: (C1) price does not reach zero; (C2) fund coverage $\rho \ge 0.05$ on at least $95\%$ of ticks; (C3) at most $20\%$ of members frozen; (C4) non-negative supply; (C5) invariants clean. We report (C1)--(C4) as \emph{economically stable} separately from (C5), because the (I3) bookkeeping check has a known drift during the auto-repay/escrow-distribution lifecycle. The protocol comprises: reproduction of reference scenarios (V1); Monte~Carlo over $4$ scenarios $\times\ 30$ seeds (V3); a $192$-point sweep over $(K^*,\mu,\delta^*,\rho^*)$ (V4); combined-attack stress tests (V5); and regime analysis (V6).
+We implemented the full mechanism as a deterministic agent-based simulator with an injected, seeded pseudo-random source, so that a seed reproduces a run bit-for-bit. Stability is graded by five criteria (V2): (C1) price does not reach zero; (C2) fund coverage $\rho \ge 0.05$ on at least $95\%$ of ticks; (C3) at most $20\%$ of members frozen; (C4) non-negative supply; (C5) invariants clean. We report (C1)--(C4) as \emph{economically stable} separately from (C5), because the (I3) bookkeeping check has a known drift during the auto-repay/escrow-distribution lifecycle. The protocol comprises: reproduction of reference scenarios (V1); Monte~Carlo over $4$ scenarios $\times\ 30$ seeds (V3); a $192$-point sweep over $(K^*,\mu,\delta^*,\rho^*)$ (V4); combined-attack stress tests (V5); and regime analysis (V6).
 
 \subsection{Results}
 
@@ -307,7 +307,7 @@ The mechanism specification, full derivations, the simulator, the experiment pro
 \bibitem{gooddollar2021} GoodDollar. \emph{GoodDollar: A Distributed Basic Income} (whitepaper), v2. 2021.
 \bibitem{nakamoto2008} S.~Nakamoto. \emph{Bitcoin: A Peer-to-Peer Electronic Cash System}. 2008.
 \bibitem{lalley2018} S.~P.~Lalley and E.~G.~Weyl. Quadratic voting: how mechanism design can radicalize democracy. \emph{AEA Papers and Proceedings}, 108:33--37, 2018.
-\bibitem{buterin2019} V.~Buterin, Z.~Hitzig, and E.~G.~Weyl. A flexible design for funding public goods. \emph{Management Science}, 65(11):5171--5187, 2019.
+\bibitem{buterin2019} V.~Buterin, Z.~Hitzig, and E.~G.~Weyl. A flexible design for funding public goods. \emph{Management Science}, 65(11), 2019.
 \bibitem{douceur2002} J.~R.~Douceur. The Sybil attack. In \emph{Proc.\ IPTPS}, LNCS 2429, pp.~251--260, 2002.
 \bibitem{bonabeau2002} E.~Bonabeau. Agent-based modeling: methods and techniques for simulating human systems. \emph{PNAS}, 99(suppl.~3):7280--7287, 2002.
 \end{thebibliography}

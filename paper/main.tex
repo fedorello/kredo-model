@@ -7,6 +7,8 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue]{hyperref}
 
 \theoremstyle{plain}
@@ -45,6 +47,9 @@ We present \emph{Kredo}, an economic mechanism designed to reward the creation o
 
 \noindent\textbf{Keywords:} mutual credit; complementary currency; mechanism design; token economics; quadratic voting; Sybil resistance; agent-based simulation.
 
+\smallskip
+\noindent\textbf{JEL codes:} D47; D71; E42; C63.
+
 \section{Introduction}
 
 Two widely deployed classes of economic organization each embed a structural unfairness. In \emph{rent-based capitalism}, the holder of capital earns without contributing: value is extracted from a position of ownership rather than created, and the producer of value and the recipient of profit are frequently distinct agents. In \emph{egalitarian cooperatives and communes}, all members are treated equally, but the absence of a growth-and-reward mechanism yields the classical free-rider problem: contribution is not differentially rewarded, active members bear disproportionate cost, and the system stagnates.
@@ -64,7 +69,27 @@ All artifacts---the mechanism, its derivations, the simulator, the experiment pr
 
 \section{Related work}\label{sec:related}
 
-The idea that money should not accrue rent to idle holders traces to Gesell's proposal of a carrying cost on currency \cite{gesell1916}. Mutual-credit systems, in which the money supply is created endogenously by bilateral trade and nets to zero, have a long practical history \cite{greco2009}; empirical work on the Swiss WIR/\emph{Wirtschaftsring} documents their counter-cyclical, macro-stabilizing behavior \cite{stodder2009}. Contemporary blockchain-based complementary currencies such as Circles~UBI \cite{circles2020} and GoodDollar \cite{gooddollar2021} distribute newly issued units broadly; Kredo's ``dividend to all'' is a deferred, contribution-weighted, default-conditioned variant of this idea. Trustless issuance and the avoidance of pre-mine follow the design ethos of permissionless value systems \cite{nakamoto2008}. Our governance draws on quadratic voting \cite{lalley2018} and quadratic funding \cite{buterin2019}, whose square-root weighting limits plutocratic dominance; the soulbound (non-transferable) treatment of reputation is what makes the quadratic weighting robust to vote-buying. Resistance to Sybil attacks is analyzed in the tradition of Douceur \cite{douceur2002}. Finally, we evaluate the mechanism with agent-based simulation \cite{bonabeau2002}, the standard tool for studying emergent behavior of many interacting agents when closed-form analysis is intractable.
+The idea that money should not accrue rent to idle holders traces to Gesell's proposal of a carrying cost on currency \cite{gesell1916}. Mutual-credit systems, in which the money supply is created endogenously by bilateral trade and nets to zero, have a long practical history \cite{greco2009}; empirical work on the Swiss WIR/\emph{Wirtschaftsring} documents their counter-cyclical, macro-stabilizing behavior \cite{stodder2009}. Contemporary blockchain-based complementary currencies such as Circles~UBI \cite{circles2020} and GoodDollar \cite{gooddollar2021} distribute newly issued units broadly; Kredo's ``dividend to all'' is a deferred, contribution-weighted, default-conditioned variant of this idea. Trustless issuance and the avoidance of pre-mine follow the design ethos of permissionless value systems \cite{nakamoto2008}. Our governance draws on quadratic voting \cite{lalley2018} and quadratic funding \cite{buterin2019}, whose square-root weighting limits plutocratic dominance; the soulbound (non-transferable) treatment of reputation is what makes the quadratic weighting robust to vote-buying. Resistance to Sybil attacks is analyzed in the tradition of Douceur \cite{douceur2002}. Finally, we evaluate the mechanism with agent-based simulation \cite{bonabeau2002}, the standard tool for studying emergent behavior of many interacting agents when closed-form analysis is intractable. Table~\ref{tab:related} positions Kredo's design choices against the most closely related systems.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+System & Money creation & Backing / exit & Sybil defense & Governance\\
+\midrule
+WIR \cite{stodder2009} & mutual credit & none (no redemption) & bank vetting & cooperative bank\\
+Time banks \cite{greco2009} & hour credits & none & community vetting & informal\\
+Circles~UBI \cite{circles2020} & equal per-person UBI & none & web of trust & community\\
+GoodDollar \cite{gooddollar2021} & daily UBI & crypto reserve & identity check & foundation/DAO\\
+\addlinespace
+Kredo & gated credit $+$ & USDC fund, formula & KYC-light $+$ soulbound & $\sqrt{\R}$, dual\\
+      & escrowed dividend & price, discount queue & $\R$, $\sqrt{\R}$ votes & quorum\\
+\bottomrule
+\end{tabular}
+\caption{Kredo against related complementary-currency systems (coarse characterization).}
+\label{tab:related}
+\end{table}
 
 \section{The model}
 
@@ -116,6 +141,39 @@ where $\varepsilon(\tau)$ is the compensation coefficient of \eqref{eq:epsilon} 
 \end{description}
 
 The admissible transition functions are \textsc{Join}, \textsc{Leave}, \textsc{Transact}, \textsc{Repay}, \textsc{Default}, \textsc{Convert}, \textsc{Invest}, together with derived periodic operations; each is required to preserve (I1)--(I7).
+
+\subsection{Notation and default parameters}
+
+Table~\ref{tab:notation} collects the recurring symbols; every default is governable within the bounds of Section~\ref{sec:guidance}.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Symbol & Meaning & Default\\
+\midrule
+$b,r,d$ & member balance, reputation, debt & ---\\
+$F_t,\ E_t,\ G_t$ & liquidity fund (USDC), escrow, genesis pool & ---\\
+$S=\Supply$ & positive balances $+$ escrow $+$ genesis & ---\\
+$P_t$ & price $(F+\mu\,\ExtRev)/S$ & $\mu=12$\\
+$L(r)$ & credit limit $L_0(1+\alpha\ln(1+r))$ & $L_0=100$, $\alpha=0.5$\\
+$\confidence(\tau)$ & trust score; emission gate & $\theta_{\min}=0.6$\\
+$a$ & stochastic audit rate per transaction & $0.03$\\
+$\varepsilon(t)$ & compensation coefficient \eqref{eq:epsilon} & $K^*{=}1.5$, $\delta^*{=}0.05$, $\kappa{=}2$, $\varepsilon_{\max}{=}0.95$\\
+$\delta_t$ & observed default rate ($90$-day window) & ---\\
+$\rho_t,\ \rho^*$ & fund coverage $F/(PS)$; discount threshold & $\rho^*=0.3$\\
+$\tau_{\mathrm{lock}}$ & conversion lock-up for new balances & $60$ days\\
+$g_0,\ \xi$ & genesis grant; distribution smoothing & $g_0\le100~\V$, $\xi=1$\\
+$\theta$ & dual-quorum threshold & $0.5$ ($0.66$ constitutional)\\
+$\bar N$ & mean transaction size & $50~\V$ (illustrative)\\
+$\beta,\ c$ & fraud hazard $\ln(1/(1-a))/\bar N$; lock-up survival $(1-p)^{\tau_{\mathrm{lock}}}$ & ---\\
+$\Lambda$ & forfeitable stake per fraud cluster & threshold $\Lambda\ge\bar N/a$\\
+\bottomrule
+\end{tabular}
+\caption{Notation and default parameters.}
+\label{tab:notation}
+\end{table}
 
 \section{Credit and confidence}\label{sec:confidence}
 
@@ -322,19 +380,19 @@ Because the payout $P_{\mathrm{actual}}=F/(\rho^*S)$ falls with $F$, a holder's 
 A wash-trading fraud cannot extract value without executing fake transactions, each exposed to the audit, which makes the detection probability \emph{endogenous} to the size of the theft.
 
 \begin{theorem}[Fraud is unprofitable at scale]\label{thm:fraud}
-Suppose extracting value $W>0$ requires at least $n=\lceil W/\bar N\rceil$ wash trades ($\bar N$ the mean transaction size), each audited independently with probability $a>0$; that new balances cannot be converted during a lock-up of $\tau_{\mathrm{lock}}$ periods, over which detection has per-period probability at least $p$; and that a detected cluster forfeits stake $L>0$ (burned balances, genesis grant, and reputation). Writing
+Suppose extracting value $W>0$ requires at least $n=\lceil W/\bar N\rceil$ wash trades ($\bar N$ the mean transaction size), each audited independently with probability $a>0$; that new balances cannot be converted during a lock-up of $\tau_{\mathrm{lock}}$ periods, over which detection has per-period probability at least $p$; and that a detected cluster forfeits stake $\Lambda>0$ (burned balances, genesis grant, and reputation). Writing
 \[
 q(W)=(1-a)^{W/\bar N}\,(1-p)^{\tau_{\mathrm{lock}}}
 \]
 for the probability of reaching conversion undetected, the expected profit satisfies
 \[
-\mathbb{E}[\pi]\ \le\ q(W)\,W-\bigl(1-q(W)\bigr)L .
+\mathbb{E}[\pi]\ \le\ q(W)\,W-\bigl(1-q(W)\bigr)\Lambda .
 \]
-Consequently \textup{(i)} $\mathbb{E}[\pi]<0$ whenever $q(W)<L/(W+L)$; and \textup{(ii)} since $q(W)\,W\to0$ as $W\to\infty$, $\mathbb{E}[\pi]\to-L$, so every sufficiently large fraud is strictly loss-making.
+Consequently \textup{(i)} $\mathbb{E}[\pi]<0$ whenever $q(W)<\Lambda/(W+\Lambda)$; and \textup{(ii)} since $q(W)\,W\to0$ as $W\to\infty$, $\mathbb{E}[\pi]\to-\Lambda$, so every sufficiently large fraud is strictly loss-making.
 \end{theorem}
 
 \begin{proof}
-Extracting $W$ needs $n\ge W/\bar N$ wash trades; escaping every audit has probability $(1-a)^n\le(1-a)^{W/\bar N}$, and escaping detection through the lock-up has probability at most $(1-p)^{\tau_{\mathrm{lock}}}$, so converting undetected has probability at most $q(W)$. Bounding the gain by $W$ on that event and the loss by $L$ on its complement gives the inequality. Part~(i) is a rearrangement. For~(ii), $(1-a)^{W/\bar N}W\to0$ since an exponential in $W$ dominates a linear one, whence $q(W)W\to0$ and $\mathbb{E}[\pi]\to-L$.
+Extracting $W$ needs $n\ge W/\bar N$ wash trades; escaping every audit has probability $(1-a)^n\le(1-a)^{W/\bar N}$, and escaping detection through the lock-up has probability at most $(1-p)^{\tau_{\mathrm{lock}}}$, so converting undetected has probability at most $q(W)$. Bounding the gain by $W$ on that event and the loss by $\Lambda$ on its complement gives the inequality. Part~(i) is a rearrangement. For~(ii), $(1-a)^{W/\bar N}W\to0$ since an exponential in $W$ dominates a linear one, whence $q(W)W\to0$ and $\mathbb{E}[\pi]\to-\Lambda$.
 \end{proof}
 
 \begin{remark}
@@ -343,9 +401,9 @@ Detection is therefore endogenous: a larger theft demands more fake transactions
 
 \subsection{Deterring the optimal adaptive fraud}
 
-Theorem~\ref{thm:fraud} bounds a single cluster of fixed size; an adaptive adversary may instead split the attack across many clusters and choose each size. Because the audit and the forfeitable stake act \emph{per cluster}, the adaptive problem separates. Write $\beta=\ln\!\bigl(1/(1-a)\bigr)/\bar N>0$ and $c=(1-p)^{\tau_{\mathrm{lock}}}\in(0,1]$, so a cluster stealing $W$ against stake $L$ has expected profit at most
+Theorem~\ref{thm:fraud} bounds a single cluster of fixed size; an adaptive adversary may instead split the attack across many clusters and choose each size. Because the audit and the forfeitable stake act \emph{per cluster}, the adaptive problem separates. Write $\beta=\ln\!\bigl(1/(1-a)\bigr)/\bar N>0$ and $c=(1-p)^{\tau_{\mathrm{lock}}}\in(0,1]$, so a cluster stealing $W$ against stake $\Lambda$ has expected profit at most
 \[
-g(W)=c\,e^{-\beta W}(W+L)-L ,
+g(W)=c\,e^{-\beta W}(W+\Lambda)-\Lambda ,
 \]
 with equality when the bounds of Theorem~\ref{thm:fraud} bind (the defender's worst case).
 
@@ -358,32 +416,54 @@ Independence makes the per-cluster bounds of Theorem~\ref{thm:fraud} additive, a
 \end{proof}
 
 \begin{theorem}[Deterrence of the optimal adaptive fraud]\label{thm:deter}
-Every adaptive strategy in the class of Lemma~\ref{lem:sep} has non-positive expected profit iff $\max_{W\ge0}g(W)\le0$. With $W^\dagger=1/\beta-L$, this holds iff either $W^\dagger\le0$, or $W^\dagger>0$ and
+Every adaptive strategy in the class of Lemma~\ref{lem:sep} has non-positive expected profit iff $\max_{W\ge0}g(W)\le0$. With $W^\dagger=1/\beta-\Lambda$, this holds iff either $W^\dagger\le0$, or $W^\dagger>0$ and
 \[
-\frac{c}{e\,\beta}\,e^{\beta L}\ \le\ L .
+\frac{c}{e\,\beta}\,e^{\beta \Lambda}\ \le\ \Lambda .
 \]
 In particular, the stake condition
 \[
-L\ \ge\ \frac1\beta=\frac{\bar N}{\ln\!\bigl(1/(1-a)\bigr)}\ \approx\ \frac{\bar N}{a}
+\Lambda\ \ge\ \frac1\beta=\frac{\bar N}{\ln\!\bigl(1/(1-a)\bigr)}\ \approx\ \frac{\bar N}{a}
 \]
-is sufficient: it forces $W^\dagger\le0$, whence $g$ is decreasing with $g(0)=(c-1)L\le0$.
+is sufficient: it forces $W^\dagger\le0$, whence $g$ is decreasing with $g(0)=(c-1)\Lambda\le0$.
 \end{theorem}
 
 \begin{proof}
-By Lemma~\ref{lem:sep} the class optimum is $m\max_W g$, attained in the worst case by $m$ clusters at the maximizer; hence every strategy is non-positive for every $m$ iff $\max_W g\le0$. Now $g'(W)=c\,e^{-\beta W}\bigl(1-\beta(W+L)\bigr)$ vanishes only at $W^\dagger=1/\beta-L$; hence $g$ increases then decreases when $W^\dagger>0$ and is decreasing on $[0,\infty)$ when $W^\dagger\le0$. In the latter case $\max g=g(0)=(c-1)L\le0$. In the former, using $\beta W^\dagger=1-\beta L$ and $W^\dagger+L=1/\beta$,
+By Lemma~\ref{lem:sep} the class optimum is $m\max_W g$, attained in the worst case by $m$ clusters at the maximizer; hence every strategy is non-positive for every $m$ iff $\max_W g\le0$. Now $g'(W)=c\,e^{-\beta W}\bigl(1-\beta(W+\Lambda)\bigr)$ vanishes only at $W^\dagger=1/\beta-\Lambda$; hence $g$ increases then decreases when $W^\dagger>0$ and is decreasing on $[0,\infty)$ when $W^\dagger\le0$. In the latter case $\max g=g(0)=(c-1)\Lambda\le0$. In the former, using $\beta W^\dagger=1-\beta \Lambda$ and $W^\dagger+\Lambda=1/\beta$,
 \[
-\max_W g=g(W^\dagger)=c\,e^{-\beta W^\dagger}(W^\dagger+L)-L=\frac{c}{e\,\beta}\,e^{\beta L}-L ,
+\max_W g=g(W^\dagger)=c\,e^{-\beta W^\dagger}(W^\dagger+\Lambda)-\Lambda=\frac{c}{e\,\beta}\,e^{\beta \Lambda}-\Lambda ,
 \]
-so $\max g\le0$ is the displayed inequality; $L\ge1/\beta$ gives $W^\dagger\le0$.
+so $\max g\le0$ is the displayed inequality; $\Lambda\ge1/\beta$ gives $W^\dagger\le0$.
 \end{proof}
 
 \begin{remark}
-The condition is a concrete---and not free---design requirement. With the illustrative $a=0.03$, $\bar N=50~\V$ the threshold is $L\ge\bar N/\ln(1/(1-a))\approx1642~\V$, whereas the default stake $L=300~\V$ leaves a profitable optimum near $W^\dagger\approx1342~\V$ with $g(W^\dagger)\approx{+}425~\V$ (compare Table~\ref{tab:fraud}, whose sampled maximum is $407$ at $W=1000$). Deterrence therefore requires the per-cluster forfeitable stake---reputation plus locked collateral---to reach $\Theta(\bar N/a)$, attainable by raising the audit rate $a$, lengthening the lock-up, or requiring collateral before large exposure. This settles the optimum for independently-detected clusters; a fully coordinated adversary that deliberately correlates clusters to defeat monitoring, and dynamic timing, remain for future work (Section~\ref{sec:limitations}).
+The condition is a concrete---and not free---design requirement. With the illustrative $a=0.03$, $\bar N=50~\V$ the threshold is $\Lambda\ge\bar N/\ln(1/(1-a))\approx1642~\V$, whereas the default stake $\Lambda=300~\V$ leaves a profitable optimum near $W^\dagger\approx1342~\V$ with $g(W^\dagger)\approx{+}425~\V$ (compare Table~\ref{tab:fraud}, whose sampled maximum is $407$ at $W=1000$, and Figure~\ref{fig:analytic}, right). Deterrence therefore requires the per-cluster forfeitable stake---reputation plus locked collateral---to reach $\Theta(\bar N/a)$, attainable by raising the audit rate $a$, lengthening the lock-up, or requiring collateral before large exposure. This settles the optimum for independently-detected clusters; a fully coordinated adversary that deliberately correlates clusters to defeat monitoring, and dynamic timing, remain for future work (Section~\ref{sec:limitations}).
 \end{remark}
 
 \section{Numerical illustration}\label{sec:numeric}
 
-We instantiate the closed-form results with the paper's default parameters; the deterministic simulator of Section~\ref{sec:empirical} reproduces the same qualitative behavior across its $315$ runs.
+We instantiate the closed-form results with the paper's default parameters; the deterministic simulator of Section~\ref{sec:empirical} reproduces the same qualitative behavior across its $315$ runs. Figure~\ref{fig:regimes} shows the simulator's actual price trajectories under the three regime configurations of the released \texttt{regime\_analysis} protocol: the ordering of Proposition~\ref{prop:longrun} is reproduced exactly, while the intermediate configuration still trends upward---making it exactly stationary requires finer calibration of inflows to emission.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.78\textwidth, height=6.2cm,
+  xlabel={tick (virtual day)}, ylabel={$P$ (USDC/$\V$)},
+  legend pos=north west, legend cell align=left,
+  grid=major, grid style={opacity=0.25},
+  ymin=0, xmin=0, xmax=59,
+]
+\addplot[thick] coordinates {(0,0.208) (2,0.290) (4,0.366) (6,0.438) (8,0.507) (10,0.574) (12,0.638) (14,0.701) (16,0.764) (18,0.826) (20,0.886) (22,0.941) (24,1.002) (26,1.060) (28,1.116) (30,1.175) (32,1.229) (34,1.281) (36,1.331) (38,1.382) (40,1.435) (42,1.485) (44,1.536) (46,1.580) (48,1.627) (50,1.674) (52,1.724) (54,1.776) (56,1.825) (58,1.871) (59,1.890)};
+\addlegendentry{Regime A (growth)}
+\addplot[thick, dashed] coordinates {(0,0.187) (2,0.229) (4,0.271) (6,0.310) (8,0.349) (10,0.387) (12,0.424) (14,0.461) (16,0.499) (18,0.536) (20,0.572) (22,0.605) (24,0.643) (26,0.679) (28,0.714) (30,0.752) (32,0.786) (34,0.818) (36,0.849) (38,0.881) (40,0.915) (42,0.946) (44,0.979) (46,1.006) (48,1.036) (50,1.066) (52,1.098) (54,1.133) (56,1.165) (58,1.194) (59,1.206)};
+\addlegendentry{Regime B (intermediate)}
+\addplot[thick, dotted] coordinates {(0,0.165) (2,0.165) (4,0.165) (6,0.164) (8,0.163) (10,0.162) (12,0.161) (14,0.160) (16,0.160) (18,0.160) (20,0.159) (22,0.158) (24,0.158) (26,0.158) (28,0.157) (30,0.158) (32,0.157) (34,0.156) (36,0.155) (38,0.154) (40,0.154) (42,0.153) (44,0.153) (46,0.152) (48,0.151) (50,0.150) (52,0.150) (54,0.150) (56,0.150) (58,0.149) (59,0.148)};
+\addlegendentry{Regime C (stagnant)}
+\end{axis}
+\end{tikzpicture}
+\caption{Simulator price trajectories for the three regime configurations (seed $23$, $60$ ticks; data from the released \texttt{regime\_analysis} protocol). The growth and stagnant regimes behave as predicted; the intermediate configuration rises rather than holding flat, reflecting approximate calibration of inflows to emission.}
+\label{fig:regimes}
+\end{figure}
 
 \paragraph{Long-run price (Proposition~\ref{prop:longrun}).} With $\mu=12$, net emission $e=5000~\V/\text{month}$, investment $\lambda_{\mathrm{inv}}=2000~\text{USDC}/\text{month}$ and initial price $P_0=1$, the limit $g/e=(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/e$ maps external revenue directly onto the three regimes (Table~\ref{tab:price}): the stable case reproduces the survival threshold $\lambda_{\mathrm{rev}}=250$ exactly.
 
@@ -417,7 +497,7 @@ $F/F_0$ & $70.4\%$ & $30.5\%$ & $9.9\%$ & $1.8\%$ & $0.05\%$\\
 \label{tab:fund}
 \end{table}
 
-\paragraph{Unprofitability at scale (Theorem~\ref{thm:fraud}).} With per-transaction audit $a=0.03$, mean size $\bar N=50~\V$ and stake $L=300~\V$, the audit factor $(1-a)^{W/\bar N}$ alone pushes the expected-profit bound below zero once the theft is large (Table~\ref{tab:fraud}); the lock-up factor $(1-p)^{\tau_{\mathrm{lock}}}$ only lowers it further.
+\paragraph{Unprofitability at scale (Theorem~\ref{thm:fraud}).} With per-transaction audit $a=0.03$, mean size $\bar N=50~\V$ and stake $\Lambda=300~\V$, the audit factor $(1-a)^{W/\bar N}$ alone pushes the expected-profit bound below zero once the theft is large (Table~\ref{tab:fraud}); the lock-up factor $(1-p)^{\tau_{\mathrm{lock}}}$ only lowers it further. Figure~\ref{fig:analytic} plots the fund-retention curve of Theorem~\ref{thm:norun} and the fraud-profit bound $g(W)$ at the default and at the threshold stake.
 
 \begin{table}[h]
 \centering
@@ -430,9 +510,40 @@ survive audit $q$ & $73.7\%$ & $54.4\%$ & $21.8\%$ & $4.8\%$ & $0.2\%$\\
 $\mathbb{E}[\pi]$ bound ($\V$) & $290$ & $407$ & $311$ & $-48$ & $-277$\\
 \bottomrule
 \end{tabular}
-\caption{Fraud expected-profit bound (audit factor only); it turns negative and tends to $-L$ as the theft grows.}
+\caption{Fraud expected-profit bound (audit factor only); it turns negative and tends to $-\Lambda$ as the theft grows.}
 \label{tab:fraud}
 \end{table}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.46\textwidth, height=5.4cm,
+  xlabel={exit share $1-S/S_0$}, ylabel={$F/F_0$},
+  domain=0:0.999, samples=200, xmin=0, xmax=1, ymin=0, ymax=1,
+  grid=major, grid style={opacity=0.25},
+]
+\addplot[thick] {(1-x)^(1/0.3)};
+\end{axis}
+\end{tikzpicture}\hfill
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.5\textwidth, height=5.4cm,
+  xlabel={theft size $W$ ($\V$)}, ylabel={$g(W)$ ($\V$)},
+  domain=0:6000, samples=300,
+  legend pos=north east, legend cell align=left,
+  grid=major, grid style={opacity=0.25},
+]
+\addplot[thick] {exp(-0.00060918*x)*(x+300)-300};
+\addlegendentry{$\Lambda=300$}
+\addplot[thick, dashed] {exp(-0.00060918*x)*(x+1642)-1642};
+\addlegendentry{$\Lambda=1642$}
+\addplot[gray, thin, domain=0:6000] {0};
+\end{axis}
+\end{tikzpicture}
+\caption{Left: fund retention under a discounted run, $F/F_0=(S/S_0)^{1/\rho^*}$ with $\rho^*=0.3$ (Theorem~\ref{thm:norun}) --- positive at every exit share. Right: the fraud-profit bound $g(W)$ at $c=1$ (Theorem~\ref{thm:deter}); the default stake $\Lambda=300~\V$ leaves a profitable region peaking at ${\approx}{+}425~\V$, while the threshold stake $\Lambda=1642~\V$ makes every theft size loss-making.}
+\label{fig:analytic}
+\end{figure}
 
 \section{Design guidance}\label{sec:guidance}
 
@@ -442,10 +553,10 @@ The analysis yields a small set of parameter conditions a deployment must satisf
 \item[Bounded inflation.] Keep $\varepsilon\le K^*-1$ via \eqref{eq:epsilon}, so $\Supply/P_{\mathrm{net}}\le K^*$ (Theorem~\ref{thm:stability}, Proposition~\ref{prop:genstab}). A smaller $K^*$ tightens the money-to-value ratio. Default $K^*=1.5$.
 \item[Non-declining price.] Require external revenue $\lambda_{\mathrm{rev}}\ge(\mathrm{EmissionRate}\cdot P-\lambda_{\mathrm{inv}})/\mu$; the price then tends to $(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/\mathrm{EmissionRate}$ (Propositions~\ref{prop:survival} and~\ref{prop:longrun}). The multiplier $\mu=12$ and the investment inflow are the levers.
 \item[Fund solvency under a run.] The discount engages at coverage $\rho<\rho^*$ and keeps $F=F_0(S/S_0)^{1/\rho^*}>0$ for all $S>0$ (Theorem~\ref{thm:norun}); the emission ceiling $\Delta S_{\max}=(F-F_{\min})/P_{\mathrm{target}}$ preserves buy-back capacity. Default $\rho^*=0.3$.
-\item[Bounded single-agent exposure.] The credit limit $L(r)=100\,(1+0.5\ln(1+r))$ caps any one member's default loss (I4): at most $560~\V$ even at $\R=10^4$.
+\item[Bounded single-agent exposure.] The credit limit $L(r)=100\,(1+0.5\ln(1+r))$ caps any one member's default loss (I4): at most ${\approx}561~\V$ even at $\R=10^4$.
 \item[Gated emission.] Mint only when $\confidence(\tau)\ge\theta_{\min}$ (I2). Default $\theta_{\min}=0.6$.
 \item[Capital and Sybil resistance.] Vote by $\sqrt{\R}$ with $\R$ soulbound under a dual quorum $\theta$; capital buys no votes, and $q$ votes cost $q^2/r_0$ genuine accounts (Proposition~\ref{prop:sybil}). Defaults $\theta=0.5$ ($0.66$ for constitutional changes).
-\item[Fraud deterrence.] Ensure the per-cluster forfeitable stake $L\ge\bar N/\ln(1/(1-a))\approx\bar N/a$ (Theorem~\ref{thm:deter}). The levers are the audit rate $a$, the lock-up $\tau_{\mathrm{lock}}$, and required collateral. \emph{The illustrative defaults ($a=0.03$, $\bar N=50$, $L=300~\V$) fall short of the threshold ($\approx1642~\V$) and must be strengthened.}
+\item[Fraud deterrence.] Ensure the per-cluster forfeitable stake $\Lambda\ge\bar N/\ln(1/(1-a))\approx\bar N/a$ (Theorem~\ref{thm:deter}). The levers are the audit rate $a$, the lock-up $\tau_{\mathrm{lock}}$, and required collateral. \emph{The illustrative defaults ($a=0.03$, $\bar N=50$, $\Lambda=300~\V$) fall short of the threshold ($\approx1642~\V$) and must be strengthened.}
 \end{description}
 
 Of the illustrative defaults only the fraud-stake condition is unmet; the structural conditions hold by construction, and the price condition is a requirement on realized revenue rather than a parameter choice. Choosing $K^*$, $\mu$, $\rho^*$, $\theta_{\min}$, and the stake/audit parameters within these bounds is the whole of a deployment's economic tuning.
@@ -479,7 +590,7 @@ Total & $315$ & $0$\\
 
 \section{Limitations}\label{sec:limitations}
 
-Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation and political organization by real participants are out of scope; the optimal fraud over independently-detected clusters is characterized in Theorem~\ref{thm:deter}, but a fully coordinated adversary (correlating clusters to defeat monitoring) and dynamic timing are not tested empirically. Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
+Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation and political organization by real participants are out of scope; the optimal fraud over independently-detected clusters is characterized in Theorem~\ref{thm:deter}, but a fully coordinated adversary (correlating clusters to defeat monitoring) and dynamic timing are not tested empirically. A further strategic gap concerns pricing itself: the auto-score \eqref{eq:autoscore} anchors to the category's rolling price distribution, so a coordinated, gradual drift of declared prices---each step within $|z|\le1$---could shift the reference mean $\mu_c$ over time without ever triggering review. Concentration monitoring and the stochastic audit narrow this channel but the paper does not model such collusive drift. Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
 
 \section{Conclusion}
 

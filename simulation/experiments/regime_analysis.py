@@ -58,6 +58,8 @@ def run(cfg: ScenarioConfig) -> dict:  # type: ignore[type-arg]
         "p_delta": str(p_last - p_first),
         "min_price": str(v.min_price),
         "violation_tick_ratio": str(v.violation_tick_ratio),
+        # Full per-tick price trajectory, e.g. for plotting in the paper.
+        "price_series": [str(m.price_usdc_per_v) for m in metrics],
     }
 
 

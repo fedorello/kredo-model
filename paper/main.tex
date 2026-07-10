@@ -12,6 +12,7 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{axiom}{Axiom}
@@ -262,7 +263,7 @@ For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}
 
 \section{Further theoretical results}\label{sec:further}
 
-The results below strengthen Theorem~\ref{thm:stability} by removing its remediation hypothesis, characterize the long-run price, show that the discounted-withdrawal rule cannot exhaust the fund except in the limit of complete exit, and prove that fraud is unprofitable at scale.
+The results below strengthen Theorem~\ref{thm:stability} by removing its remediation hypothesis, characterize the long-run price, show that the discounted-withdrawal rule cannot exhaust the fund except in the limit of complete exit, prove that fraud is unprofitable at scale, and characterize the parameter regime that deters even the optimal adaptive fraud.
 
 \subsection{Stability without the remediation hypothesis}
 
@@ -337,7 +338,46 @@ Extracting $W$ needs $n\ge W/\bar N$ wash trades; escaping every audit has proba
 \end{proof}
 
 \begin{remark}
-Detection is therefore endogenous: a larger theft demands more fake transactions, each an independent chance of exposure, so the survival probability decays exponentially in the amount stolen while the prize grows only linearly. The lock-up forces the attacker to hold the unbacked position while this hazard accrues. A full game-theoretic optimum over adaptive strategies (e.g.\ splitting the theft across many slow clusters) remains open (Section~\ref{sec:limitations}).
+Detection is therefore endogenous: a larger theft demands more fake transactions, each an independent chance of exposure, so the survival probability decays exponentially in the amount stolen while the prize grows only linearly. The lock-up forces the attacker to hold the unbacked position while this hazard accrues. The optimum over adaptive strategies (e.g.\ splitting the theft across many clusters) is characterized next, in Theorem~\ref{thm:deter}.
+\end{remark}
+
+\subsection{Deterring the optimal adaptive fraud}
+
+Theorem~\ref{thm:fraud} bounds a single cluster of fixed size; an adaptive adversary may instead split the attack across many clusters and choose each size. Because the audit and the forfeitable stake act \emph{per cluster}, the adaptive problem separates. Write $\beta=\ln\!\bigl(1/(1-a)\bigr)/\bar N>0$ and $c=(1-p)^{\tau_{\mathrm{lock}}}\in(0,1]$, so a cluster stealing $W$ against stake $L$ has expected profit at most
+\[
+g(W)=c\,e^{-\beta W}(W+L)-L .
+\]
+
+\begin{lemma}[Separability]\label{lem:sep}
+For any adaptive strategy partitioning the attack into $m$ clusters with independently audited transactions and independently forfeitable stakes, the total expected profit is at most $\sum_{i=1}^{m} g(W_i)\le m\,\max_{W\ge0}g(W)$. Concentration monitoring, which raises detection for coordinated clusters, only decreases the left-hand side.
+\end{lemma}
+
+\begin{proof}
+Independence makes the per-cluster bounds of Theorem~\ref{thm:fraud} additive, and each summand is at most $\max_W g$. Monitoring introduces positive detection dependence across a coordinated cluster set, lowering each $q_i$ and hence each $g(W_i)$.
+\end{proof}
+
+\begin{theorem}[Deterrence of the optimal adaptive fraud]\label{thm:deter}
+Every adaptive strategy in the class of Lemma~\ref{lem:sep} has non-positive expected profit iff $\max_{W\ge0}g(W)\le0$. With $W^\dagger=1/\beta-L$, this holds iff either $W^\dagger\le0$, or $W^\dagger>0$ and
+\[
+\frac{c}{e\,\beta}\,e^{\beta L}\ \le\ L .
+\]
+In particular, the stake condition
+\[
+L\ \ge\ \frac1\beta=\frac{\bar N}{\ln\!\bigl(1/(1-a)\bigr)}\ \approx\ \frac{\bar N}{a}
+\]
+is sufficient: it forces $W^\dagger\le0$, whence $g$ is decreasing with $g(0)=(c-1)L\le0$.
+\end{theorem}
+
+\begin{proof}
+By Lemma~\ref{lem:sep} the class optimum is $m\max_W g$, non-positive for every $m$ iff $\max_W g\le0$. Now $g'(W)=c\,e^{-\beta W}\bigl(1-\beta(W+L)\bigr)$ vanishes only at $W^\dagger=1/\beta-L$; hence $g$ increases then decreases when $W^\dagger>0$ and is decreasing on $[0,\infty)$ when $W^\dagger\le0$. In the latter case $\max g=g(0)=(c-1)L\le0$. In the former, using $\beta W^\dagger=1-\beta L$ and $W^\dagger+L=1/\beta$,
+\[
+\max_W g=g(W^\dagger)=c\,e^{-\beta W^\dagger}(W^\dagger+L)-L=\frac{c}{e\,\beta}\,e^{\beta L}-L ,
+\]
+so $\max g\le0$ is the displayed inequality; $L\ge1/\beta$ gives $W^\dagger\le0$.
+\end{proof}
+
+\begin{remark}
+The condition is a concrete---and not free---design requirement. With the illustrative $a=0.03$, $\bar N=50~\V$ the threshold is $L\ge\bar N/\ln(1/(1-a))\approx1642~\V$, whereas the default stake $L=300~\V$ leaves a profitable optimum near $W^\dagger\approx1342~\V$ with $g(W^\dagger)\approx{+}425~\V$ (the peak of Table~\ref{tab:fraud}). Deterrence therefore requires the per-cluster forfeitable stake---reputation plus locked collateral---to reach $\Theta(\bar N/a)$, attainable by raising the audit rate $a$, lengthening the lock-up, or requiring collateral before large exposure. This settles the optimum for independently-detected clusters; a fully coordinated adversary that deliberately correlates clusters to defeat monitoring, and dynamic timing, remain for future work (Section~\ref{sec:limitations}).
 \end{remark}
 
 \section{Numerical illustration}\label{sec:numeric}
@@ -422,7 +462,7 @@ Total & $315$ & $0$\\
 
 \section{Limitations}\label{sec:limitations}
 
-Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation, collusion, and political organization by real participants are out of scope, as is a game-theoretically optimal adversary (we test fixed attack strategies only). Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
+Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation and political organization by real participants are out of scope; the optimal fraud over independently-detected clusters is characterized in Theorem~\ref{thm:deter}, but a fully coordinated adversary (correlating clusters to defeat monitoring) and dynamic timing are not tested empirically. Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
 
 \section{Conclusion}
 

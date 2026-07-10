@@ -97,7 +97,12 @@ where $M_t$ is the finite set of members; $b_t: M_t \to \mathbb{R}$ the $\V$-bal
 
 \subsection{Invariants}\label{sec:invariants}
 
-The seven invariants below formalize Axioms~\ref{ax:create}--\ref{ax:power}. Write $\Supply(t) = \sum_{m} \max(0,b_t(m)) + E_t + G_t$ and $\VerifiedValue(t) = \sum_{\tau \in H_t}\, N_{\mathrm{credit}}(\tau)\,\confidence(\tau)$, where $N_{\mathrm{credit}}(\tau)$ is the newly issued (credit) portion of transaction $\tau$ and $\confidence(\tau)\in[0,1]$ is defined in Section~\ref{sec:confidence}.
+The seven invariants below formalize Axioms~\ref{ax:create}--\ref{ax:power}. Let $N_{\mathrm{credit}}(\tau)$ be the newly issued (credit) portion of transaction $\tau$, $\confidence(\tau)\in[0,1]$ the trust score of Section~\ref{sec:confidence}, and $C(\tau) = N_{\mathrm{credit}}(\tau)\,\confidence(\tau)$ its \emph{confirmed contribution}. Write
+\[
+\Supply(t) = \sum_{m} \max\bigl(0,b_t(m)\bigr) + E_t + G_t, \qquad
+\VerifiedValue(t) = \sum_{\tau \in H_t}\bigl(1+\varepsilon(\tau)\bigr)C(\tau) \;-\; \mathrm{Burned}(t),
+\]
+where $\varepsilon(\tau)$ is the compensation coefficient of \eqref{eq:epsilon} fixed at the time of $\tau$ and $\mathrm{Burned}(t)$ is the cumulative amount removed by defaults, penalties, and conversions. Since $\Supply$ contains both issued principal and escrowed compensation net of burns, $\VerifiedValue$ is defined to match it; any residual gap in (I3) reflects only the lag between fraud and its detection.
 
 \begin{description}[leftmargin=*,itemsep=3pt]
     \item[(I1) Conservation on transfers.] For any pure transfer, $\sum_{m} b_{t}(m) = \sum_{m} b_{t+1}(m)$.
@@ -143,7 +148,11 @@ The \emph{auto-score} compares $N$ to the category's recent price distribution. 
 \begin{equation}\label{eq:autoscore}
 s_a(\tau) = \begin{cases} 1, & |z| \le 1,\\[3pt] \exp\!\left(-\dfrac{(|z|-1)^2}{2}\right), & |z| > 1. \end{cases}
 \end{equation}
-Thus $s_a = 0.61,\,0.14,\,0.01$ at $z = 2,3,4$. The \emph{review-score} $s_r$ is the median vote of randomly drawn reviewers (robust to outliers), and the \emph{audit-score} $s_x$ is $1$ unless a stochastic audit finds a violation. Review is triggered when $|z|>1$, when $N$ exceeds the auto-approval limit $N_{\mathrm{auto}} = 50\sqrt{r_A r_B + 1}$, when a party is under monitoring, or when the $3\%$ random audit selects $\tau$.
+Thus $s_a = 0.61,\,0.14,\,0.01$ at $z = 2,3,4$. The \emph{review-score} $s_r$ is the median vote of randomly drawn reviewers (robust to outliers), and the \emph{audit-score} $s_x$ is $1$ unless a stochastic audit finds a violation. Review is triggered when $|z|>1$, when $N$ exceeds the auto-approval limit $N_{\mathrm{auto}} = 50\sqrt{r_A r_B + 1}$, when a party is under monitoring, or when the $3\%$ random audit selects $\tau$. Emission proceeds only when $\confidence(\tau) \ge \theta_{\min} = 0.6$, per invariant (I2).
+
+\subsection{Market health and anti-concentration}
+
+Axiom~\ref{ax:price} locates dishonesty not in a ``wrong'' price but in the absence of alternatives; accordingly the mechanism monitors structural market health rather than individual prices. For each service category it tracks a Herfindahl--Hirschman concentration index, the bilateral concentration of a member's counterparties, and short-cycle reciprocity (a signature of wash trading). When a category or cluster is flagged, the response is graduated and non-price: reduced credit limits for the implicated cluster, an elevated audit rate, suspension of compensatory emission on suspect transactions, and, in the limit, escalation to a community vote. The mechanism thus defends the \emph{conditions} of honest exchange---transparency and the availability of alternatives---rather than dictating terms.
 
 \section{Emission and the compensation coefficient}
 
@@ -153,7 +162,11 @@ In \textsc{Transact}, the credit portion is $N_{\mathrm{credit}} = \max\bigl(0,\
 \begin{equation}\label{eq:comp}
 \Delta E = \varepsilon(t)\, N_{\mathrm{credit}} .
 \end{equation}
-The escrow is released pro rata upon repayment and \emph{burned} upon default. Released amounts are distributed across members in proportion to active turnover $\Turnover(m,t) = \sum_{\tau: t-\tau<90d,\, m\in\tau} N(\tau)\confidence(\tau)$,
+The escrow is released pro rata upon repayment and \emph{burned} upon default. Released amounts are distributed across members in proportion to active turnover, where
+\[
+\Turnover(m,t) = \sum_{\tau:\ t-\tau<90d,\ m\in\tau} N(\tau)\,\confidence(\tau),
+\]
+via
 \begin{equation}
 \mathrm{Share}(m,t) = \frac{\Turnover(m,t) + \xi}{\sum_{m'}\Turnover(m',t) + n_t\,\xi}, \qquad \xi = 1,
 \end{equation}
@@ -166,14 +179,14 @@ with defaults $K^* = 1.5$, $\delta^* = 0.05$, $\kappa = 2$, $\varepsilon_{\max}=
 \subsection{Stability under defaults}
 
 \begin{theorem}[Bounded supply under defaults]\label{thm:stability}
-Consider a stationary regime with constant default rate $\delta \le \tfrac12$ and $\varepsilon$ given by \eqref{eq:epsilon}. Let $P_{\mathrm{net}} = \VerifiedValue \cdot (1-\delta)$ denote net verified value. Then
+Consider a stationary regime with constant default rate $\delta \le \tfrac12$ and $\varepsilon$ given by \eqref{eq:epsilon}. Let $C_{\mathrm{tot}}$ be the total confirmed contribution $\sum_\tau C(\tau)$ and $P_{\mathrm{net}} = (1-\delta)\,C_{\mathrm{tot}}$ the net contribution surviving defaults. If defaulted issuance---both its principal and its compensation---is removed on remediation (the \textnormal{\textsc{Default}} and fraud-remediation operations), then, up to the bounded genesis pool,
 \[
 \frac{\Supply}{P_{\mathrm{net}}} \le K^*.
 \]
 \end{theorem}
 
 \begin{proof}
-In a stationary regime with total issuance $N_{\mathrm{tot}}$, defaulted credits and their compensation are burned, so the surviving supply is $\Supply = N_{\mathrm{tot}}(1+\varepsilon)(1-\delta)$ while $P_{\mathrm{net}} = N_{\mathrm{tot}}(1-\delta)$. Hence $\Supply/P_{\mathrm{net}} = 1 + \varepsilon$. By \eqref{eq:epsilon}, $\varepsilon \le K^*-1$, giving $\Supply/P_{\mathrm{net}} \le K^*$. For $\delta > \delta^*$ the term $-\kappa(\delta-\delta^*)$ makes $\varepsilon$ strictly smaller, tightening the bound.
+Per unit of confirmed contribution the mechanism mints one unit of principal and, upon repayment, releases $\varepsilon$ units of escrowed compensation, for $(1+\varepsilon)$ units of surviving supply; for a defaulted unit the compensation is burned and the principal removed on remediation, contributing nothing. With a fraction $\delta$ defaulting, $\Supply = (1-\delta)C_{\mathrm{tot}}(1+\varepsilon)$ while $P_{\mathrm{net}} = (1-\delta)C_{\mathrm{tot}}$, so $\Supply/P_{\mathrm{net}} = 1+\varepsilon$. By \eqref{eq:epsilon}, $\varepsilon \le K^*-1$, giving $\Supply/P_{\mathrm{net}} \le K^*$; for $\delta > \delta^*$ the term $-\kappa(\delta-\delta^*)$ makes $\varepsilon$ strictly smaller, tightening the bound.
 \end{proof}
 
 \begin{remark}
@@ -181,6 +194,10 @@ Theorem~\ref{thm:stability} is the inflation brake: as realized defaults rise, $
 \end{remark}
 
 The genesis grant to a joining member, $g_0 = \min\bigl(100,\ G_t/\mathbb{E}[\text{new members}]\bigr)$, is likewise self-limiting: it contracts if growth outpaces the pool's inflow, so no subsidy is created \emph{ex nihilo}.
+
+\subsection{Debt resolution and reactivation}
+
+Overdue debt triggers graduated sanctions rather than exclusion: at $30$, $60$, and $90$ days the debtor faces escalating reputation decay and, ultimately, a freeze (balance and reputation reset, escrow burned) instead of expulsion. A frozen member may reactivate by repaying the outstanding debt and completing a probationary period restricted to small transactions. This regenerative treatment follows from Axiom~\ref{ax:create}: the objective is to restore productive participation, not to punish.
 
 \section{Reputation and governance}
 
@@ -191,7 +208,7 @@ Reputation accrues through concave (activity) and linear (quality) terms and bur
 \end{align}
 with $\gamma_4 = 100$: proven fraud erases years of reputation. Concavity in bulk actions prevents reputation farming by volume.
 
-Voting power is $\sqrt{\R(m)}$. Strategic decisions require a \emph{dual quorum}: a reputation quorum $\sum_{\text{voters}}\sqrt{r}\,\big/\sum_{M}\sqrt{r} > \theta$ and a stake quorum $\sum_{\text{voters}} b \,\big/ \sum_{M}\max(0,b) > \theta$, with $\theta = 0.5$ ($0.66$ for constitutional changes). Because $\R$ and $\V$ are distributed differently, the dual quorum blocks capture by activists and by whales simultaneously.
+Voting power is $\sqrt{\R(m)}$. Strategic decisions require a \emph{dual quorum}: a reputation quorum $\sum_{\text{voters}}\sqrt{r}\,\big/\sum_{M}\sqrt{r} > \theta$ and a stake quorum $\sum_{\text{voters}} b \,\big/ \sum_{M}\max(0,b) > \theta$, with $\theta = 0.5$ ($0.66$ for constitutional changes). Because $\R$ and $\V$ are distributed differently, the dual quorum blocks capture by activists and by whales simultaneously. A distinguished set of provisions is \emph{constitutional}---the seven invariants, the soulbound property of $\R$, and the prohibitions on pre-mine, founder allocations, and class-specific rules---and is amendable only by super-majority referendum, never by ordinary parameter governance.
 
 \begin{proposition}[Capital and Sybil resistance]\label{prop:sybil}
 Under invariant (I6), an attacker with capital $C$ obtains zero reputation votes, since $\R$ is non-transferable. A Sybil attacker operating $k$ accounts of base reputation $r_0$ obtains $k\sqrt{r_0}$ reputation votes; to reach $V$ votes requires $k = V^2/r_0$ accounts. At $r_0 = 0.5$, $100$ votes require $2\times 10^4$ accounts, each of which must clear identity screening and perform genuine activity to earn any $\R$.
@@ -206,7 +223,7 @@ The first claim is immediate from (I6): capital purchases $\V$ but no $\R$, and 
 The price is fixed by (I5), $P_t = (F_t + \mu\,\ExtRev_t)/\Supply(t)$ with $\mu = 12$ (a price-to-earnings multiple capitalizing annual external revenue).
 
 \begin{theorem}[Neutrality of fund operations]\label{thm:neutrality}
-\textsc{Invest} (deposit $\Delta U$ of USDC for $\Delta V = \Delta U/P_t$ of $\V$) and \textsc{Convert} (sell $\Delta V$ of $\V$ for $\Delta U = \Delta V\,P_t$) leave the price unchanged: $P_{t+1} = P_t$.
+\textnormal{\textsc{Invest}} (deposit $\Delta U$ of USDC for $\Delta V = \Delta U/P_t$ of $\V$) and \textnormal{\textsc{Convert}} (sell $\Delta V$ of $\V$ for $\Delta U = \Delta V\,P_t$) leave the price unchanged: $P_{t+1} = P_t$.
 \end{theorem}
 
 \begin{proof}
@@ -222,6 +239,8 @@ The argument for \textsc{Convert} is symmetric, with $F_{t+1} = F_t - \Delta V\,
 Thus price responds only to fundamentals ($F$ and $\ExtRev$); no fund operation manipulates it. A credit emission, by contrast, dilutes the price in the moment, $P_{t+1} = P_t\, S_t / \bigl(S_t + N_{\mathrm{credit}}(1+\varepsilon)\bigr) < P_t$, and is recovered only by growth in $\ExtRev$. Consequently internal turnover alone creates no external wealth---the mechanism's central honest conclusion.
 
 \paragraph{Bank-run resilience.} Let coverage $\rho_t = F_t/(P_t S_t)$. When $\rho_t < \rho^* = 0.3$, conversions are queued and discounted, $P_{\mathrm{actual}} = P_t \min(1, \rho_t/\rho^*)$. The discount both protects the fund and incentivizes counter-cyclical investment at the bottom, restoring $\rho$; it also imposes a structural emission ceiling $\Delta S_{\max} = (F - F_{\min})/P_{\mathrm{target}}$.
+
+\paragraph{Profit distribution.} External profit realized by the club is split each period: a majority is retained in the fund (raising $P$ through (I5)), an activity-weighted dividend is paid to members, a share replenishes the genesis pool, and a small share funds operations. Moderators, arbiters, founders, and investors are all paid in $\V$ on identical terms---no class holds a claim senior to, or insulated from, the fate of the token. This is the operational content of Axiom~\ref{ax:symmetry}: when the club gains, holders gain together; when it loses, they lose together.
 
 \section{Stationarity and the survival condition}
 

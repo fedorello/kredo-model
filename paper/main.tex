@@ -123,12 +123,18 @@ where $M_t$ is the finite set of members; $b_t: M_t \to \mathbb{R}$ the $\V$-bal
 
 \subsection{Invariants}\label{sec:invariants}
 
-The seven invariants below formalize Axioms~\ref{ax:create}--\ref{ax:power}. Let $N_{\mathrm{credit}}(\tau)$ be the newly issued (credit) portion of transaction $\tau$, admitted only when its trust score $\confidence(\tau)\in[0,1]$ (Section~\ref{sec:confidence}) clears the gate of (I2); write $C(\tau)=N_{\mathrm{credit}}(\tau)$ for this \emph{confirmed contribution}. Write
+The seven invariants below formalize Axioms~\ref{ax:create}--\ref{ax:power}. Let $N_{\mathrm{credit}}(\tau)$ be the newly issued (credit) portion of transaction $\tau$, admitted only when its trust score $\confidence(\tau)\in[0,1]$ (Section~\ref{sec:confidence}) clears the gate of (I2); write $C(\tau)=N_{\mathrm{credit}}(\tau)$ for this \emph{confirmed contribution}.
+
+Because Kredo is a mutual-credit system, a loan's contribution to circulating supply depends on its state: while \emph{open}, its principal circulates and its compensation waits in escrow; \emph{repayment annihilates the principal} (the debtor's incoming units cancel the debt and leave circulation) and releases the escrow; a \emph{good-faith default} retains the circulating principal---backed by the work actually delivered---but burns the escrow; \emph{remediated fraud} burns both. Accordingly, write
 \[
 \Supply(t) = \sum_{m} \max\bigl(0,b_t(m)\bigr) + E_t + G_t, \qquad
-\VerifiedValue(t) = \sum_{\tau \in H_t}\bigl(1+\varepsilon(\tau)\bigr)C(\tau) \;+\; \Gamma_t \;-\; \mathrm{Burned}(t),
+\VerifiedValue(t) = \sum_{\tau \in H_t} v_t(\tau) \;+\; \Gamma_t \;-\; \mathrm{Burned}(t),
 \]
-where $\varepsilon(\tau)$ is the compensation coefficient of \eqref{eq:epsilon} fixed at the time of $\tau$, $\Gamma_t$ is the cumulative genesis grant (itself funded by realized external revenue and fines, Section~\ref{sec:emission}), and $\mathrm{Burned}(t)$ is the cumulative amount removed by defaults, penalties, and conversions. Since $\Supply$ contains issued principal, escrowed compensation, and genesis grants, all net of burns, $\VerifiedValue$ is defined to match it; any residual gap in (I3) reflects only the lag between fraud and its detection. (The reference implementation's stricter checker additionally weights $C(\tau)$ by $\confidence(\tau)$; the resulting discount is a second, small source of the tolerated drift, since most transactions clear the auto-check at $\confidence=1$.)
+with the loan-state contribution
+\[
+v_t(\tau)=\bigl(1+\varepsilon(\tau)\bigr)C(\tau),\quad \varepsilon(\tau)\,C(\tau),\quad C(\tau),\quad 0
+\]
+for open, repaid, good-faith-defaulted, and fraud-remediated loans respectively, where $\varepsilon(\tau)$ is the compensation coefficient of \eqref{eq:epsilon} fixed at the time of $\tau$, $\Gamma_t$ is the cumulative genesis issuance (minted into the pool, itself funded by realized external revenue and fines, Section~\ref{sec:emission}), and $\mathrm{Burned}(t)$ counts penalties and conversions (the loan lifecycle is already inside $v_t$). With this bookkeeping $\Supply$ and $\VerifiedValue$ coincide up to the lag between fraud and its detection. It matches the reference implementation's (I3) checker, which likewise tracks contribution by loan state; that checker's stricter variant additionally weights $C(\tau)$ by $\confidence(\tau)$---a second, small drift source, since most transactions clear the auto-check at $\confidence=1$.
 
 \begin{description}[leftmargin=*,itemsep=3pt]
     \item[(I1) Conservation on transfers.] For any pure transfer, $\sum_{m} b_{t}(m) = \sum_{m} b_{t+1}(m)$.
@@ -238,18 +244,18 @@ with defaults $K^* = 1.5$, $\delta^* = 0.05$, $\kappa = 2$, $\varepsilon_{\max}=
 \subsection{Stability under defaults}
 
 \begin{theorem}[Bounded supply under defaults]\label{thm:stability}
-Consider a stationary regime with constant default rate $\delta \le \tfrac12$ and $\varepsilon$ given by \eqref{eq:epsilon}. Let $C_{\mathrm{tot}}$ be the total confirmed contribution $\sum_\tau C(\tau)$ and $P_{\mathrm{net}} = (1-\delta)\,C_{\mathrm{tot}}$ the net contribution surviving defaults. If defaulted issuance---both its principal and its compensation---is removed on remediation (the \textnormal{\textsc{Default}} and fraud-remediation operations), then, up to the bounded genesis pool,
+Consider a stationary regime in which every loan resolves as repaid (fraction $1-\delta$), defaulted in good faith (fraction $\delta_g$), or detected-and-remediated fraud (fraction $\delta_f$), with $\delta=\delta_g+\delta_f\in[0,1)$ and $\varepsilon$ given by \eqref{eq:epsilon}. Let $C_{\mathrm{tot}}=\sum_\tau C(\tau)$ and let $P_{\mathrm{net}}=(1-\delta_f)\,C_{\mathrm{tot}}$ be the contribution backed by delivered work. Then, up to the bounded genesis pool,
 \[
-\frac{\Supply}{P_{\mathrm{net}}} \le K^*.
+\frac{\Supply}{P_{\mathrm{net}}} \;=\; \frac{(1-\delta)\,\varepsilon+\delta_g}{1-\delta_f}\;\le\;\max(1,\varepsilon)\;\le\;K^*.
 \]
 \end{theorem}
 
 \begin{proof}
-Per unit of confirmed contribution the mechanism mints one unit of principal and, upon repayment, releases $\varepsilon$ units of escrowed compensation, for $(1+\varepsilon)$ units of surviving supply; for a defaulted unit the compensation is burned and the principal removed on remediation, contributing nothing. With a fraction $\delta$ defaulting, $\Supply = (1-\delta)C_{\mathrm{tot}}(1+\varepsilon)$ while $P_{\mathrm{net}} = (1-\delta)C_{\mathrm{tot}}$, so $\Supply/P_{\mathrm{net}} = 1+\varepsilon$. By \eqref{eq:epsilon}, $\varepsilon \le K^*-1$, giving $\Supply/P_{\mathrm{net}} \le K^*$; for $\delta > \delta^*$ the term $-\kappa(\delta-\delta^*)$ makes $\varepsilon$ strictly smaller, tightening the bound.
+By the loan-state bookkeeping of Section~\ref{sec:invariants}, a repaid unit of contribution leaves $\varepsilon$ in circulation (principal annihilated by repayment, escrow released), a good-faith default leaves $1$ (principal retained, escrow burned), and remediated fraud leaves $0$. Hence $\Supply = C_{\mathrm{tot}}\bigl[(1-\delta)\varepsilon+\delta_g\bigr]$, giving the stated ratio. Since $(1-\delta)+\delta_g = 1-\delta_f$, the numerator is a sub-convex combination: $(1-\delta)\varepsilon+\delta_g \le \max(1,\varepsilon)\bigl[(1-\delta)+\delta_g\bigr] = \max(1,\varepsilon)(1-\delta_f)$, so the ratio is at most $\max(1,\varepsilon)$. Finally \eqref{eq:epsilon} gives $\varepsilon\le K^*-1$, and $\max(1,K^*-1)\le K^*$ for $K^*\ge1$.
 \end{proof}
 
 \begin{remark}
-Theorem~\ref{thm:stability} is the inflation brake: as realized defaults rise, $\varepsilon$ falls automatically, and at $\delta = 0.30$ compensation is disabled entirely (strict conservation). The system does not assume full repayment; it bounds the money-to-value ratio for any $\delta \le \tfrac12$. The remediation hypothesis isolates the adversarial (fraud) case; a good-faith default instead retains principal backed by the work actually delivered, which then counts toward net value, so the bound continues to hold (formalized without any remediation hypothesis in Proposition~\ref{prop:genstab}).
+Theorem~\ref{thm:stability} is the inflation brake, and it holds for \emph{any} mix of defaults: repayment annihilates principal (only the $\varepsilon$-dividend survives), a good-faith default leaves principal that is backed by delivered work, and the only unbacked issuance---fraud---is burned on detection. As realized defaults rise, $\varepsilon$ falls automatically by \eqref{eq:epsilon}, and at $\delta=0.30$ compensation is disabled entirely (strict conservation). The one channel the theorem does not cover, fraud that is never detected, is quantified in Proposition~\ref{prop:genstab}.
 \end{remark}
 
 The genesis grant to a joining member, $g_0 = \min\bigl(100,\ G_t/\mathbb{E}[\text{new members}]\bigr)$, is likewise self-limiting: it contracts if growth outpaces the pool's inflow, so no subsidy is created \emph{ex nihilo}.
@@ -321,27 +327,24 @@ For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}
 
 \section{Further theoretical results}\label{sec:further}
 
-The results below strengthen Theorem~\ref{thm:stability} by removing its remediation hypothesis, characterize the long-run price, show that the discounted-withdrawal rule cannot exhaust the fund except in the limit of complete exit, prove that fraud is unprofitable at scale, and characterize the parameter regime that deters even the optimal adaptive fraud.
+The results below quantify how Theorem~\ref{thm:stability} degrades under fraud that is never detected, characterize the long-run price, show that the discounted-withdrawal rule cannot exhaust the fund except in the limit of complete exit, prove that fraud is unprofitable at scale, and characterize the parameter regime that deters even the optimal adaptive fraud.
 
-\subsection{Stability without the remediation hypothesis}
+\subsection{Robustness to undetected fraud}
 
-\begin{proposition}[Generalized bound under mixed defaults]\label{prop:genstab}
-Partition issuance in a stationary regime into repaid credits (fraction $1-\delta$), good-faith defaults (fraction $\delta_g$; the service was delivered, so the principal is retained and value-backed while the escrow is burned), and detected fraud (fraction $\delta_f$; principal and compensation burned), with $\delta=\delta_g+\delta_f$. Counting delivered work as value, set $P_{\mathrm{net}}=(1-\delta_f)\,C_{\mathrm{tot}}$. Then, with no assumption on the remediation of good-faith principal,
+\begin{proposition}[Bound under undetected fraud]\label{prop:genstab}
+Extend the resolution mix of Theorem~\ref{thm:stability} with a fraction $u$ of \emph{undetected} fraud, whose principal remains in circulation while adding no value: fractions $r$ (repaid), $\delta_g$ (good faith), $\delta_f$ (detected and remediated), $u$, with $r+\delta_g+\delta_f+u=1$. With $P_{\mathrm{net}}=(r+\delta_g)\,C_{\mathrm{tot}}$,
 \[
-\frac{\Supply}{P_{\mathrm{net}}}\ \le\ 1+\varepsilon\ \le\ K^*.
+\frac{\Supply}{P_{\mathrm{net}}}\ \le\ \max(1,\varepsilon)\ +\ \frac{u}{1-\delta_f-u}.
 \]
 \end{proposition}
 
 \begin{proof}
-A repaid unit contributes $1+\varepsilon$ to supply, a good-faith default $1$ (principal retained, escrow burned), and a detected fraud $0$; hence $\Supply=C_{\mathrm{tot}}\bigl[(1-\delta)(1+\varepsilon)+\delta_g\bigr]$. Using $\delta-\delta_f=\delta_g$,
-\[
-\Supply-(1+\varepsilon)P_{\mathrm{net}}
-= C_{\mathrm{tot}}\bigl[(1-\delta)(1+\varepsilon)+\delta_g-(1+\varepsilon)(1-\delta_f)\bigr]
-= C_{\mathrm{tot}}\bigl[\delta_g-(1+\varepsilon)\delta_g\bigr]
-= -\,C_{\mathrm{tot}}\,\varepsilon\,\delta_g\ \le\ 0 .
-\]
-Thus $\Supply\le(1+\varepsilon)P_{\mathrm{net}}$, and $\varepsilon\le K^*-1$ by \eqref{eq:epsilon} gives the bound. Setting $\delta_g=0$ recovers Theorem~\ref{thm:stability}.
+Undetected fraud contributes its full principal $1$ per unit and nothing to $P_{\mathrm{net}}$, so $\Supply=C_{\mathrm{tot}}\bigl[r\varepsilon+\delta_g+u\bigr]$. Splitting the ratio, $(r\varepsilon+\delta_g)/(r+\delta_g)\le\max(1,\varepsilon)$ as in Theorem~\ref{thm:stability}, and the residual term is $u/(r+\delta_g)=u/(1-\delta_f-u)$.
 \end{proof}
+
+\begin{remark}
+The degradation is exactly the undetected share relative to the honest share; invariant (I3)'s tolerance $\epsilon_{\mathrm{tol}}=0.05$ is thus a cap on how much undetected fraud the system accepts before flagging, and Theorem~\ref{thm:fraud} below shows why a \emph{large} undetected position is exponentially unlikely to arise in the first place.
+\end{remark}
 
 \subsection{The long-run price}
 
@@ -408,7 +411,7 @@ g(W)=c\,e^{-\beta W}(W+\Lambda)-\Lambda ,
 with equality when the bounds of Theorem~\ref{thm:fraud} bind (the defender's worst case).
 
 \begin{lemma}[Separability]\label{lem:sep}
-For any adaptive strategy partitioning the attack into $m$ clusters with independently audited transactions and independently forfeitable stakes, the total expected profit is at most $\sum_{i=1}^{m} g(W_i)\le m\,\max_{W\ge0}g(W)$. Concentration monitoring, which raises detection for coordinated clusters, only decreases the left-hand side.
+For any adaptive strategy partitioning the attack into $m$ clusters of sizes $W_i>0$ with independently audited transactions and independently forfeitable stakes, the total expected profit is at most $\sum_{i=1}^{m} g(W_i)\le m\,\max_{W\ge0}g(W)$. Concentration monitoring, which raises detection for coordinated clusters, only decreases the left-hand side.
 \end{lemma}
 
 \begin{proof}
@@ -550,7 +553,7 @@ $\mathbb{E}[\pi]$ bound ($\V$) & $290$ & $407$ & $311$ & $-48$ & $-277$\\
 The analysis yields a small set of parameter conditions a deployment must satisfy. We collect them here; each is derived above and is a lever the community can tune by governance.
 
 \begin{description}[leftmargin=*,itemsep=3pt]
-\item[Bounded inflation.] Keep $\varepsilon\le K^*-1$ via \eqref{eq:epsilon}, so $\Supply/P_{\mathrm{net}}\le K^*$ (Theorem~\ref{thm:stability}, Proposition~\ref{prop:genstab}). A smaller $K^*$ tightens the money-to-value ratio. Default $K^*=1.5$.
+\item[Bounded inflation.] Keep $\varepsilon\le K^*-1$ via \eqref{eq:epsilon}, so $\Supply/P_{\mathrm{net}}\le\max(1,\varepsilon)\le K^*$ (Theorem~\ref{thm:stability}; Proposition~\ref{prop:genstab} quantifies the degradation from undetected fraud). A smaller $K^*$ tightens the money-to-value ratio. Default $K^*=1.5$.
 \item[Non-declining price.] Require external revenue $\lambda_{\mathrm{rev}}\ge(\mathrm{EmissionRate}\cdot P-\lambda_{\mathrm{inv}})/\mu$; the price then tends to $(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/\mathrm{EmissionRate}$ (Propositions~\ref{prop:survival} and~\ref{prop:longrun}). The multiplier $\mu=12$ and the investment inflow are the levers.
 \item[Fund solvency under a run.] The discount engages at coverage $\rho<\rho^*$ and keeps $F=F_0(S/S_0)^{1/\rho^*}>0$ for all $S>0$ (Theorem~\ref{thm:norun}); the emission ceiling $\Delta S_{\max}=(F-F_{\min})/P_{\mathrm{target}}$ preserves buy-back capacity. Default $\rho^*=0.3$.
 \item[Bounded single-agent exposure.] The credit limit $L(r)=100\,(1+0.5\ln(1+r))$ caps any one member's default loss (I4): at most ${\approx}561~\V$ even at $\R=10^4$.
@@ -569,7 +572,7 @@ We implemented the full mechanism as a deterministic agent-based simulator with 
 
 \subsection{Results}
 
-Across $315$ runs, no run produced an economic collapse (Table~\ref{tab:results}). The parameter sweep was stable at all $192$ points, indicating the mechanism is not brittle to parameter choice. Combined fraud-plus-bank-run and $70\%$ simultaneous-exit stress tests remained economically stable via the withdrawal queue and escrow burn, and the three predicted price regimes were reproduced.
+Across $315$ runs, no run produced an economic collapse (Table~\ref{tab:results}). The parameter sweep was stable at all $192$ points, indicating the mechanism is not brittle to parameter choice. Combined fraud-plus-bank-run and $70\%$ simultaneous-exit stress tests remained economically stable via the withdrawal queue and escrow burn, and the regime analysis reproduced the predicted ordering of price trajectories (Figure~\ref{fig:regimes}).
 
 \begin{table}[h]
 \centering

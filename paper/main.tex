@@ -190,7 +190,7 @@ Per unit of confirmed contribution the mechanism mints one unit of principal and
 \end{proof}
 
 \begin{remark}
-Theorem~\ref{thm:stability} is the inflation brake: as realized defaults rise, $\varepsilon$ falls automatically, and at $\delta = 0.30$ compensation is disabled entirely (strict conservation). The system does not assume full repayment; it bounds the money-to-value ratio for any $\delta \le \tfrac12$. The remediation hypothesis isolates the adversarial (fraud) case; a good-faith default instead retains principal backed by the work actually delivered, which then counts toward net value, so the bound continues to hold.
+Theorem~\ref{thm:stability} is the inflation brake: as realized defaults rise, $\varepsilon$ falls automatically, and at $\delta = 0.30$ compensation is disabled entirely (strict conservation). The system does not assume full repayment; it bounds the money-to-value ratio for any $\delta \le \tfrac12$. The remediation hypothesis isolates the adversarial (fraud) case; a good-faith default instead retains principal backed by the work actually delivered, which then counts toward net value, so the bound continues to hold (formalized without any remediation hypothesis in Proposition~\ref{prop:genstab}).
 \end{remark}
 
 The genesis grant to a joining member, $g_0 = \min\bigl(100,\ G_t/\mathbb{E}[\text{new members}]\bigr)$, is likewise self-limiting: it contracts if growth outpaces the pool's inflow, so no subsidy is created \emph{ex nihilo}.
@@ -260,6 +260,80 @@ Since $P = \mathcal{A}/S$, differentiation gives $\dot P = (\dot{\mathcal{A}} - 
 
 For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}$ and investment $2000~\text{USDC}/\text{month}$, the club must earn at least $250~\text{USDC}/\text{month}$ externally. A permanently falling price in the absence of external revenue is therefore a mathematical necessity, not a design defect.
 
+\section{Further theoretical results}\label{sec:further}
+
+The results below strengthen Theorem~\ref{thm:stability} by removing its remediation hypothesis, characterize the long-run price, show that the discounted-withdrawal rule cannot exhaust the fund except in the limit of complete exit, and give a sufficient condition under which fraud is unprofitable.
+
+\subsection{Stability without the remediation hypothesis}
+
+\begin{proposition}[Generalized bound under mixed defaults]\label{prop:genstab}
+Partition issuance in a stationary regime into repaid credits (fraction $1-\delta$), good-faith defaults (fraction $\delta_g$; the service was delivered, so the principal is retained and value-backed while the escrow is burned), and detected fraud (fraction $\delta_f$; principal and compensation burned), with $\delta=\delta_g+\delta_f$. Counting delivered work as value, set $P_{\mathrm{net}}=(1-\delta_f)\,C_{\mathrm{tot}}$. Then, with no assumption on the remediation of good-faith principal,
+\[
+\frac{\Supply}{P_{\mathrm{net}}}\ \le\ 1+\varepsilon\ \le\ K^*.
+\]
+\end{proposition}
+
+\begin{proof}
+A repaid unit contributes $1+\varepsilon$ to supply, a good-faith default $1$ (principal retained, escrow burned), and a detected fraud $0$; hence $\Supply=C_{\mathrm{tot}}\bigl[(1-\delta)(1+\varepsilon)+\delta_g\bigr]$. Using $\delta-\delta_f=\delta_g$,
+\[
+\Supply-(1+\varepsilon)P_{\mathrm{net}}
+= C_{\mathrm{tot}}\bigl[(1-\delta)(1+\varepsilon)+\delta_g-(1+\varepsilon)(1-\delta_f)\bigr]
+= C_{\mathrm{tot}}\bigl[\delta_g-(1+\varepsilon)\delta_g\bigr]
+= -\,C_{\mathrm{tot}}\,\varepsilon\,\delta_g\ \le\ 0 .
+\]
+Thus $\Supply\le(1+\varepsilon)P_{\mathrm{net}}$, and $\varepsilon\le K^*-1$ by \eqref{eq:epsilon} gives the bound. Setting $\delta_g=0$ recovers Theorem~\ref{thm:stability}.
+\end{proof}
+
+\subsection{The long-run price}
+
+\begin{proposition}[Long-run price]\label{prop:longrun}
+Suppose the asset aggregate and supply grow at constant rates $g=\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}}$ and $e=\mathrm{EmissionRate}>0$ (net of burns), so $\mathcal{A}(t)=\mathcal{A}_0+gt$ and $S(t)=S_0+et$. Then $P(t)=\mathcal{A}(t)/S(t)$ is monotone and
+\[
+P(t)\ \xrightarrow[t\to\infty]{}\ \frac{g}{e}=\frac{\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}}}{\mathrm{EmissionRate}} .
+\]
+Moreover $P$ is non-decreasing iff $P_0\le g/e$, which is exactly the survival condition of Proposition~\ref{prop:survival}.
+\end{proposition}
+
+\begin{proof}
+$P'(t)=\dfrac{g\,S(t)-e\,\mathcal{A}(t)}{S(t)^2}=\dfrac{gS_0-e\mathcal{A}_0}{S(t)^2}$, whose sign equals that of $g/e-\mathcal{A}_0/S_0=g/e-P_0$ and is constant in $t$; hence $P$ is monotone. As $t\to\infty$, $(\mathcal{A}_0+gt)/(S_0+et)\to g/e$. Finally $P_0\le g/e$ rearranges to $\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}}\ge\mathrm{EmissionRate}\cdot P_0$.
+\end{proof}
+
+\subsection{The fund is not exhausted by a run}
+
+\begin{theorem}[No fund exhaustion]\label{thm:norun}
+During a withdrawal run conducted entirely in the discounted regime ($\rho<\rho^*$, $\ExtRev$ constant, no emission), in the continuous limit the fund and supply obey
+\[
+\frac{F}{F_0}=\Bigl(\frac{S}{S_0}\Bigr)^{1/\rho^*}.
+\]
+Consequently $F>0$ for every $S>0$: the fund is depleted only in the limit of complete exit ($S\to0$).
+\end{theorem}
+
+\begin{proof}
+Let $x$ index the amount of $\V$ converted, so $dS/dx=-1$. In the discounted regime the payout is $P_{\mathrm{actual}}=P\,\rho/\rho^*$; using $P=\mathcal{A}/S$ and $\rho=F/\mathcal{A}$ gives $P_{\mathrm{actual}}=F/(\rho^*S)$, so $dF/dx=-F/(\rho^*S)$. Hence $dF/dS=F/(\rho^*S)$, a separable ODE with solution $\ln(F/F_0)=\rho^{*-1}\ln(S/S_0)$, i.e.\ $F=F_0(S/S_0)^{1/\rho^*}$. Since $1/\rho^*>0$, $F$ and $S$ vanish together.
+\end{proof}
+
+\begin{remark}
+Because the payout $P_{\mathrm{actual}}=F/(\rho^*S)$ falls with $F$, a holder's marginal proceeds vanish as the run deepens, removing the incentive to keep converting; with the theorem, this is the mechanism's structural answer to a panic.
+\end{remark}
+
+\subsection{Unprofitability of fraud (a sufficient condition)}
+
+\begin{proposition}[Fraud unprofitability]\label{prop:fraud}
+Consider a fraudulent cluster that nets $W>0$ if it converts extracted value to USDC before detection, but forfeits stake $L>0$ (burned balances and reputation) if detected first. Suppose detection occurs independently each period with probability at least $p$, and new accounts cannot convert during a lock-up of $\tau_{\mathrm{lock}}$ periods. Then the expected profit satisfies
+\[
+\mathbb{E}[\pi]\ \le\ (1-p)^{\tau_{\mathrm{lock}}}\,W-\bigl(1-(1-p)^{\tau_{\mathrm{lock}}}\bigr)L,
+\]
+which is non-positive whenever $(1-p)^{\tau_{\mathrm{lock}}}\le L/(W+L)$.
+\end{proposition}
+
+\begin{proof}
+No conversion is possible before $\tau_{\mathrm{lock}}$, so extracting $W$ requires surviving undetected for at least $\tau_{\mathrm{lock}}$ periods, an event of probability at most $(1-p)^{\tau_{\mathrm{lock}}}$. Bounding the gain by $W$ on that event and the loss by $L$ on its complement gives the inequality; requiring $\mathbb{E}[\pi]\le0$ and solving yields $(1-p)^{\tau_{\mathrm{lock}}}\le L/(W+L)$.
+\end{proof}
+
+\begin{remark}
+With the default lock-up ($\tau_{\mathrm{lock}}=60$ days) and any non-negligible per-period detection hazard from the $3\%$ stochastic audit and the concentration monitoring of Section~\ref{sec:confidence}, the threshold holds for realistic $W/L$: the lock-up forces the attacker to hold an unbacked, detectable position long enough that detection dominates. A full game-theoretic optimum over adaptive strategies remains open (Section~\ref{sec:limitations}).
+\end{remark}
+
 \section{Empirical validation}
 
 \subsection{Method}
@@ -287,7 +361,7 @@ Total & $315$ & $0$\\
 \label{tab:results}
 \end{table}
 
-\section{Limitations}
+\section{Limitations}\label{sec:limitations}
 
 Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation, collusion, and political organization by real participants are out of scope, as is a game-theoretically optimal adversary (we test fixed attack strategies only). Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
 

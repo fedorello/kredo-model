@@ -120,7 +120,7 @@ with $\gamma_4=100$ (proven fraud wipes years of reputation).
 
 **Voting power** is $\sqrt{R}$. Strategic decisions require a **dual quorum**: a reputation quorum ($\sum\sqrt{r}$ over voters vs. total) *and* a stake quorum ($\sum b$ over voters vs. total), each above $\theta=0.5$ (or $0.66$ for constitutional changes). This blocks both capture by activists and capture by whales.
 
-**Sybil resistance.** $k$ fake accounts with base reputation $r_0$ yield $k\sqrt{r_0}$ votes; obtaining $V$ votes needs $V^2/r_0$ accounts (e.g. 20,000 accounts for 100 votes at $r_0=0.5$), each requiring KYC-light and real activity. R cannot be bought (I6), so buying capital $C$ yields zero reputation votes.
+**Sybil resistance.** $k$ fake accounts with base reputation $r_0$ yield $k\sqrt{r_0}$ votes, so obtaining $Q$ votes needs $Q/\sqrt{r_0}$ accounts — note the square-root rule alone does not deter splitting (it rewards it: $k\sqrt{r_0}\ge\sqrt{kr_0}$). The real barrier is the per-identity cost and scale: each account must pass KYC-light and sustain genuine activity to earn $r_0$, and against a community of 1,000 members of average reputation 100 a reputation majority requires over 14,000 such identities — while the stake quorum must still be bought separately. R cannot be bought (I6), so capital alone yields zero reputation votes.
 
 ---
 

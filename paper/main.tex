@@ -42,7 +42,7 @@ with Soulbound Reputation and Compensatory Emission}
 \maketitle
 
 \begin{abstract}
-We present \emph{Kredo}, an economic mechanism designed to reward the creation of value rather than the position of ownership. The design is derived top-down: five philosophical axioms are formalized as seven state invariants, and every transition function is required to preserve them. The economy uses two assets: a transferable contribution token $\V$ (working money and a claim on the club's external profit) and a non-transferable ``soulbound'' reputation token $\R$. Credit is issued at the moment of a confirmed transaction and accompanied by a \emph{compensatory emission}---a deferred, escrowed ``dividend to all'' whose magnitude is governed by a dynamic coefficient $\varepsilon$ that shrinks as the observed default rate grows. We prove that this coefficient keeps the money supply bounded relative to verified value under a nonzero default rate (Theorem~\ref{thm:stability}), and that operations against the liquidity fund are price-neutral (Theorem~\ref{thm:neutrality}), so the token's price responds only to fundamentals. Governance uses quadratic ($\sqrt{\R}$) voting under a dual reputation-and-stake quorum, which, together with the soulbound property of $\R$, makes capture by capital or by Sybil accounts economically unprofitable. We derive a minimal external-revenue \emph{survival condition} for a non-declining price, show that the discounted-withdrawal rule leaves the fund positive at every level of exit, and prove a stake threshold of order $\bar N/a$ (mean transaction size over audit rate) beyond which even the optimal adaptive wash-trading fraud is loss-making. A deterministic agent-based simulator implementing the full mechanism is exercised across $315$ stability runs---Monte~Carlo, a $192$-point parameter sweep, and combined-attack stress tests---none of which produced an economic collapse, while a separate regime analysis reproduces the predicted price trajectories. All code, derivations, and results are released openly.
+We present \emph{Kredo}, an economic mechanism designed to reward the creation of value rather than the position of ownership. The design is derived top-down: five philosophical axioms are formalized as seven state invariants, and every transition function is required to preserve them. The economy uses two assets: a transferable contribution token $\V$ (working money and a claim on the club's external profit) and a non-transferable ``soulbound'' reputation token $\R$. Credit is issued at the moment of a confirmed transaction and accompanied by a \emph{compensatory emission}---a deferred, escrowed ``dividend to all'' whose magnitude is governed by a dynamic coefficient $\varepsilon$ that shrinks as the observed default rate grows. We prove that this coefficient keeps the money supply bounded relative to verified value even under nonzero defaults (Theorem~\ref{thm:stability}), and that operations against the liquidity fund are price-neutral (Theorem~\ref{thm:neutrality}), so the price cannot be moved by fund operations. Governance uses quadratic ($\sqrt{\R}$) voting under a dual reputation-and-stake quorum, which, together with the soulbound property of $\R$, forces any would-be captor to win a majority of verified, active reputation and a majority of circulating stake simultaneously. We derive a minimal external-revenue-growth \emph{survival condition} for a non-declining price, show that the discounted-withdrawal rule leaves the fund positive at every partial level of exit, and prove a stake threshold of order $\bar N/a$ beyond which even the optimal adaptive wash-trading fraud is unprofitable. A deterministic agent-based simulator implementing the full mechanism is exercised across $315$ stability runs---Monte~Carlo, a $192$-point parameter sweep, and combined-attack stress tests---none of which produced an economic collapse, while a separate regime analysis reproduces the predicted price trajectories. All code, derivations, and results are released openly.
 \end{abstract}
 
 \noindent\textbf{Keywords:} mutual credit; complementary currency; mechanism design; token economics; quadratic voting; Sybil resistance; agent-based simulation.
@@ -61,7 +61,7 @@ Our contributions are as follows.
     \item A top-down design method: five axioms (Section~\ref{sec:axioms}) are formalized as seven invariants that every transition function must preserve (Section~\ref{sec:invariants}), yielding a specification in which the intended ethics are machine-checkable properties.
     \item A compensatory-emission mechanism with a dynamic coefficient $\varepsilon$, and a proof that it bounds supply relative to verified value under nonzero defaults (Theorem~\ref{thm:stability}).
     \item A pricing rule tied strictly to fundamentals, with a proof that fund operations are price-neutral (Theorem~\ref{thm:neutrality}) and that the discounted-withdrawal rule cannot exhaust the fund under a run (Theorem~\ref{thm:norun}).
-    \item A governance design combining $\sqrt{\R}$ voting with a dual quorum and a soulbound reputation token (Proposition~\ref{prop:sybil}), and a characterization of exactly when wash-trading fraud---including the optimal adaptive strategy---is unprofitable (Theorems~\ref{thm:fraud} and~\ref{thm:deter}).
+    \item A governance design combining $\sqrt{\R}$ voting with a dual quorum and a soulbound reputation token---capital buys no reputation votes, and Sybil identities are contained by screening cost and the stake quorum rather than by the vote rule (Proposition~\ref{prop:sybil})---and a characterization of exactly when wash-trading fraud, including the optimal adaptive strategy, is unprofitable (Theorems~\ref{thm:fraud} and~\ref{thm:deter}).
     \item A minimal external-revenue survival condition with the long-run price limit (Propositions~\ref{prop:survival} and~\ref{prop:longrun}), a consolidated set of deployment conditions (Section~\ref{sec:guidance}), and an empirical validation over $315$ simulated runs.
 \end{enumerate}
 
@@ -128,17 +128,17 @@ The seven invariants below formalize Axioms~\ref{ax:create}--\ref{ax:power}. Let
 Because Kredo is a mutual-credit system, a loan's contribution to circulating supply depends on its state: while \emph{open}, its principal circulates and its compensation waits in escrow; \emph{repayment annihilates the principal} (the debtor's incoming units cancel the debt and leave circulation) and releases the escrow; a \emph{good-faith default} retains the circulating principal---backed by the work actually delivered---but burns the escrow; \emph{remediated fraud} burns both. Accordingly, write
 \[
 \Supply(t) = \sum_{m} \max\bigl(0,b_t(m)\bigr) + E_t + G_t, \qquad
-\VerifiedValue(t) = \sum_{\tau \in H_t} v_t(\tau) \;+\; \Gamma_t \;-\; \mathrm{Burned}(t),
+\VerifiedValue(t) = \sum_{\tau \in H_t} v_t(\tau) \;+\; \Gamma_t \;+\; \mathrm{Invested}_t \;-\; \mathrm{Burned}(t),
 \]
 with the loan-state contribution
 \[
 v_t(\tau)=\bigl(1+\varepsilon(\tau)\bigr)C(\tau),\quad \varepsilon(\tau)\,C(\tau),\quad C(\tau),\quad 0
 \]
-for open, repaid, good-faith-defaulted, and fraud-remediated loans respectively, where $\varepsilon(\tau)$ is the compensation coefficient of \eqref{eq:epsilon} fixed at the time of $\tau$, $\Gamma_t$ is the cumulative genesis issuance (minted into the pool, itself funded by realized external revenue and fines, Section~\ref{sec:emission}), and $\mathrm{Burned}(t)$ counts penalties and conversions (the loan lifecycle is already inside $v_t$). With this bookkeeping $\Supply$ and $\VerifiedValue$ coincide up to the lag between fraud and its detection. It matches the reference implementation's (I3) checker, which likewise tracks contribution by loan state; that checker's stricter variant additionally weights $C(\tau)$ by $\confidence(\tau)$---a second, small drift source, since most transactions clear the auto-check at $\confidence=1$.
+for open, repaid, good-faith-defaulted, and fraud-remediated loans respectively, where $\varepsilon(\tau)$ is the compensation coefficient of \eqref{eq:epsilon} (defined in Section~\ref{sec:emission}) fixed at the time of $\tau$; $\Gamma_t$ is the cumulative genesis issuance (minted into the pool, itself funded by realized external revenue and fines, Section~\ref{sec:emission}); $\mathrm{Invested}_t$ is the cumulative $\V$ issued to investors against USDC at the fundamental price of (I5), fully backed by the fund at issuance; and $\mathrm{Burned}(t)$ counts \emph{only} conversions and penalties levied outside the loan lifecycle---escrow burned at default and principal burned at fraud remediation are already reflected in $v_t$ and are not double-counted. With this bookkeeping $\Supply$ and $\VerifiedValue$ coincide up to the lag between fraud and its detection. It matches the reference implementation's (I3) checker, which likewise tracks contribution by loan state; that checker's stricter variant additionally weights $C(\tau)$ by $\confidence(\tau)$---a second, small drift source, since most transactions clear the auto-check at $\confidence=1$.
 
 \begin{description}[leftmargin=*,itemsep=3pt]
     \item[(I1) Conservation on transfers.] For any pure transfer, $\sum_{m} b_{t}(m) = \sum_{m} b_{t+1}(m)$.
-    \item[(I2) Gated emission.] $\V$ is minted only within the confirmation protocol and only if $\confidence(\tau) \ge \theta_{\min}$.
+    \item[(I2) Gated emission.] Unbacked $\V$ is minted only within the confirmation protocol and only if $\confidence(\tau) \ge \theta_{\min}$; the only other issuance channels are fully backed---\textsc{Invest} at the fundamental price of (I5) and genesis issuance funded by realized revenue and fines.
     \item[(I3) Supply tracks value.] $\bigl|\Supply(t) - \VerifiedValue(t)\bigr| \le \epsilon_{\mathrm{tol}}\,\Supply(t)$, with $\epsilon_{\mathrm{tol}} = 0.05$ absorbing detection lag.
     \item[(I4) Credit limit.] $b_t(m) \ge -L\bigl(r_t(m)\bigr)$ for all $m,t$.
     \item[(I5) Fundamental price.] $P_t = \bigl(F_t + \mu\,\ExtRev_t\bigr)/\Supply(t)$ is always computed, never assigned.
@@ -173,13 +173,15 @@ $\tau_{\mathrm{lock}}$ & conversion lock-up for new balances & $60$ days\\
 $g_0,\ \xi$ & genesis grant; distribution smoothing & $g_0\le100~\V$, $\xi=1$\\
 $\theta$ & dual-quorum threshold & $0.5$ ($0.66$ constitutional)\\
 $\bar N$ & mean transaction size & $50~\V$ (illustrative)\\
-$\beta,\ c$ & fraud hazard $\ln(1/(1-a))/\bar N$; lock-up survival $(1-p)^{\tau_{\mathrm{lock}}}$ & ---\\
-$\Lambda$ & forfeitable stake per fraud cluster & threshold $\Lambda\ge\bar N/a$\\
+$\beta,\ c,\ p$ & fraud hazard $\ln(1/(1-a))/\bar N$; lock-up survival $(1-p)^{\tau_{\mathrm{lock}}}$; $p$ per-period detection & ---\\
+$\Lambda$ & forfeitable stake per fraud cluster & $300~\V$ (illustrative); threshold $\Lambda\ge\bar N/a$\\
 \bottomrule
 \end{tabular}
 \caption{Notation and default parameters.}
 \label{tab:notation}
 \end{table}
+
+The reputation coefficients $\beta_{1\ldots4}$ (Section~6), the transaction category $c$ of $\tau$ (Section~\ref{sec:confidence}), and the asset growth rate $g$ of Proposition~\ref{prop:longrun} are local symbols, distinct from the fraud parameters $\beta$, $c$ and the profit bound $g(W)$.
 
 \section{Credit and confidence}\label{sec:confidence}
 
@@ -213,7 +215,7 @@ The \emph{auto-score} compares $N$ to the category's recent price distribution. 
 \begin{equation}\label{eq:autoscore}
 s_a(\tau) = \begin{cases} 1, & |z| \le 1,\\[3pt] \exp\!\left(-\dfrac{(|z|-1)^2}{2}\right), & |z| > 1. \end{cases}
 \end{equation}
-Thus $s_a = 0.61,\,0.14,\,0.01$ at $z = 2,3,4$. The \emph{review-score} $s_r$ is the median vote of randomly drawn reviewers (robust to outliers), and the \emph{audit-score} $s_x$ is $1$ unless a stochastic audit finds a violation. Review is triggered when $|z|>1$, when $N$ exceeds the auto-approval limit $N_{\mathrm{auto}} = 50\sqrt{r_A r_B + 1}$, when a party is under monitoring, or when the $3\%$ random audit selects $\tau$. Emission proceeds only when $\confidence(\tau) \ge \theta_{\min} = 0.6$, per invariant (I2).
+Thus $s_a = 0.61,\,0.14,\,0.01$ at $z = 2,3,4$; for a degenerate or new category ($\sigma_c=0$), review is mandatory. The \emph{review-score} $s_r$ is the median vote of randomly drawn reviewers (robust to outliers), and the \emph{audit-score} $s_x$ is $1$ unless a stochastic audit finds a violation. Review is triggered when $|z|>1$, when $N$ exceeds the auto-approval limit $N_{\mathrm{auto}} = 50\sqrt{r_A r_B + 1}$, when a party is under monitoring, or when the $3\%$ random audit selects $\tau$. Emission proceeds only when $\confidence(\tau) \ge \theta_{\min} = 0.6$, per invariant (I2).
 
 \subsection{Market health and anti-concentration}
 
@@ -233,7 +235,7 @@ The escrow is released pro rata upon repayment and \emph{burned} upon default. R
 \]
 via
 \begin{equation}
-\mathrm{Share}(m,t) = \frac{\Turnover(m,t) + \xi}{\sum_{m'}\Turnover(m',t) + n_t\,\xi}, \qquad \xi = 1,
+\mathrm{Share}(m,t) = \frac{\Turnover(m,t) + \xi}{\sum_{m'}\Turnover(m',t) + n_t\,\xi}, \qquad \xi = 1,\ \ n_t=|M_t|,
 \end{equation}
 so the ``dividend to all'' rewards active contribution rather than idle holdings. The coefficient is dynamic in the observed default rate $\delta_t$:
 \begin{equation}\label{eq:epsilon}
@@ -244,14 +246,14 @@ with defaults $K^* = 1.5$, $\delta^* = 0.05$, $\kappa = 2$, $\varepsilon_{\max}=
 \subsection{Stability under defaults}
 
 \begin{theorem}[Bounded supply under defaults]\label{thm:stability}
-Consider a stationary regime in which every loan resolves as repaid (fraction $1-\delta$), defaulted in good faith (fraction $\delta_g$), or detected-and-remediated fraud (fraction $\delta_f$), with $\delta=\delta_g+\delta_f\in[0,1)$ and $\varepsilon$ given by \eqref{eq:epsilon}. Let $C_{\mathrm{tot}}=\sum_\tau C(\tau)$ and let $P_{\mathrm{net}}=(1-\delta_f)\,C_{\mathrm{tot}}$ be the contribution backed by delivered work. Then, up to the bounded genesis pool,
+Consider a stationary credit regime---abstracting from genesis and investor issuance, both of which are fully backed at issuance---in which every loan resolves as repaid (fraction $1-\delta$), defaulted in good faith (fraction $\delta_g$), or detected-and-remediated fraud (fraction $\delta_f$), with $\delta=\delta_g+\delta_f\in[0,1)$ and $\varepsilon$ given by \eqref{eq:epsilon}. Assume $K^*\ge\max(1,\varepsilon_{\max})$ (true of the defaults, where $\varepsilon_{\max}=0.95<1\le K^*$). Let $C_{\mathrm{tot}}=\sum_\tau C(\tau)$ and let $P_{\mathrm{net}}=(1-\delta_f)\,C_{\mathrm{tot}}$ be the contribution backed by delivered work. Then
 \[
-\frac{\Supply}{P_{\mathrm{net}}} \;=\; \frac{(1-\delta)\,\varepsilon+\delta_g}{1-\delta_f}\;\le\;\max(1,\varepsilon)\;\le\;K^*.
+\frac{\Supply}{P_{\mathrm{net}}} \;=\; \frac{(1-\delta)\,\varepsilon+\delta_g}{1-\delta_f}\;\le\;\max(1,\varepsilon_{\max})\;\le\;K^*.
 \]
 \end{theorem}
 
 \begin{proof}
-By the loan-state bookkeeping of Section~\ref{sec:invariants}, a repaid unit of contribution leaves $\varepsilon$ in circulation (principal annihilated by repayment, escrow released), a good-faith default leaves $1$ (principal retained, escrow burned), and remediated fraud leaves $0$. Hence $\Supply = C_{\mathrm{tot}}\bigl[(1-\delta)\varepsilon+\delta_g\bigr]$, giving the stated ratio. Since $(1-\delta)+\delta_g = 1-\delta_f$, the numerator is a sub-convex combination: $(1-\delta)\varepsilon+\delta_g \le \max(1,\varepsilon)\bigl[(1-\delta)+\delta_g\bigr] = \max(1,\varepsilon)(1-\delta_f)$, so the ratio is at most $\max(1,\varepsilon)$. Finally \eqref{eq:epsilon} gives $\varepsilon\le K^*-1$, and $\max(1,K^*-1)\le K^*$ for $K^*\ge1$.
+By the loan-state bookkeeping of Section~\ref{sec:invariants}, a repaid unit of contribution leaves $\varepsilon$ in circulation (principal annihilated by repayment, escrow released), a good-faith default leaves $1$ (principal retained, escrow burned), and remediated fraud leaves $0$. Hence $\Supply = C_{\mathrm{tot}}\bigl[(1-\delta)\varepsilon+\delta_g\bigr]$, giving the stated ratio. Since $(1-\delta)+\delta_g = 1-\delta_f$, the numerator is a sub-convex combination: $(1-\delta)\varepsilon+\delta_g \le \max(1,\varepsilon)\bigl[(1-\delta)+\delta_g\bigr] = \max(1,\varepsilon)(1-\delta_f)$, so the ratio is at most $\max(1,\varepsilon)$. Finally $\varepsilon\le\varepsilon_{\max}$ by \eqref{eq:epsilon}, and $\max(1,\varepsilon_{\max})\le K^*$ by hypothesis.
 \end{proof}
 
 \begin{remark}
@@ -271,24 +273,28 @@ Reputation accrues through concave (activity) and linear (quality) terms and bur
 \Delta \R &= \beta_1 \ln(1 + n_{\mathrm{tx}}) + \beta_2\, a_{\mathrm{audit}} + \beta_3 \ln(1 + \text{tenure}/30) + \beta_4\, n_{\mathrm{disputes}},\\
 \Delta \R^{-} &= \gamma_1 f_{\mathrm{review}} + \gamma_2 f_{\mathrm{dispute}} + \gamma_3\, \mathrm{DefaultPenalty} + \gamma_4\, \mathrm{Fraud},
 \end{align}
-with $\gamma_4 = 100$: proven fraud erases years of reputation. Concavity in bulk actions prevents reputation farming by volume.
+where $n_{\mathrm{tx}}$ counts confirmed transactions, $a_{\mathrm{audit}}$ correct audit decisions, $n_{\mathrm{disputes}}$ disputes resolved as arbiter, and $f_{\mathrm{review}}, f_{\mathrm{dispute}}$ failed reviews and lost disputes; the coefficients $\beta_{1\ldots4},\gamma_{1\ldots4}$ are governable, with $\gamma_4 = 100$: proven fraud erases years of reputation. Concavity in bulk actions prevents reputation farming by volume.
 
 Voting power is $\sqrt{\R(m)}$. Strategic decisions require a \emph{dual quorum}: a reputation quorum $\sum_{\text{voters}}\sqrt{r}\,\big/\sum_{M}\sqrt{r} > \theta$ and a stake quorum $\sum_{\text{voters}} \max(0,b) \,\big/ \sum_{M}\max(0,b) > \theta$, with $\theta = 0.5$ ($0.66$ for constitutional changes). Because $\R$ and $\V$ are distributed differently, the dual quorum blocks capture by activists and by whales simultaneously. A distinguished set of provisions is \emph{constitutional}---the seven invariants, the soulbound property of $\R$, and the prohibitions on pre-mine, founder allocations, and class-specific rules---and is amendable only by super-majority referendum, never by ordinary parameter governance.
 
 \begin{proposition}[Capital and Sybil resistance]\label{prop:sybil}
-Under invariant (I6), an attacker with arbitrary capital obtains zero reputation votes, since $\R$ is non-transferable. A Sybil attacker operating $k$ accounts of base reputation $r_0$ obtains $k\sqrt{r_0}$ reputation votes; to reach a target of $q$ votes requires $k = q^2/r_0$ accounts. At $r_0 = 0.5$, $q = 100$ votes require $2\times 10^4$ accounts, each of which must clear identity screening and perform genuine activity to earn any $\R$.
+Under invariant (I6), an attacker with arbitrary capital obtains zero reputation votes, since $\R$ is non-transferable; capital alone therefore cannot meet the reputation quorum. A Sybil attacker operating $k$ accounts of base reputation $r_0$ obtains $k\sqrt{r_0}$ reputation votes, so a reputation-vote target $Q$ requires $k=Q/\sqrt{r_0}$ accounts, each of which must clear identity screening and sustain genuine activity to earn $r_0$, while together contributing negligible stake toward the stake quorum. Under the dual quorum, capture therefore requires simultaneously operating $\Theta(Q)$ verified active identities and separately acquiring a $\theta$-share of circulating $\V$.
 \end{proposition}
 
 \begin{proof}
-The first claim is immediate from (I6): capital purchases $\V$ but no $\R$, and voting weight is a function of $\R$ only. For the second, additivity of $\sqrt{\R}$ across identically endowed accounts gives $k\sqrt{r_0}$; setting $k\sqrt{r_0} = q$ yields $k = q^2/r_0$. Substituting $r_0=0.5$, $q=100$ gives $k = 2\times 10^4$.
+The first claim is immediate from (I6): capital purchases $\V$ but no $\R$, and reputation-quorum weight is a function of $\R$ only. For the second, additivity of $\sqrt{\R}$ across identically endowed accounts gives $k\sqrt{r_0}$, whence $k=Q/\sqrt{r_0}$. Sybil accounts hold at most their genesis grants of $\V$, so their stake-quorum weight is negligible and that quorum must be met by acquiring circulating $\V$.
 \end{proof}
+
+\begin{remark}
+Square-root weighting does \emph{not} by itself deter Sybil splitting---on the contrary, splitting a fixed reputation budget across $k$ accounts yields $k\sqrt{r_0}\ge\sqrt{kr_0}$, so the vote rule alone rewards it. The barrier is the per-identity cost (screening plus the genuine activity needed to earn $r_0$) and the dual quorum. The scale is what protects in practice: against a community of $10^3$ members of average reputation $100$ (so $\sum_M\sqrt{r}=10^4$), a reputation majority requires $k\sqrt{r_0}>10^4$, i.e.\ $k>1.4\times10^4$ screened, continuously active fake identities at $r_0=0.5$---an order of magnitude more identities than the community itself---while the stake quorum must still be bought separately.
+\end{remark}
 
 \section{Pricing and the liquidity fund}
 
-The price is fixed by (I5), $P_t = (F_t + \mu\,\ExtRev_t)/\Supply(t)$ with $\mu = 12$ (a price-to-earnings multiple capitalizing annual external revenue).
+The price is fixed by (I5), $P_t = (F_t + \mu\,\ExtRev_t)/\Supply(t)$, where $\ExtRev_t$ denotes the club's \emph{trailing-annual external-revenue level} and $\mu = 12$ is a price-to-earnings multiple capitalizing that level.
 
 \begin{theorem}[Neutrality of fund operations]\label{thm:neutrality}
-\textnormal{\textsc{Invest}} (deposit $\Delta U$ of USDC for $\Delta V = \Delta U/P_t$ of $\V$) and \textnormal{\textsc{Convert}} (sell $\Delta V$ of $\V$ for $\Delta U = \Delta V\,P_t$) leave the price unchanged: $P_{t+1} = P_t$.
+In the undiscounted regime ($\rho_t\ge\rho^*$, defined below) and for $P_t>0$, \textnormal{\textsc{Invest}} (deposit $\Delta U$ of USDC for $\Delta V = \Delta U/P_t$ of $\V$) and \textnormal{\textsc{Convert}} (sell $\Delta V$ of $\V$ for $\Delta U = \Delta V\,P_t$) leave the price unchanged: $P_{t+1} = P_t$.
 \end{theorem}
 
 \begin{proof}
@@ -301,9 +307,9 @@ P_{t+1} = \frac{F_t + \Delta U + \mu\,\ExtRev_t}{S_t + \Delta U/P_t}
 The argument for \textsc{Convert} is symmetric, with $F_{t+1} = F_t - \Delta V\,P_t$ and $S_{t+1} = S_t - \Delta V$.
 \end{proof}
 
-Thus price responds only to fundamentals ($F$ and $\ExtRev$); no fund operation manipulates it. A credit emission, by contrast, dilutes the price in the moment, $P_{t+1} = P_t\, S_t / \bigl(S_t + N_{\mathrm{credit}}(1+\varepsilon)\bigr) < P_t$, and is recovered only by growth in $\ExtRev$. Consequently internal turnover alone creates no external wealth---the mechanism's central honest conclusion.
+Thus price responds only to fundamentals ($F$, $\ExtRev$, and $S$); no fund operation manipulates it. A credit emission, by contrast, dilutes the price in the moment, $P_{t+1} = P_t\, S_t / \bigl(S_t + N_{\mathrm{credit}}(1+\varepsilon)\bigr) < P_t$, and is recovered only by growth in $\ExtRev$. Consequently internal turnover alone creates no external wealth---the mechanism's central honest conclusion.
 
-\paragraph{Bank-run resilience.} Let coverage $\rho_t = F_t/(P_t S_t)$. When $\rho_t < \rho^* = 0.3$, conversions are queued and discounted, $P_{\mathrm{actual}} = P_t \min(1, \rho_t/\rho^*)$. The discount both protects the fund and incentivizes counter-cyclical investment at the bottom, restoring $\rho$; it also imposes a structural emission ceiling $\Delta S_{\max} = (F - F_{\min})/P_{\mathrm{target}}$.
+\paragraph{Bank-run resilience.} Let coverage $\rho_t = F_t/(P_t S_t)$. When $\rho_t < \rho^* = 0.3$, conversions are queued and discounted, $P_{\mathrm{actual}} = P_t \min(1, \rho_t/\rho^*)$. The discount both protects the fund and incentivizes counter-cyclical investment at the bottom, restoring $\rho$ (in the discounted regime a conversion strictly \emph{raises} $P$, accelerating recovery); it also imposes a structural emission ceiling $\Delta S_{\max} = (F - F_{\min})/P_{\mathrm{target}}$, with governable floor $F_{\min}$ and target price $P_{\mathrm{target}}$.
 
 \paragraph{Profit distribution.} External profit realized by the club is split each period: a majority is retained in the fund (raising $P$ through (I5)), an activity-weighted dividend is paid to members, a share replenishes the genesis pool, and a small share funds operations. Moderators, arbiters, founders, and investors are all paid in $\V$ on identical terms---no class holds a claim senior to, or insulated from, the fate of the token. This is the operational content of Axiom~\ref{ax:symmetry}: when the club gains, holders gain together; when it loses, they lose together.
 
@@ -316,14 +322,14 @@ A non-declining price requires an external-revenue growth rate satisfying
 \[
 \lambda_{\mathrm{rev}} \ \ge\ \frac{1}{\mu}\Bigl(\mathrm{EmissionRate}\cdot P - \lambda_{\mathrm{inv}}\Bigr),
 \]
-where $\lambda_{\mathrm{inv}}$ is the investment inflow rate.
+where $\lambda_{\mathrm{inv}}$ is the investment inflow rate and $\lambda_{\mathrm{rev}}=\dot{\ExtRev}$ is the \emph{growth} of the trailing-annual revenue level, not the revenue flow itself.
 \end{proposition}
 
 \begin{proof}[Sketch]
 Since $P = \mathcal{A}/S$, differentiation gives $\dot P = (\dot{\mathcal{A}} - P\dot S)/S$, so a non-declining price ($\dot P \ge 0$) is equivalent to $\dot{\mathcal{A}} \ge P\,\dot S$. Substituting $\dot{\mathcal{A}} = \lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}}$ and $\dot S = \mathrm{EmissionRate}$ (net of burns) yields $\lambda_{\mathrm{inv}} + \mu\lambda_{\mathrm{rev}} \ge \mathrm{EmissionRate}\cdot P$; solving for $\lambda_{\mathrm{rev}}$ gives the stated bound.
 \end{proof}
 
-For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}$ and investment $2000~\text{USDC}/\text{month}$, the club must earn at least $250~\text{USDC}/\text{month}$ externally. A permanently falling price in the absence of external revenue is therefore a mathematical necessity, not a design defect.
+For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}$ and investment $2000~\text{USDC}/\text{month}$, the club's annualized revenue level must \emph{grow} by at least $250$~USDC each month (e.g.\ by continually adding recurring external clients); a constant revenue level ($\lambda_{\mathrm{rev}}=0$) cannot hold the price by itself. A permanently falling price in the absence of external-revenue growth is therefore a mathematical necessity, not a design defect.
 
 \section{Further theoretical results}\label{sec:further}
 
@@ -332,14 +338,14 @@ The results below quantify how Theorem~\ref{thm:stability} degrades under fraud 
 \subsection{Robustness to undetected fraud}
 
 \begin{proposition}[Bound under undetected fraud]\label{prop:genstab}
-Extend the resolution mix of Theorem~\ref{thm:stability} with a fraction $u$ of \emph{undetected} fraud, whose principal remains in circulation while adding no value: fractions $r$ (repaid), $\delta_g$ (good faith), $\delta_f$ (detected and remediated), $u$, with $r+\delta_g+\delta_f+u=1$. With $P_{\mathrm{net}}=(r+\delta_g)\,C_{\mathrm{tot}}$,
+In the credit regime of Theorem~\ref{thm:stability}, extend the resolution mix with a fraction $u$ of \emph{undetected} fraud, whose principal remains in circulation while adding no value: fractions $h$ (repaid), $\delta_g$ (good faith), $\delta_f$ (detected and remediated), $u$, with $h+\delta_g+\delta_f+u=1$ and $h+\delta_g>0$. With $P_{\mathrm{net}}=(h+\delta_g)\,C_{\mathrm{tot}}$,
 \[
 \frac{\Supply}{P_{\mathrm{net}}}\ \le\ \max(1,\varepsilon)\ +\ \frac{u}{1-\delta_f-u}.
 \]
 \end{proposition}
 
 \begin{proof}
-Undetected fraud contributes its full principal $1$ per unit and nothing to $P_{\mathrm{net}}$, so $\Supply=C_{\mathrm{tot}}\bigl[r\varepsilon+\delta_g+u\bigr]$. Splitting the ratio, $(r\varepsilon+\delta_g)/(r+\delta_g)\le\max(1,\varepsilon)$ as in Theorem~\ref{thm:stability}, and the residual term is $u/(r+\delta_g)=u/(1-\delta_f-u)$.
+Undetected fraud contributes its full principal $1$ per unit and nothing to $P_{\mathrm{net}}$, so $\Supply=C_{\mathrm{tot}}\bigl[h\varepsilon+\delta_g+u\bigr]$. Splitting the ratio, $(h\varepsilon+\delta_g)/(h+\delta_g)\le\max(1,\varepsilon)$ as in Theorem~\ref{thm:stability}, and the residual term is $u/(h+\delta_g)=u/(1-\delta_f-u)$.
 \end{proof}
 
 \begin{remark}
@@ -419,7 +425,7 @@ Independence makes the per-cluster bounds of Theorem~\ref{thm:fraud} additive, a
 \end{proof}
 
 \begin{theorem}[Deterrence of the optimal adaptive fraud]\label{thm:deter}
-Every adaptive strategy in the class of Lemma~\ref{lem:sep} has non-positive expected profit iff $\max_{W\ge0}g(W)\le0$. With $W^\dagger=1/\beta-\Lambda$, this holds iff either $W^\dagger\le0$, or $W^\dagger>0$ and
+In the defender's worst case, where the bounds of Theorem~\ref{thm:fraud} bind, every adaptive strategy in the class of Lemma~\ref{lem:sep} has non-positive expected profit iff $\max_{W\ge0}g(W)\le0$; in general, $\max g\le0$ is sufficient. With $W^\dagger=1/\beta-\Lambda$, this holds iff either $W^\dagger\le0$, or $W^\dagger>0$ and
 \[
 \frac{c}{e\,\beta}\,e^{\beta \Lambda}\ \le\ \Lambda .
 \]
@@ -439,7 +445,7 @@ so $\max g\le0$ is the displayed inequality; $\Lambda\ge1/\beta$ gives $W^\dagge
 \end{proof}
 
 \begin{remark}
-The condition is a concrete---and not free---design requirement. With the illustrative $a=0.03$, $\bar N=50~\V$ the threshold is $\Lambda\ge\bar N/\ln(1/(1-a))\approx1642~\V$, whereas the default stake $\Lambda=300~\V$ leaves a profitable optimum near $W^\dagger\approx1342~\V$ with $g(W^\dagger)\approx{+}425~\V$ (compare Table~\ref{tab:fraud}, whose sampled maximum is $407$ at $W=1000$, and Figure~\ref{fig:analytic}, right). Deterrence therefore requires the per-cluster forfeitable stake---reputation plus locked collateral---to reach $\Theta(\bar N/a)$, attainable by raising the audit rate $a$, lengthening the lock-up, or requiring collateral before large exposure. This settles the optimum for independently-detected clusters; a fully coordinated adversary that deliberately correlates clusters to defeat monitoring, and dynamic timing, remain for future work (Section~\ref{sec:limitations}).
+The condition is a concrete---and not free---design requirement. With the illustrative $a=0.03$, $\bar N=50~\V$ the threshold is $\Lambda\ge\bar N/\ln(1/(1-a))\approx1642~\V$, whereas the default stake $\Lambda=300~\V$ leaves a profitable optimum near $W^\dagger\approx1342~\V$ with $g(W^\dagger)\approx{+}425~\V$ (compare Table~\ref{tab:fraud}, whose sampled maximum is $407$ at $W=1000$, and Figure~\ref{fig:analytic}, right). Deterrence therefore requires the per-cluster forfeitable stake---reputation plus locked collateral---to reach $\Theta(\bar N/a)$, attainable by raising the audit rate $a$, lengthening the lock-up, or requiring collateral before large exposure. This settles the optimum for independently detected clusters; a fully coordinated adversary that deliberately correlates clusters to defeat monitoring, and dynamic timing, remain for future work (Section~\ref{sec:limitations}).
 \end{remark}
 
 \section{Numerical illustration}\label{sec:numeric}
@@ -461,30 +467,30 @@ We instantiate the closed-form results with the paper's default parameters; the 
 \addplot[thick, dashed] coordinates {(0,0.187) (2,0.229) (4,0.271) (6,0.310) (8,0.349) (10,0.387) (12,0.424) (14,0.461) (16,0.499) (18,0.536) (20,0.572) (22,0.605) (24,0.643) (26,0.679) (28,0.714) (30,0.752) (32,0.786) (34,0.818) (36,0.849) (38,0.881) (40,0.915) (42,0.946) (44,0.979) (46,1.006) (48,1.036) (50,1.066) (52,1.098) (54,1.133) (56,1.165) (58,1.194) (59,1.206)};
 \addlegendentry{Regime B (intermediate)}
 \addplot[thick, dotted] coordinates {(0,0.165) (2,0.165) (4,0.165) (6,0.164) (8,0.163) (10,0.162) (12,0.161) (14,0.160) (16,0.160) (18,0.160) (20,0.159) (22,0.158) (24,0.158) (26,0.158) (28,0.157) (30,0.158) (32,0.157) (34,0.156) (36,0.155) (38,0.154) (40,0.154) (42,0.153) (44,0.153) (46,0.152) (48,0.151) (50,0.150) (52,0.150) (54,0.150) (56,0.150) (58,0.149) (59,0.148)};
-\addlegendentry{Regime C (stagnant)}
+\addlegendentry{Regime C (falling)}
 \end{axis}
 \end{tikzpicture}
-\caption{Simulator price trajectories for the three regime configurations (seed $23$, $60$ ticks; data from the released \texttt{regime\_analysis} protocol). The growth and stagnant regimes behave as predicted; the intermediate configuration rises rather than holding flat, reflecting approximate calibration of inflows to emission.}
+\caption{Simulator price trajectories for the three regime configurations (seed $23$, $60$ ticks; data from the released \texttt{regime\_analysis} protocol). The growth and falling regimes behave as predicted; the intermediate configuration rises rather than holding flat, reflecting approximate calibration of inflows to emission.}
 \label{fig:regimes}
 \end{figure}
 
-\paragraph{Long-run price (Proposition~\ref{prop:longrun}).} With $\mu=12$, net emission $e=5000~\V/\text{month}$, investment $\lambda_{\mathrm{inv}}=2000~\text{USDC}/\text{month}$ and initial price $P_0=1$, the limit $g/e=(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/e$ maps external revenue directly onto the three regimes (Table~\ref{tab:price}): the stable case reproduces the survival threshold $\lambda_{\mathrm{rev}}=250$ exactly.
+\paragraph{Long-run price (Proposition~\ref{prop:longrun}).} With $\mu=12$, net emission $e=5000~\V/\text{month}$, investment $\lambda_{\mathrm{inv}}=2000~\text{USDC}/\text{month}$ and initial price $P_0=1$, the limit $g/e=(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/e$ maps external-revenue growth directly onto the three regimes (Table~\ref{tab:price}): the stable case reproduces the survival threshold $\lambda_{\mathrm{rev}}=250$ exactly.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{lrrr}
 \toprule
-$\lambda_{\mathrm{rev}}$ (USDC/mo) & $0$ & $250$ & $500$\\
+revenue growth $\lambda_{\mathrm{rev}}$ (USDC/mo) & $0$ & $250$ & $500$\\
 \midrule
 limit $g/e$ (USDC/$\V$) & $0.40$ & $1.00$ & $1.60$\\
 regime & C (falling) & B (stable) & A (growth)\\
 \bottomrule
 \end{tabular}
-\caption{Long-run price versus external revenue.}
+\caption{Long-run price versus external-revenue growth.}
 \label{tab:price}
 \end{table}
 
-\paragraph{Fund non-exhaustion (Theorem~\ref{thm:norun}).} With $\rho^*=0.3$ the closed form $F/F_0=(S/S_0)^{1/\rho^*}$ leaves the fund strictly positive at every level of exit (Table~\ref{tab:fund}); even a $90\%$ simultaneous exit leaves it nonzero.
+\paragraph{Fund non-exhaustion (Theorem~\ref{thm:norun}).} With $\rho^*=0.3$ the closed form $F/F_0=(S/S_0)^{1/\rho^*}$ leaves the fund strictly positive at every partial level of exit (Table~\ref{tab:fund}); even a $90\%$ simultaneous exit leaves it nonzero.
 
 \begin{table}[h]
 \centering
@@ -509,7 +515,7 @@ $F/F_0$ & $70.4\%$ & $30.5\%$ & $9.9\%$ & $1.8\%$ & $0.05\%$\\
 $W$ ($\V$) & $500$ & $1000$ & $2500$ & $5000$ & $10000$\\
 \midrule
 wash trades $n$ & $10$ & $20$ & $50$ & $100$ & $200$\\
-survive audit $q$ & $73.7\%$ & $54.4\%$ & $21.8\%$ & $4.8\%$ & $0.2\%$\\
+survive audit $(1-a)^n$ & $73.7\%$ & $54.4\%$ & $21.8\%$ & $4.8\%$ & $0.2\%$\\
 $\mathbb{E}[\pi]$ bound ($\V$) & $290$ & $407$ & $311$ & $-48$ & $-277$\\
 \bottomrule
 \end{tabular}
@@ -544,7 +550,7 @@ $\mathbb{E}[\pi]$ bound ($\V$) & $290$ & $407$ & $311$ & $-48$ & $-277$\\
 \addplot[gray, thin, domain=0:6000] {0};
 \end{axis}
 \end{tikzpicture}
-\caption{Left: fund retention under a discounted run, $F/F_0=(S/S_0)^{1/\rho^*}$ with $\rho^*=0.3$ (Theorem~\ref{thm:norun}) --- positive at every exit share. Right: the fraud-profit bound $g(W)$ at $c=1$ (Theorem~\ref{thm:deter}); the default stake $\Lambda=300~\V$ leaves a profitable region peaking at ${\approx}{+}425~\V$, while the threshold stake $\Lambda=1642~\V$ makes every theft size loss-making.}
+\caption{Left: fund retention under a discounted run, $F/F_0=(S/S_0)^{1/\rho^*}$ with $\rho^*=0.3$ (Theorem~\ref{thm:norun}) --- positive at every partial exit share. Right: the fraud-profit bound $g(W)$ at $c=1$ (Theorem~\ref{thm:deter}); the default stake $\Lambda=300~\V$ leaves a profitable region peaking at ${\approx}{+}425~\V$, while the threshold stake $\Lambda=1642~\V$ makes every theft size loss-making.}
 \label{fig:analytic}
 \end{figure}
 
@@ -553,12 +559,12 @@ $\mathbb{E}[\pi]$ bound ($\V$) & $290$ & $407$ & $311$ & $-48$ & $-277$\\
 The analysis yields a small set of parameter conditions a deployment must satisfy. We collect them here; each is derived above and is a lever the community can tune by governance.
 
 \begin{description}[leftmargin=*,itemsep=3pt]
-\item[Bounded inflation.] Keep $\varepsilon\le K^*-1$ via \eqref{eq:epsilon}, so $\Supply/P_{\mathrm{net}}\le\max(1,\varepsilon)\le K^*$ (Theorem~\ref{thm:stability}; Proposition~\ref{prop:genstab} quantifies the degradation from undetected fraud). A smaller $K^*$ tightens the money-to-value ratio. Default $K^*=1.5$.
-\item[Non-declining price.] Require external revenue $\lambda_{\mathrm{rev}}\ge(\mathrm{EmissionRate}\cdot P-\lambda_{\mathrm{inv}})/\mu$; the price then tends to $(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/\mathrm{EmissionRate}$ (Propositions~\ref{prop:survival} and~\ref{prop:longrun}). The multiplier $\mu=12$ and the investment inflow are the levers.
+\item[Bounded inflation.] Keep $K^*\ge\max(1,\varepsilon_{\max})$, so $\Supply/P_{\mathrm{net}}\le\max(1,\varepsilon_{\max})\le K^*$ on the credit-originated supply (Theorem~\ref{thm:stability}; Proposition~\ref{prop:genstab} quantifies the degradation from undetected fraud). A smaller $K^*$ tightens the money-to-value ratio via \eqref{eq:epsilon}. Defaults $K^*=1.5$, $\varepsilon_{\max}=0.95$.
+\item[Non-declining price.] Require external-revenue \emph{growth} $\lambda_{\mathrm{rev}}\ge(\mathrm{EmissionRate}\cdot P-\lambda_{\mathrm{inv}})/\mu$; the price then tends to $(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/\mathrm{EmissionRate}$ (Propositions~\ref{prop:survival} and~\ref{prop:longrun}). The multiplier $\mu=12$ and the investment inflow are the levers.
 \item[Fund solvency under a run.] The discount engages at coverage $\rho<\rho^*$ and keeps $F=F_0(S/S_0)^{1/\rho^*}>0$ for all $S>0$ (Theorem~\ref{thm:norun}); the emission ceiling $\Delta S_{\max}=(F-F_{\min})/P_{\mathrm{target}}$ preserves buy-back capacity. Default $\rho^*=0.3$.
-\item[Bounded single-agent exposure.] The credit limit $L(r)=100\,(1+0.5\ln(1+r))$ caps any one member's default loss (I4): at most ${\approx}561~\V$ even at $\R=10^4$.
-\item[Gated emission.] Mint only when $\confidence(\tau)\ge\theta_{\min}$ (I2). Default $\theta_{\min}=0.6$.
-\item[Capital and Sybil resistance.] Vote by $\sqrt{\R}$ with $\R$ soulbound under a dual quorum $\theta$; capital buys no votes, and $q$ votes cost $q^2/r_0$ genuine accounts (Proposition~\ref{prop:sybil}). Defaults $\theta=0.5$ ($0.66$ for constitutional changes).
+\item[Bounded single-agent exposure.] The credit limit $L(r)=100\,(1+0.5\ln(1+r))$ caps any one member's default loss (I4): at most ${\approx}561~\V$ even at $r=10^4$.
+\item[Gated emission.] Mint unbacked $\V$ only when $\confidence(\tau)\ge\theta_{\min}$ (I2). Default $\theta_{\min}=0.6$.
+\item[Capital and Sybil resistance.] Vote by $\sqrt{\R}$ with $\R$ soulbound under a dual quorum $\theta$; capital buys no reputation votes, a reputation majority costs $Q/\sqrt{r_0}$ screened, continuously active identities, and the stake quorum must be won separately---capture requires paying both costs (Proposition~\ref{prop:sybil}). Defaults $\theta=0.5$ ($0.66$ for constitutional changes).
 \item[Fraud deterrence.] Ensure the per-cluster forfeitable stake $\Lambda\ge\bar N/\ln(1/(1-a))\approx\bar N/a$ (Theorem~\ref{thm:deter}). The levers are the audit rate $a$, the lock-up $\tau_{\mathrm{lock}}$, and required collateral. \emph{The illustrative defaults ($a=0.03$, $\bar N=50$, $\Lambda=300~\V$) fall short of the threshold ($\approx1642~\V$) and must be strengthened.}
 \end{description}
 
@@ -568,7 +574,7 @@ Of the illustrative defaults only the fraud-stake condition is unmet; the struct
 
 \subsection{Method}
 
-We implemented the full mechanism as a deterministic agent-based simulator with an injected, seeded pseudo-random source, so that a seed reproduces a run bit-for-bit. Stability is graded by five criteria (V2): (C1) price does not reach zero; (C2) fund coverage $\rho \ge 0.05$ on at least $95\%$ of ticks; (C3) at most $20\%$ of members frozen; (C4) non-negative supply; (C5) invariants clean. We report (C1)--(C4) as \emph{economically stable} separately from (C5), because the (I3) bookkeeping check---the implementation's stricter, confidence-weighted variant of (I3)---has a known drift during the auto-repay/escrow-distribution lifecycle. The protocol comprises: reproduction of reference scenarios (V1); Monte~Carlo over $4$ scenarios $\times\ 30$ seeds (V3); a $192$-point sweep over $(K^*,\mu,\delta^*,\rho^*)$ (V4); combined-attack stress tests (V5); and regime analysis (V6).
+We implemented the full mechanism as a deterministic agent-based simulator with an injected, seeded pseudo-random source, so that a seed reproduces a run bit-for-bit. Stability is graded by five criteria (protocol step V2): (C1) price does not reach zero; (C2) fund coverage $\rho \ge 0.05$ on at least $95\%$ of ticks; (C3) at most $20\%$ of members frozen; (C4) non-negative supply; (C5) invariants clean. We report (C1)--(C4) as \emph{economically stable} separately from (C5), because the (I3) bookkeeping check---the implementation's stricter, confidence-weighted variant of (I3)---has a known drift during the auto-repay/escrow-distribution lifecycle. The protocol comprises: reproduction of reference scenarios (V1); Monte~Carlo over $4$ scenarios $\times\ 30$ seeds (V3); a $192$-point sweep over $(K^*,\mu,\delta^*,\rho^*)$ (V4); combined-attack stress tests (V5); and regime analysis (V6).
 
 \subsection{Results}
 
@@ -593,11 +599,11 @@ Total & $315$ & $0$\\
 
 \section{Limitations}\label{sec:limitations}
 
-Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation and political organization by real participants are out of scope; the optimal fraud over independently-detected clusters is characterized in Theorem~\ref{thm:deter}, but a fully coordinated adversary (correlating clusters to defeat monitoring) and dynamic timing are not tested empirically. A further strategic gap concerns pricing itself: the auto-score \eqref{eq:autoscore} anchors to the category's rolling price distribution, so a coordinated, gradual drift of declared prices---each step within $|z|\le1$---could shift the reference mean $\mu_c$ over time without ever triggering review. Concentration monitoring and the stochastic audit narrow this channel but the paper does not model such collusive drift. Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
+Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation and political organization by real participants are out of scope; the optimal fraud over independently detected clusters is characterized in Theorem~\ref{thm:deter}, but a fully coordinated adversary (correlating clusters to defeat monitoring) and dynamic timing are not tested empirically. A further strategic gap concerns pricing itself: the auto-score \eqref{eq:autoscore} anchors to the category's rolling price distribution, so a coordinated, gradual drift of declared prices---each step within $|z|\le1$---could shift the reference mean $\mu_c$ over time without ever triggering review. Concentration monitoring and the stochastic audit narrow this channel but the paper does not model such collusive drift. Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
 
 \section{Conclusion}
 
-Kredo demonstrates that a coherent ethical stance---reward for creation, symmetry of fate, transparency, and power from contribution---can be compiled into a precise mechanism whose intended properties are provable and machine-checkable. The compensatory-emission coefficient bounds inflation under defaults, fund operations are price-neutral and the fund survives any partial run, governance resists both capital and Sybil capture, fraud at scale is loss-making once the forfeitable stake reaches the derived threshold, and a minimal external-revenue condition governs survival. A deterministic simulator corroborates structural resilience across $315$ runs. The open release invites replication, adversarial analysis, and extension toward a small live deployment.
+Kredo demonstrates that a coherent ethical stance---reward for creation, symmetry of fate, transparency, and power from contribution---can be compiled into a precise mechanism whose intended properties are provable and machine-checkable. The compensatory-emission coefficient bounds inflation under defaults, fund operations are price-neutral and the fund survives any partial run, governance capture requires winning both the reputation and the stake quorum, large frauds are strictly loss-making and beyond the derived stake threshold even the optimal adaptive fraud is unprofitable, and a minimal external-revenue-growth condition governs survival. A deterministic simulator corroborates structural resilience across $315$ runs. The open release invites replication, adversarial analysis, and extension toward a small live deployment.
 
 \section*{Data and code availability}
 

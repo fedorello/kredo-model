@@ -262,7 +262,7 @@ For instance, at $S = 10^5$, $P = 1$, $\mu = 12$, emission $5000~\V/\text{month}
 
 \section{Further theoretical results}\label{sec:further}
 
-The results below strengthen Theorem~\ref{thm:stability} by removing its remediation hypothesis, characterize the long-run price, show that the discounted-withdrawal rule cannot exhaust the fund except in the limit of complete exit, and give a sufficient condition under which fraud is unprofitable.
+The results below strengthen Theorem~\ref{thm:stability} by removing its remediation hypothesis, characterize the long-run price, show that the discounted-withdrawal rule cannot exhaust the fund except in the limit of complete exit, and prove that fraud is unprofitable at scale.
 
 \subsection{Stability without the remediation hypothesis}
 
@@ -316,25 +316,84 @@ Let $x$ index the amount of $\V$ converted, so $dS/dx=-1$. In the discounted reg
 Because the payout $P_{\mathrm{actual}}=F/(\rho^*S)$ falls with $F$, a holder's marginal proceeds vanish as the run deepens, removing the incentive to keep converting; with the theorem, this is the mechanism's structural answer to a panic.
 \end{remark}
 
-\subsection{Unprofitability of fraud (a sufficient condition)}
+\subsection{Unprofitability of fraud at scale}
 
-\begin{proposition}[Fraud unprofitability]\label{prop:fraud}
-Consider a fraudulent cluster that nets $W>0$ if it converts extracted value to USDC before detection, but forfeits stake $L>0$ (burned balances and reputation) if detected first. Suppose detection occurs independently each period with probability at least $p$, and new accounts cannot convert during a lock-up of $\tau_{\mathrm{lock}}$ periods. Then the expected profit satisfies
+A wash-trading fraud cannot extract value without executing fake transactions, each exposed to the audit, which makes the detection probability \emph{endogenous} to the size of the theft.
+
+\begin{theorem}[Fraud is unprofitable at scale]\label{thm:fraud}
+Suppose extracting value $W>0$ requires at least $n=\lceil W/\bar N\rceil$ wash trades ($\bar N$ the mean transaction size), each audited independently with probability $a>0$; that new balances cannot be converted during a lock-up of $\tau_{\mathrm{lock}}$ periods, over which detection has per-period probability at least $p$; and that a detected cluster forfeits stake $L>0$ (burned balances, genesis grant, and reputation). Writing
 \[
-\mathbb{E}[\pi]\ \le\ (1-p)^{\tau_{\mathrm{lock}}}\,W-\bigl(1-(1-p)^{\tau_{\mathrm{lock}}}\bigr)L,
+q(W)=(1-a)^{W/\bar N}\,(1-p)^{\tau_{\mathrm{lock}}}
 \]
-which is non-positive whenever $(1-p)^{\tau_{\mathrm{lock}}}\le L/(W+L)$.
-\end{proposition}
+for the probability of reaching conversion undetected, the expected profit satisfies
+\[
+\mathbb{E}[\pi]\ \le\ q(W)\,W-\bigl(1-q(W)\bigr)L .
+\]
+Consequently \textup{(i)} $\mathbb{E}[\pi]<0$ whenever $q(W)<L/(W+L)$; and \textup{(ii)} since $q(W)\,W\to0$ as $W\to\infty$, $\mathbb{E}[\pi]\to-L$, so every sufficiently large fraud is strictly loss-making.
+\end{theorem}
 
 \begin{proof}
-No conversion is possible before $\tau_{\mathrm{lock}}$, so extracting $W$ requires surviving undetected for at least $\tau_{\mathrm{lock}}$ periods, an event of probability at most $(1-p)^{\tau_{\mathrm{lock}}}$. Bounding the gain by $W$ on that event and the loss by $L$ on its complement gives the inequality; requiring $\mathbb{E}[\pi]\le0$ and solving yields $(1-p)^{\tau_{\mathrm{lock}}}\le L/(W+L)$.
+Extracting $W$ needs $n\ge W/\bar N$ wash trades; escaping every audit has probability $(1-a)^n\le(1-a)^{W/\bar N}$, and escaping detection through the lock-up has probability at most $(1-p)^{\tau_{\mathrm{lock}}}$, so converting undetected has probability at most $q(W)$. Bounding the gain by $W$ on that event and the loss by $L$ on its complement gives the inequality. Part~(i) is a rearrangement. For~(ii), $(1-a)^{W/\bar N}W\to0$ since an exponential in $W$ dominates a linear one, whence $q(W)W\to0$ and $\mathbb{E}[\pi]\to-L$.
 \end{proof}
 
 \begin{remark}
-With the default lock-up ($\tau_{\mathrm{lock}}=60$ days) and any non-negligible per-period detection hazard from the $3\%$ stochastic audit and the concentration monitoring of Section~\ref{sec:confidence}, the threshold holds for realistic $W/L$: the lock-up forces the attacker to hold an unbacked, detectable position long enough that detection dominates. A full game-theoretic optimum over adaptive strategies remains open (Section~\ref{sec:limitations}).
+Detection is therefore endogenous: a larger theft demands more fake transactions, each an independent chance of exposure, so the survival probability decays exponentially in the amount stolen while the prize grows only linearly. The lock-up forces the attacker to hold the unbacked position while this hazard accrues. A full game-theoretic optimum over adaptive strategies (e.g.\ splitting the theft across many slow clusters) remains open (Section~\ref{sec:limitations}).
 \end{remark}
 
-\section{Empirical validation}
+\section{Numerical illustration}\label{sec:numeric}
+
+We instantiate the closed-form results with the paper's default parameters; the deterministic simulator of Section~\ref{sec:empirical} reproduces the same qualitative behavior across its $315$ runs.
+
+\paragraph{Long-run price (Proposition~\ref{prop:longrun}).} With $\mu=12$, net emission $e=5000~\V/\text{month}$, investment $\lambda_{\mathrm{inv}}=2000~\text{USDC}/\text{month}$ and initial price $P_0=1$, the limit $g/e=(\lambda_{\mathrm{inv}}+\mu\lambda_{\mathrm{rev}})/e$ maps external revenue directly onto the three regimes (Table~\ref{tab:price}): the stable case reproduces the survival threshold $\lambda_{\mathrm{rev}}=250$ exactly.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+$\lambda_{\mathrm{rev}}$ (USDC/mo) & $0$ & $250$ & $500$\\
+\midrule
+limit $g/e$ (USDC/$\V$) & $0.40$ & $1.00$ & $1.60$\\
+regime & C (falling) & B (stable) & A (growth)\\
+\bottomrule
+\end{tabular}
+\caption{Long-run price versus external revenue.}
+\label{tab:price}
+\end{table}
+
+\paragraph{Fund non-exhaustion (Theorem~\ref{thm:norun}).} With $\rho^*=0.3$ the closed form $F/F_0=(S/S_0)^{1/\rho^*}$ leaves the fund strictly positive at every level of exit (Table~\ref{tab:fund}); even a $90\%$ simultaneous exit leaves it nonzero.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+Exit & $10\%$ & $30\%$ & $50\%$ & $70\%$ & $90\%$\\
+\midrule
+$S/S_0$ & $0.90$ & $0.70$ & $0.50$ & $0.30$ & $0.10$\\
+$F/F_0$ & $70.4\%$ & $30.5\%$ & $9.9\%$ & $1.8\%$ & $0.05\%$\\
+\bottomrule
+\end{tabular}
+\caption{Fund coverage retained after a simultaneous exit.}
+\label{tab:fund}
+\end{table}
+
+\paragraph{Unprofitability at scale (Theorem~\ref{thm:fraud}).} With per-transaction audit $a=0.03$, mean size $\bar N=50~\V$ and stake $L=300~\V$, the audit factor $(1-a)^{W/\bar N}$ alone pushes the expected-profit bound below zero once the theft is large (Table~\ref{tab:fraud}); the lock-up factor $(1-p)^{\tau_{\mathrm{lock}}}$ only lowers it further.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+$W$ ($\V$) & $500$ & $1000$ & $2500$ & $5000$ & $10000$\\
+\midrule
+wash trades $n$ & $10$ & $20$ & $50$ & $100$ & $200$\\
+survive audit $q$ & $73.7\%$ & $54.4\%$ & $21.8\%$ & $4.8\%$ & $0.2\%$\\
+$\mathbb{E}[\pi]$ bound ($\V$) & $290$ & $407$ & $311$ & $-48$ & $-277$\\
+\bottomrule
+\end{tabular}
+\caption{Fraud expected-profit bound (audit factor only); it turns negative and tends to $-L$ as the theft grows.}
+\label{tab:fraud}
+\end{table}
+
+\section{Empirical validation}\label{sec:empirical}
 
 \subsection{Method}
 

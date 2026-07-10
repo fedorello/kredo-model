@@ -128,6 +128,37 @@ class ClubParameters(BaseModel):
     audit_rate: Decimal = Decimal("0.03")
     """Fraction of transactions sampled for stochastic audit."""
 
+    # ---- v2: fraud deterrence — dynamic lock-up & audit escalation ------
+    lockup_per_v: Decimal = Decimal("0")
+    """w — extra conversion lock-up days per 1 V of a fresh conversion:
+    ``τ_lock(W) = τ0 + w·W`` (improvements/04). ``0`` (default) keeps the
+    constant lock-up, so legacy runs are unchanged. With ``w > 0``, large
+    conversions of freshly acquired balance vest in tranches, so a fraud
+    cluster must hold an unbacked position longer — the survival probability
+    decays as ``e^{−β'W}`` with ``β' = β + w·ln(1/(1−p))``, pushing even the
+    optimal adaptive fraud below zero at the default stake."""
+    audit_rate_flagged: Decimal = Decimal("0.30")
+    """Audit rate applied to a cluster flagged by concentration monitoring.
+    At 0.30, ``1/β_flag = N̄/ln(1/(1−0.30)) ≈ 140 V < Λ`` — the deterrence
+    threshold is met outright once a cluster is flagged (improvements/04)."""
+
+    # ---- v2: revenue-backed emission (currency board) -------------------
+    emission_budget_share: Decimal = Decimal("0")
+    """η — share of external revenue that funds new credit emission.
+
+    Kredo v2, improvements/01. When 0 (default) the feature is OFF and
+    emission is unconstrained — every legacy scenario behaves exactly as
+    before. When η > 0, each unit of external revenue adds
+    ``η · amount / P_target`` V to a rolling emission budget; a credit
+    emission that would exceed the remaining budget is refused. This makes
+    the money supply endogenous to realised earnings: no sales → no fresh
+    budget → the falling regime degrades into a *slowdown* (price holds
+    near ``λ_inv / e``) instead of a collapse. The survival analysis
+    requires ``η ≤ s`` where ``s = quarterly_to_fund`` is the retention
+    share (see improvements/01-retention-channel.md)."""
+    emission_price_target: V = Field(default_factory=lambda: V(1))
+    """P_target — reference price converting revenue (USDC) into V budget."""
+
     # ---- distribution smoothing -----------------------------------------
     xi: V = Field(default_factory=lambda: V(1))
     """Smoothing constant in escrow distribution shares."""
@@ -144,6 +175,22 @@ class ClubParameters(BaseModel):
     gamma_default_per_v: Decimal = Decimal("0.1")
     """R burned per 1 V of defaulted principal."""
     gamma_fraud: Decimal = Decimal("100.0")
+
+    # ---- v2: reputation decay & Sybil defense (improvements/03) ----------
+    reputation_half_life_days: int | None = None
+    """T½ for inactivity decay: r(t) = r₀·2^(−Δt_inactive/T½).
+
+    ``None`` (default) disables decay — every legacy run is bit-identical.
+    Set to 180 for v2. Forces a Sybil fleet to sustain genuine activity on
+    every account or watch its reputation (and votes) melt away."""
+    reputation_decay_grace_days: int = 30
+    """Inactivity tolerated before decay starts (illness, holiday)."""
+    vote_diversity_floor: Decimal = Decimal("0.2")
+    """d_min in the diversity-weighted vote √R·D, D = max(d_min, 1 − HHI).
+
+    A member whose trade is concentrated on few counterparties (a wash
+    cluster) has HHI → 1, so D → d_min: its votes are scaled down to 20 %.
+    Honest members trading broadly keep D ≈ 1."""
 
     # ---- quarterly profit distribution (50 / 30 / 15 / 5) ---------------
     quarterly_to_fund: Decimal = Decimal("0.50")
@@ -170,7 +217,17 @@ class ClubParameters(BaseModel):
             raise ValueError(f"must be positive, got {value}")
         return value
 
-    @field_validator("delta_target", "audit_rate", "rho_min", "epsilon_max")
+    @field_validator("lockup_per_v")
+    @classmethod
+    def _non_negative_decimal(cls, value: Decimal) -> Decimal:
+        if value < 0:
+            raise ValueError(f"lockup_per_v must be >= 0, got {value}")
+        return value
+
+    @field_validator(
+        "delta_target", "audit_rate", "rho_min", "epsilon_max", "emission_budget_share",
+        "audit_rate_flagged",
+    )
     @classmethod
     def _share(cls, value: Decimal) -> Decimal:
         if value < 0 or value > 1:
@@ -191,6 +248,27 @@ class ClubParameters(BaseModel):
             raise ValueError(f"days must be > 0, got {value}")
         return value
 
+    @field_validator("reputation_half_life_days")
+    @classmethod
+    def _positive_or_none(cls, value: int | None) -> int | None:
+        if value is not None and value <= 0:
+            raise ValueError(f"reputation_half_life_days must be > 0 or None, got {value}")
+        return value
+
+    @field_validator("reputation_decay_grace_days")
+    @classmethod
+    def _non_negative_int(cls, value: int) -> int:
+        if value < 0:
+            raise ValueError(f"grace days must be >= 0, got {value}")
+        return value
+
+    @field_validator("vote_diversity_floor")
+    @classmethod
+    def _floor_in_unit(cls, value: Decimal) -> Decimal:
+        if value < 0 or value > 1:
+            raise ValueError(f"vote_diversity_floor must lie in [0, 1], got {value}")
+        return value
+
     @model_validator(mode="after")
     def _consistency(self) -> ClubParameters:
         total = (
@@ -205,4 +283,13 @@ class ClubParameters(BaseModel):
             raise ValueError(f"activity bounds invalid: [{self.activity_min}, {self.activity_max}]")
         if not self.categories:
             raise ValueError("at least one category must be configured")
+        # v2 currency board: emission cannot outrun retention (η ≤ s).
+        if self.emission_budget_share > 0:
+            if self.emission_budget_share > self.quarterly_to_fund:
+                raise ValueError(
+                    f"emission_budget_share (η={self.emission_budget_share}) must not exceed "
+                    f"the retention share s=quarterly_to_fund ({self.quarterly_to_fund})"
+                )
+            if not self.emission_price_target.is_positive():
+                raise ValueError("emission_price_target must be positive when η > 0")
         return self

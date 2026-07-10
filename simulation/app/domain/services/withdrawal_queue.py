@@ -23,6 +23,7 @@ from __future__ import annotations
 from decimal import Decimal
 
 from app.domain.parameters import ClubParameters
+from app.domain.value_objects import V
 
 _MAX_DELAY_DAYS = 30
 
@@ -45,3 +46,13 @@ class WithdrawalQueueService:
 
     def execute_at(self, coverage: Decimal, requested_at: int) -> int:
         return requested_at + self.delay_days(coverage)
+
+    def vesting_days(self, amount: V) -> int:
+        """Kredo v2 (improvements/04): extra lock-up ``w·W`` for a fresh
+        conversion of size ``amount``. Larger conversions of recently
+        acquired balance vest over more days, so fraud proceeds stay locked
+        while the audit hazard accrues. Returns 0 when ``w = 0``."""
+        w = self._params.lockup_per_v
+        if w <= 0 or not amount.is_positive():
+            return 0
+        return int((w * amount.root).to_integral_value())

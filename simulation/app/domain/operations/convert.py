@@ -65,6 +65,23 @@ class ConvertOperation:
                     ),
                 ),
             )
+        # v2 dynamic vesting (improvements/04): a large conversion of freshly
+        # acquired balance must vest τ0 + w·W days since last activity, so a
+        # fraud cluster holds its unbacked position through the audit hazard.
+        vesting = WithdrawalQueueService(state.parameters).vesting_days(command.amount)
+        if vesting > 0 and member.last_active_tick is not None:
+            vested_at = member.last_active_tick + vesting
+            if state.tick < vested_at:
+                return OperationResult.fail(
+                    state,
+                    OperationError(
+                        code=ErrorCode.LOCK_UP_ACTIVE,
+                        message=(
+                            f"conversion vesting active until tick {vested_at} "
+                            f"(w·W={vesting}d); current tick {state.tick}"
+                        ),
+                    ),
+                )
         if not command.amount.is_positive():
             return OperationResult.fail(
                 state,

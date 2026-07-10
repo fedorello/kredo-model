@@ -1,0 +1,18 @@
+{
+  "kappa": "1.5",
+  "sigma_long": "10",
+  "v_star_per_day": "0.1090909090909090909090909091",
+  "slow_drift_half_v_star": {
+    "drift_per_day": "0.0545",
+    "flagged": false,
+    "steady_state_separation": "7.49375",
+    "days_to_double_price": "1834.862385321100917431192661"
+  },
+  "fast_drift_double_v_star": {
+    "drift_per_day": "0.2182",
+    "flagged": true,
+    "steady_state_separation": "30.00250",
+    "days_to_double_price": "458.2951420714940421631530706"
+  },
+  "cusum_flag_on_slow_drift": true
+}

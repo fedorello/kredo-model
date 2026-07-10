@@ -99,6 +99,21 @@ class TransactOperation:
                 ),
             )
 
+        # v2 currency board (improvements/01): when η > 0, credit emission is
+        # capped by the revenue-backed budget. A transaction that needs more
+        # fresh credit than the budget allows is refused, so supply growth
+        # cannot outrun realised revenue.
+        if state.parameters.emission_budget_share > 0 and n_credit > state.emission_budget:
+            return OperationResult.fail(
+                state,
+                OperationError(
+                    code=ErrorCode.EMISSION_BUDGET_EXCEEDED,
+                    message=(
+                        f"credit {n_credit} exceeds emission budget {state.emission_budget}"
+                    ),
+                ),
+            )
+
         # Step 5: auto-repay actor's open loans, release escrow. The
         # outcome already contains an actor with the full incoming amount
         # added to balance — see _apply_repayments docstring.
@@ -134,12 +149,14 @@ class TransactOperation:
                 escrow_reserved=escrow_amount,
                 state=LoanState.OPEN,
             )
-            state = state.model_copy(
-                update={
-                    "loans": {**state.loans, new_loan_id_value: loan},
-                    "escrow": DistributionEscrow(total=state.escrow.total + escrow_amount),
-                }
-            )
+            loan_update = {
+                "loans": {**state.loans, new_loan_id_value: loan},
+                "escrow": DistributionEscrow(total=state.escrow.total + escrow_amount),
+            }
+            # v2: draw the emitted credit down from the revenue-backed budget.
+            if state.parameters.emission_budget_share > 0:
+                loan_update["emission_budget"] = state.emission_budget - n_credit
+            state = state.model_copy(update=loan_update)
             new_loan_event = LoanOpened(
                 loan_id=new_loan_id_value,
                 borrower=receiver.id,
@@ -313,12 +330,14 @@ def _accrue_reputation_and_record(
             "reputation": actor.reputation.add(rep_service.for_actor_transaction(confidence)),
             "turnover_90d": actor.turnover_90d + command.amount,
             "cumulative_contribution": actor.cumulative_contribution + command.amount,
+            "last_active_tick": state.tick,
         }
     )
     new_receiver = receiver.model_copy(
         update={
             "reputation": receiver.reputation.add(rep_service.for_receiver_transaction(confidence)),
             "turnover_90d": receiver.turnover_90d + command.amount,
+            "last_active_tick": state.tick,
         }
     )
     record = TransactionRecord(

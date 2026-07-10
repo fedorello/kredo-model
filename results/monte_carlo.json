@@ -9,7 +9,7 @@
       "price_p50": "0.20303104",
       "price_min": "0.19576449",
       "price_max": "0.20840886",
-      "median_elapsed_s": 0.4745,
+      "median_elapsed_s": 0.567,
       "failure_modes": {
         "C5": 13
       }
@@ -23,7 +23,7 @@
       "price_p50": "4.625489605",
       "price_min": "4.34707711",
       "price_max": "4.99277732",
-      "median_elapsed_s": 1.0234999999999999,
+      "median_elapsed_s": 1.1785,
       "failure_modes": {
         "C5": 23
       }
@@ -37,7 +37,7 @@
       "price_p50": "6.739138795",
       "price_min": "6.32070133",
       "price_max": "7.02703120",
-      "median_elapsed_s": 0.302,
+      "median_elapsed_s": 0.353,
       "failure_modes": {}
     },
     "bank_run": {
@@ -49,7 +49,7 @@
       "price_p50": "8.91487541",
       "price_min": "8.91487541",
       "price_max": "8.91487541",
-      "median_elapsed_s": 0.3045,
+      "median_elapsed_s": 0.357,
       "failure_modes": {
         "C5": 30
       }
@@ -60,7 +60,7 @@
       "scenario": "normal_growth",
       "seed": 1,
       "ticks": 60,
-      "elapsed_s": 0.452,
+      "elapsed_s": 0.537,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -78,7 +78,7 @@
       "scenario": "normal_growth",
       "seed": 2,
       "ticks": 60,
-      "elapsed_s": 0.42,
+      "elapsed_s": 0.495,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -96,7 +96,7 @@
       "scenario": "normal_growth",
       "seed": 3,
       "ticks": 60,
-      "elapsed_s": 0.468,
+      "elapsed_s": 0.556,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -114,7 +114,7 @@
       "scenario": "normal_growth",
       "seed": 4,
       "ticks": 60,
-      "elapsed_s": 0.502,
+      "elapsed_s": 0.595,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -132,7 +132,7 @@
       "scenario": "normal_growth",
       "seed": 5,
       "ticks": 60,
-      "elapsed_s": 0.497,
+      "elapsed_s": 0.595,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -150,7 +150,7 @@
       "scenario": "normal_growth",
       "seed": 6,
       "ticks": 60,
-      "elapsed_s": 0.433,
+      "elapsed_s": 0.523,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -168,7 +168,7 @@
       "scenario": "normal_growth",
       "seed": 7,
       "ticks": 60,
-      "elapsed_s": 0.492,
+      "elapsed_s": 0.583,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -186,7 +186,7 @@
       "scenario": "normal_growth",
       "seed": 8,
       "ticks": 60,
-      "elapsed_s": 0.504,
+      "elapsed_s": 0.598,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -202,7 +202,7 @@
       "scenario": "normal_growth",
       "seed": 9,
       "ticks": 60,
-      "elapsed_s": 0.481,
+      "elapsed_s": 0.572,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -220,7 +220,7 @@
       "scenario": "normal_growth",
       "seed": 10,
       "ticks": 60,
-      "elapsed_s": 0.449,
+      "elapsed_s": 0.534,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -238,7 +238,7 @@
       "scenario": "normal_growth",
       "seed": 11,
       "ticks": 60,
-      "elapsed_s": 0.46,
+      "elapsed_s": 0.55,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -256,7 +256,7 @@
       "scenario": "normal_growth",
       "seed": 12,
       "ticks": 60,
-      "elapsed_s": 0.453,
+      "elapsed_s": 0.547,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -272,7 +272,7 @@
       "scenario": "normal_growth",
       "seed": 13,
       "ticks": 60,
-      "elapsed_s": 0.492,
+      "elapsed_s": 0.583,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -288,7 +288,7 @@
       "scenario": "normal_growth",
       "seed": 14,
       "ticks": 60,
-      "elapsed_s": 0.483,
+      "elapsed_s": 0.57,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -304,7 +304,7 @@
       "scenario": "normal_growth",
       "seed": 15,
       "ticks": 60,
-      "elapsed_s": 0.486,
+      "elapsed_s": 0.578,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -320,7 +320,7 @@
       "scenario": "normal_growth",
       "seed": 16,
       "ticks": 60,
-      "elapsed_s": 0.524,
+      "elapsed_s": 0.621,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -336,7 +336,7 @@
       "scenario": "normal_growth",
       "seed": 17,
       "ticks": 60,
-      "elapsed_s": 0.493,
+      "elapsed_s": 0.582,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -352,7 +352,7 @@
       "scenario": "normal_growth",
       "seed": 18,
       "ticks": 60,
-      "elapsed_s": 0.474,
+      "elapsed_s": 0.564,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -368,7 +368,7 @@
       "scenario": "normal_growth",
       "seed": 19,
       "ticks": 60,
-      "elapsed_s": 0.441,
+      "elapsed_s": 0.52,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -386,7 +386,7 @@
       "scenario": "normal_growth",
       "seed": 20,
       "ticks": 60,
-      "elapsed_s": 0.527,
+      "elapsed_s": 0.631,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -402,7 +402,7 @@
       "scenario": "normal_growth",
       "seed": 21,
       "ticks": 60,
-      "elapsed_s": 0.493,
+      "elapsed_s": 0.588,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -418,7 +418,7 @@
       "scenario": "normal_growth",
       "seed": 22,
       "ticks": 60,
-      "elapsed_s": 0.442,
+      "elapsed_s": 0.519,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -434,7 +434,7 @@
       "scenario": "normal_growth",
       "seed": 23,
       "ticks": 60,
-      "elapsed_s": 0.46,
+      "elapsed_s": 0.54,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -452,7 +452,7 @@
       "scenario": "normal_growth",
       "seed": 24,
       "ticks": 60,
-      "elapsed_s": 0.475,
+      "elapsed_s": 0.576,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -468,7 +468,7 @@
       "scenario": "normal_growth",
       "seed": 25,
       "ticks": 60,
-      "elapsed_s": 0.456,
+      "elapsed_s": 0.543,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -484,7 +484,7 @@
       "scenario": "normal_growth",
       "seed": 26,
       "ticks": 60,
-      "elapsed_s": 0.45,
+      "elapsed_s": 0.529,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -500,7 +500,7 @@
       "scenario": "normal_growth",
       "seed": 27,
       "ticks": 60,
-      "elapsed_s": 0.473,
+      "elapsed_s": 0.553,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -516,7 +516,7 @@
       "scenario": "normal_growth",
       "seed": 28,
       "ticks": 60,
-      "elapsed_s": 0.526,
+      "elapsed_s": 0.616,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -532,7 +532,7 @@
       "scenario": "normal_growth",
       "seed": 29,
       "ticks": 60,
-      "elapsed_s": 0.47,
+      "elapsed_s": 0.554,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -550,7 +550,7 @@
       "scenario": "normal_growth",
       "seed": 30,
       "ticks": 60,
-      "elapsed_s": 0.509,
+      "elapsed_s": 0.607,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -566,7 +566,7 @@
       "scenario": "mature_steady",
       "seed": 1,
       "ticks": 60,
-      "elapsed_s": 0.907,
+      "elapsed_s": 1.234,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -582,7 +582,7 @@
       "scenario": "mature_steady",
       "seed": 2,
       "ticks": 60,
-      "elapsed_s": 0.971,
+      "elapsed_s": 1.179,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -600,7 +600,7 @@
       "scenario": "mature_steady",
       "seed": 3,
       "ticks": 60,
-      "elapsed_s": 1.04,
+      "elapsed_s": 1.311,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -618,7 +618,7 @@
       "scenario": "mature_steady",
       "seed": 4,
       "ticks": 60,
-      "elapsed_s": 1.016,
+      "elapsed_s": 1.193,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -636,7 +636,7 @@
       "scenario": "mature_steady",
       "seed": 5,
       "ticks": 60,
-      "elapsed_s": 1.001,
+      "elapsed_s": 1.169,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -654,7 +654,7 @@
       "scenario": "mature_steady",
       "seed": 6,
       "ticks": 60,
-      "elapsed_s": 1.015,
+      "elapsed_s": 1.189,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -672,7 +672,7 @@
       "scenario": "mature_steady",
       "seed": 7,
       "ticks": 60,
-      "elapsed_s": 1.015,
+      "elapsed_s": 1.18,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -690,7 +690,7 @@
       "scenario": "mature_steady",
       "seed": 8,
       "ticks": 60,
-      "elapsed_s": 1.03,
+      "elapsed_s": 1.154,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -708,7 +708,7 @@
       "scenario": "mature_steady",
       "seed": 9,
       "ticks": 60,
-      "elapsed_s": 1.067,
+      "elapsed_s": 1.194,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -726,7 +726,7 @@
       "scenario": "mature_steady",
       "seed": 10,
       "ticks": 60,
-      "elapsed_s": 1.024,
+      "elapsed_s": 1.143,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -744,7 +744,7 @@
       "scenario": "mature_steady",
       "seed": 11,
       "ticks": 60,
-      "elapsed_s": 1.036,
+      "elapsed_s": 1.156,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -762,7 +762,7 @@
       "scenario": "mature_steady",
       "seed": 12,
       "ticks": 60,
-      "elapsed_s": 1.037,
+      "elapsed_s": 1.183,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -780,7 +780,7 @@
       "scenario": "mature_steady",
       "seed": 13,
       "ticks": 60,
-      "elapsed_s": 1.05,
+      "elapsed_s": 1.182,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -798,7 +798,7 @@
       "scenario": "mature_steady",
       "seed": 14,
       "ticks": 60,
-      "elapsed_s": 1.007,
+      "elapsed_s": 1.129,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -814,7 +814,7 @@
       "scenario": "mature_steady",
       "seed": 15,
       "ticks": 60,
-      "elapsed_s": 0.993,
+      "elapsed_s": 1.112,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -830,7 +830,7 @@
       "scenario": "mature_steady",
       "seed": 16,
       "ticks": 60,
-      "elapsed_s": 1.029,
+      "elapsed_s": 1.177,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -848,7 +848,7 @@
       "scenario": "mature_steady",
       "seed": 17,
       "ticks": 60,
-      "elapsed_s": 1.003,
+      "elapsed_s": 1.178,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -864,7 +864,7 @@
       "scenario": "mature_steady",
       "seed": 18,
       "ticks": 60,
-      "elapsed_s": 1.064,
+      "elapsed_s": 1.252,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -882,7 +882,7 @@
       "scenario": "mature_steady",
       "seed": 19,
       "ticks": 60,
-      "elapsed_s": 1.023,
+      "elapsed_s": 1.168,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -900,7 +900,7 @@
       "scenario": "mature_steady",
       "seed": 20,
       "ticks": 60,
-      "elapsed_s": 1.013,
+      "elapsed_s": 1.154,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -918,7 +918,7 @@
       "scenario": "mature_steady",
       "seed": 21,
       "ticks": 60,
-      "elapsed_s": 1.015,
+      "elapsed_s": 1.154,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -934,7 +934,7 @@
       "scenario": "mature_steady",
       "seed": 22,
       "ticks": 60,
-      "elapsed_s": 1.094,
+      "elapsed_s": 1.243,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -952,7 +952,7 @@
       "scenario": "mature_steady",
       "seed": 23,
       "ticks": 60,
-      "elapsed_s": 1.006,
+      "elapsed_s": 1.154,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -970,7 +970,7 @@
       "scenario": "mature_steady",
       "seed": 24,
       "ticks": 60,
-      "elapsed_s": 1.021,
+      "elapsed_s": 1.167,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -988,7 +988,7 @@
       "scenario": "mature_steady",
       "seed": 25,
       "ticks": 60,
-      "elapsed_s": 1.028,
+      "elapsed_s": 1.175,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1006,7 +1006,7 @@
       "scenario": "mature_steady",
       "seed": 26,
       "ticks": 60,
-      "elapsed_s": 0.975,
+      "elapsed_s": 1.112,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1022,7 +1022,7 @@
       "scenario": "mature_steady",
       "seed": 27,
       "ticks": 60,
-      "elapsed_s": 1.039,
+      "elapsed_s": 1.19,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1040,7 +1040,7 @@
       "scenario": "mature_steady",
       "seed": 28,
       "ticks": 60,
-      "elapsed_s": 1.027,
+      "elapsed_s": 1.225,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1056,7 +1056,7 @@
       "scenario": "mature_steady",
       "seed": 29,
       "ticks": 60,
-      "elapsed_s": 1.029,
+      "elapsed_s": 1.201,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1074,7 +1074,7 @@
       "scenario": "mature_steady",
       "seed": 30,
       "ticks": 60,
-      "elapsed_s": 1.033,
+      "elapsed_s": 1.321,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1092,7 +1092,7 @@
       "scenario": "fraud_attack",
       "seed": 1,
       "ticks": 60,
-      "elapsed_s": 0.299,
+      "elapsed_s": 0.352,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1108,7 +1108,7 @@
       "scenario": "fraud_attack",
       "seed": 2,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.354,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1124,7 +1124,7 @@
       "scenario": "fraud_attack",
       "seed": 3,
       "ticks": 60,
-      "elapsed_s": 0.301,
+      "elapsed_s": 0.351,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1140,7 +1140,7 @@
       "scenario": "fraud_attack",
       "seed": 4,
       "ticks": 60,
-      "elapsed_s": 0.302,
+      "elapsed_s": 0.36,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1156,7 +1156,7 @@
       "scenario": "fraud_attack",
       "seed": 5,
       "ticks": 60,
-      "elapsed_s": 0.307,
+      "elapsed_s": 0.368,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1172,7 +1172,7 @@
       "scenario": "fraud_attack",
       "seed": 6,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.351,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1188,7 +1188,7 @@
       "scenario": "fraud_attack",
       "seed": 7,
       "ticks": 60,
-      "elapsed_s": 0.301,
+      "elapsed_s": 0.352,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1204,7 +1204,7 @@
       "scenario": "fraud_attack",
       "seed": 8,
       "ticks": 60,
-      "elapsed_s": 0.304,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1220,7 +1220,7 @@
       "scenario": "fraud_attack",
       "seed": 9,
       "ticks": 60,
-      "elapsed_s": 0.302,
+      "elapsed_s": 0.353,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1236,7 +1236,7 @@
       "scenario": "fraud_attack",
       "seed": 10,
       "ticks": 60,
-      "elapsed_s": 0.302,
+      "elapsed_s": 0.353,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1252,7 +1252,7 @@
       "scenario": "fraud_attack",
       "seed": 11,
       "ticks": 60,
-      "elapsed_s": 0.299,
+      "elapsed_s": 0.35,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1268,7 +1268,7 @@
       "scenario": "fraud_attack",
       "seed": 12,
       "ticks": 60,
-      "elapsed_s": 0.305,
+      "elapsed_s": 0.351,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1284,7 +1284,7 @@
       "scenario": "fraud_attack",
       "seed": 13,
       "ticks": 60,
-      "elapsed_s": 0.298,
+      "elapsed_s": 0.347,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1300,7 +1300,7 @@
       "scenario": "fraud_attack",
       "seed": 14,
       "ticks": 60,
-      "elapsed_s": 0.3,
+      "elapsed_s": 0.362,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1316,7 +1316,7 @@
       "scenario": "fraud_attack",
       "seed": 15,
       "ticks": 60,
-      "elapsed_s": 0.297,
+      "elapsed_s": 0.347,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1332,7 +1332,7 @@
       "scenario": "fraud_attack",
       "seed": 16,
       "ticks": 60,
-      "elapsed_s": 0.301,
+      "elapsed_s": 0.353,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1348,7 +1348,7 @@
       "scenario": "fraud_attack",
       "seed": 17,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.361,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1364,7 +1364,7 @@
       "scenario": "fraud_attack",
       "seed": 18,
       "ticks": 60,
-      "elapsed_s": 0.293,
+      "elapsed_s": 0.343,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1380,7 +1380,7 @@
       "scenario": "fraud_attack",
       "seed": 19,
       "ticks": 60,
-      "elapsed_s": 0.3,
+      "elapsed_s": 0.352,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1396,7 +1396,7 @@
       "scenario": "fraud_attack",
       "seed": 20,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.362,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1412,7 +1412,7 @@
       "scenario": "fraud_attack",
       "seed": 21,
       "ticks": 60,
-      "elapsed_s": 0.301,
+      "elapsed_s": 0.348,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1428,7 +1428,7 @@
       "scenario": "fraud_attack",
       "seed": 22,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.359,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1444,7 +1444,7 @@
       "scenario": "fraud_attack",
       "seed": 23,
       "ticks": 60,
-      "elapsed_s": 0.311,
+      "elapsed_s": 0.359,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1460,7 +1460,7 @@
       "scenario": "fraud_attack",
       "seed": 24,
       "ticks": 60,
-      "elapsed_s": 0.299,
+      "elapsed_s": 0.355,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1476,7 +1476,7 @@
       "scenario": "fraud_attack",
       "seed": 25,
       "ticks": 60,
-      "elapsed_s": 0.305,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1492,7 +1492,7 @@
       "scenario": "fraud_attack",
       "seed": 26,
       "ticks": 60,
-      "elapsed_s": 0.301,
+      "elapsed_s": 0.35,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1508,7 +1508,7 @@
       "scenario": "fraud_attack",
       "seed": 27,
       "ticks": 60,
-      "elapsed_s": 0.302,
+      "elapsed_s": 0.353,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1524,7 +1524,7 @@
       "scenario": "fraud_attack",
       "seed": 28,
       "ticks": 60,
-      "elapsed_s": 0.302,
+      "elapsed_s": 0.351,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1540,7 +1540,7 @@
       "scenario": "fraud_attack",
       "seed": 29,
       "ticks": 60,
-      "elapsed_s": 0.301,
+      "elapsed_s": 0.35,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1556,7 +1556,7 @@
       "scenario": "fraud_attack",
       "seed": 30,
       "ticks": 60,
-      "elapsed_s": 0.304,
+      "elapsed_s": 0.367,
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
@@ -1572,7 +1572,7 @@
       "scenario": "bank_run",
       "seed": 1,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.361,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1584,13 +1584,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 2,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.365,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1602,13 +1602,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 3,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.358,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1620,13 +1620,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 4,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1638,13 +1638,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 5,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1656,13 +1656,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 6,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1674,13 +1674,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 7,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.36,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1692,13 +1692,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 8,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.359,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1710,13 +1710,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 9,
       "ticks": 60,
-      "elapsed_s": 0.305,
+      "elapsed_s": 0.357,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1728,13 +1728,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 10,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.355,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1746,13 +1746,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 11,
       "ticks": 60,
-      "elapsed_s": 0.309,
+      "elapsed_s": 0.358,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1764,13 +1764,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 12,
       "ticks": 60,
-      "elapsed_s": 0.306,
+      "elapsed_s": 0.355,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1782,13 +1782,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 13,
       "ticks": 60,
-      "elapsed_s": 0.307,
+      "elapsed_s": 0.357,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1800,13 +1800,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 14,
       "ticks": 60,
-      "elapsed_s": 0.307,
+      "elapsed_s": 0.358,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1818,13 +1818,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 15,
       "ticks": 60,
-      "elapsed_s": 0.307,
+      "elapsed_s": 0.357,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1836,13 +1836,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 16,
       "ticks": 60,
-      "elapsed_s": 0.308,
+      "elapsed_s": 0.362,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1854,13 +1854,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 17,
       "ticks": 60,
-      "elapsed_s": 0.308,
+      "elapsed_s": 0.36,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1872,13 +1872,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 18,
       "ticks": 60,
-      "elapsed_s": 0.307,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1890,13 +1890,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 19,
       "ticks": 60,
-      "elapsed_s": 0.307,
+      "elapsed_s": 0.357,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1908,13 +1908,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 20,
       "ticks": 60,
-      "elapsed_s": 0.308,
+      "elapsed_s": 0.358,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1926,13 +1926,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 21,
       "ticks": 60,
-      "elapsed_s": 0.308,
+      "elapsed_s": 0.357,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1944,13 +1944,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 22,
       "ticks": 60,
-      "elapsed_s": 0.306,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1962,13 +1962,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 23,
       "ticks": 60,
-      "elapsed_s": 0.306,
+      "elapsed_s": 0.357,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1980,13 +1980,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 24,
       "ticks": 60,
-      "elapsed_s": 0.304,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -1998,13 +1998,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 25,
       "ticks": 60,
-      "elapsed_s": 0.305,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -2016,13 +2016,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 26,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.357,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -2034,13 +2034,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 27,
       "ticks": 60,
-      "elapsed_s": 0.304,
+      "elapsed_s": 0.355,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -2052,13 +2052,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 28,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.36,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -2070,13 +2070,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 29,
       "ticks": 60,
-      "elapsed_s": 0.303,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -2088,13 +2088,13 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     },
     {
       "scenario": "bank_run",
       "seed": 30,
       "ticks": 60,
-      "elapsed_s": 0.304,
+      "elapsed_s": 0.356,
       "economically_stable": true,
       "invariants_clean": false,
       "failures": [
@@ -2106,7 +2106,7 @@
       "max_frozen_ratio": "0",
       "violation_tick_ratio": "0.5",
       "final_supply": "4200.000000",
-      "invariant_violations": 220
+      "invariant_violations": 250
     }
   ]
 }

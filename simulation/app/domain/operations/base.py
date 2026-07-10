@@ -36,6 +36,7 @@ class CommandKind(StrEnum):
     RUN_STOCHASTIC_AUDIT = "run_stochastic_audit"
     ENFORCE_CONCENTRATION_RESPONSE = "enforce_concentration_response"
     RECORD_EXTERNAL_REVENUE = "record_external_revenue"
+    DECAY_REPUTATION = "decay_reputation"
 
 
 class ErrorCode(StrEnum):
@@ -52,6 +53,7 @@ class ErrorCode(StrEnum):
     CONFIDENCE_TOO_LOW = "confidence_too_low"
     INVALID_AMOUNT = "invalid_amount"
     SAME_PARTIES = "same_parties"
+    EMISSION_BUDGET_EXCEEDED = "emission_budget_exceeded"
 
 
 @dataclass(frozen=True, slots=True)

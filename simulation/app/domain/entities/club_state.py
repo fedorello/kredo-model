@@ -61,6 +61,12 @@ class ClubState(BaseModel):
     """Cumulative V emitted in Invest operations (V given to investors in
     exchange for USDC deposited into the fund). Required for I3."""
 
+    emission_budget: V = Field(default_factory=V.zero)
+    """Kredo v2 (improvements/01) — remaining revenue-backed credit-emission
+    budget. Replenished by RecordExternalRevenue when ``η > 0`` and consumed
+    by credit emission in Transact. Stays zero (and unused) when the
+    currency-board feature is disabled (η = 0)."""
+
     last_quarterly_distribution_tick: int = 0
 
     rng_state: bytes = b""
@@ -73,7 +79,7 @@ class ClubState(BaseModel):
             raise ValueError(f"tick must be >= 0, got {value}")
         return value
 
-    @field_validator("initial_genesis_grants", "cumulative_invested_v")
+    @field_validator("initial_genesis_grants", "cumulative_invested_v", "emission_budget")
     @classmethod
     def _v_field_non_negative(cls, value: V) -> V:
         if value.is_negative():

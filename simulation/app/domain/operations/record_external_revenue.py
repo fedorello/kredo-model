@@ -24,6 +24,7 @@ from app.domain.operations.base import (
     OperationResult,
 )
 from app.domain.operations.commands import RecordExternalRevenueCommand
+from app.domain.value_objects import V
 
 
 class RecordExternalRevenueOperation:
@@ -37,10 +38,15 @@ class RecordExternalRevenueOperation:
                     message="external revenue must be positive",
                 ),
             )
-        new_state = state.model_copy(
-            update={
-                "fund": LiquidityFund(balance=state.fund.balance + command.amount),
-                "ext_rev_annualized": state.ext_rev_annualized + command.amount,
-            }
-        )
+        update = {
+            "fund": LiquidityFund(balance=state.fund.balance + command.amount),
+            "ext_rev_annualized": state.ext_rev_annualized + command.amount,
+        }
+        # v2 currency board (improvements/01): a share η of realised revenue
+        # replenishes the credit-emission budget, converted to V at P_target.
+        eta = state.parameters.emission_budget_share
+        if eta > 0:
+            budget_added = V(eta * command.amount.root / state.parameters.emission_price_target.root)
+            update["emission_budget"] = state.emission_budget + budget_added
+        new_state = state.model_copy(update=update)
         return OperationResult.ok(new_state, ExternalRevenueRecorded(amount=command.amount))

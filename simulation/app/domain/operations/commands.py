@@ -119,3 +119,7 @@ def make_run_stochastic_audit() -> _BarePeriodicCommand:
 
 def make_enforce_concentration_response() -> _BarePeriodicCommand:
     return _BarePeriodicCommand(kind=CommandKind.ENFORCE_CONCENTRATION_RESPONSE)
+
+
+def make_decay_reputation() -> _BarePeriodicCommand:
+    return _BarePeriodicCommand(kind=CommandKind.DECAY_REPUTATION)

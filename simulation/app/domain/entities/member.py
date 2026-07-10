@@ -30,3 +30,9 @@ class Member(BaseModel):
     """Active turnover over the trailing 90 days. Drives escrow distribution."""
     cumulative_contribution: V = Field(default_factory=V.zero)
     """Total verified contribution over member lifetime — used for activity multiplier."""
+    last_active_tick: int | None = None
+    """Kredo v2 (improvements/03) — tick of this member's last confirmed
+    transaction. ``None`` means "no activity yet"; the reputation-decay
+    operation treats such members as active since ``joined_at``. Drives the
+    inactivity clock that decays soulbound reputation, so a Sybil fleet must
+    stay *continuously* active to retain any voting weight."""

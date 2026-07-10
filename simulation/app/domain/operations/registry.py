@@ -10,6 +10,7 @@ from app.domain.operations.base import (
     OperationResult,
 )
 from app.domain.operations.convert import ConvertOperation
+from app.domain.operations.decay_reputation import DecayReputationOperation
 from app.domain.operations.enforce_concentration import (
     EnforceConcentrationResponseOperation,
 )
@@ -70,6 +71,7 @@ def default_registry() -> OperationRegistry:
             CommandKind.PROCESS_WITHDRAWAL_QUEUE: ProcessWithdrawalQueueOperation(),
             CommandKind.RUN_STOCHASTIC_AUDIT: RunStochasticAuditOperation(),
             CommandKind.ENFORCE_CONCENTRATION_RESPONSE: EnforceConcentrationResponseOperation(),
+            CommandKind.DECAY_REPUTATION: DecayReputationOperation(),
             # DEFAULT_LOAN handled internally by ProcessOverdueLoansOperation.
         }
     )

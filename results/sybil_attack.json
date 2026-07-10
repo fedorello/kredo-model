@@ -1,0 +1,32 @@
+{
+  "diversity_defense": {
+    "honest_members": 1000,
+    "honest_avg_reputation": "100.0000",
+    "honest_counterparty_hhi": "1000.00",
+    "fake_counterparty_hhi": "10000",
+    "honest_diversity_weight": "0.90",
+    "fake_diversity_weight": "0.2",
+    "fakes_needed_plain_sqrt": "14142.13562373095048801688724",
+    "fakes_needed_with_diversity": "63639.61030678927719607599260"
+  },
+  "decay_defense": {
+    "half_life_days": 180,
+    "grace_days": 30,
+    "retained_reputation_fraction": {
+      "30": "1",
+      "90": "0.7937005259840997373758528197",
+      "180": "0.5612310241546864907167665248",
+      "365": "0.2752641988632857673364505222",
+      "730": "0.06750373368076913561705817692"
+    }
+  },
+  "vouching_defense": {
+    "required_vouchers_m": 2,
+    "reputation_stake_sigmaR": "5.0000",
+    "collateral_stake_sigmaV": "50.000000",
+    "detection_probability": "0.5",
+    "per_identity_cost_usd": "55.0000000",
+    "target_votes": "10000.00",
+    "total_attack_cost_usd": "777817.4593052022768409287982"
+  }
+}

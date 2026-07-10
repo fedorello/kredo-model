@@ -23,6 +23,7 @@ from app.domain.value_objects import R, V
 
 _SIMPLE_MAJORITY = Decimal("0.5")
 _CONSTITUTIONAL = Decimal("0.66")
+_DIVERSITY_FLOOR = Decimal("0.2")
 
 
 class QuorumKind(StrEnum):
@@ -41,6 +42,35 @@ class VotingService:
     def voting_power(reputation: R) -> Decimal:
         """``√R``. Caps the influence of large stakeholders."""
         return reputation.root.sqrt()
+
+    # ----- v2: diversity-weighted power (improvements/03) -----------------
+
+    @staticmethod
+    def diversity_weight(
+        counterparty_hhi_scaled: Decimal,
+        floor: Decimal = _DIVERSITY_FLOOR,
+    ) -> Decimal:
+        """``D = max(floor, 1 − HHI)`` from the member's counterparty HHI.
+
+        ``counterparty_hhi_scaled`` is the [0, 10000]-scaled Herfindahl of a
+        member's trade across counterparties (as produced by
+        :class:`ConcentrationMonitor`). Honest members trading broadly have
+        HHI → 0 so D → 1; a wash cluster trading within itself has HHI → 1
+        (10000 scaled) so D → ``floor``.
+        """
+        normalized = counterparty_hhi_scaled / Decimal(10_000)
+        return max(floor, Decimal(1) - normalized)
+
+    def diversity_weighted_power(
+        self,
+        reputation: R,
+        counterparty_hhi_scaled: Decimal,
+        floor: Decimal = _DIVERSITY_FLOOR,
+    ) -> Decimal:
+        """``√R · D`` — the v2 governance weight resistant to Sybil splitting."""
+        return self.voting_power(reputation) * self.diversity_weight(
+            counterparty_hhi_scaled, floor
+        )
 
     def reputation_quorum_satisfied(
         self,

@@ -15,10 +15,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17275033",
+      "final_price": "0.17794326",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -28,10 +28,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17275033",
+      "final_price": "0.17794326",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -41,10 +41,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17275033",
+      "final_price": "0.17794326",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -54,10 +54,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17233111",
+      "final_price": "0.17730252",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -67,10 +67,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17233111",
+      "final_price": "0.17730252",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -80,10 +80,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17233111",
+      "final_price": "0.17730252",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -93,10 +93,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17164424",
+      "final_price": "0.17626353",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -106,10 +106,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17164424",
+      "final_price": "0.17626353",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -119,10 +119,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17164424",
+      "final_price": "0.17626353",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -132,10 +132,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17097180",
+      "final_price": "0.17525928",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -145,10 +145,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17097180",
+      "final_price": "0.17525928",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -158,10 +158,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17097180",
+      "final_price": "0.17525928",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -171,10 +171,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18549668",
+      "final_price": "0.19659344",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -184,10 +184,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18549668",
+      "final_price": "0.19659344",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -197,10 +197,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18549668",
+      "final_price": "0.19659344",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -210,10 +210,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18504277",
+      "final_price": "0.19587676",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -223,10 +223,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18504277",
+      "final_price": "0.19587676",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -236,10 +236,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18504277",
+      "final_price": "0.19587676",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -249,10 +249,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18429910",
+      "final_price": "0.19471483",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -262,10 +262,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18429910",
+      "final_price": "0.19471483",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -275,10 +275,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18429910",
+      "final_price": "0.19471483",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -288,10 +288,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18357109",
+      "final_price": "0.19359201",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -301,10 +301,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18357109",
+      "final_price": "0.19359201",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -314,10 +314,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18357109",
+      "final_price": "0.19359201",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -327,10 +327,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19837779",
+      "final_price": "0.21559215",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -340,10 +340,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19837779",
+      "final_price": "0.21559215",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -353,10 +353,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19837779",
+      "final_price": "0.21559215",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -366,10 +366,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19788855",
+      "final_price": "0.21479713",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -379,10 +379,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19788855",
+      "final_price": "0.21479713",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -392,10 +392,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19788855",
+      "final_price": "0.21479713",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -405,10 +405,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19708702",
+      "final_price": "0.21350842",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -418,10 +418,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19708702",
+      "final_price": "0.21350842",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -431,10 +431,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19708702",
+      "final_price": "0.21350842",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -444,10 +444,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19630240",
+      "final_price": "0.21226332",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -457,10 +457,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19630240",
+      "final_price": "0.21226332",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -470,10 +470,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19630240",
+      "final_price": "0.21226332",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -483,10 +483,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.21138443",
+      "final_price": "0.23491055",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -496,10 +496,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.21138443",
+      "final_price": "0.23491055",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -509,10 +509,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.21138443",
+      "final_price": "0.23491055",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -522,10 +522,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.21085924",
+      "final_price": "0.23403496",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -535,10 +535,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.21085924",
+      "final_price": "0.23403496",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -548,10 +548,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.21085924",
+      "final_price": "0.23403496",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -561,10 +561,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20999885",
+      "final_price": "0.23261585",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -574,10 +574,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20999885",
+      "final_price": "0.23261585",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -587,10 +587,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20999885",
+      "final_price": "0.23261585",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -600,10 +600,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20915666",
+      "final_price": "0.23124502",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -613,10 +613,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20915666",
+      "final_price": "0.23124502",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.0",
@@ -626,10 +626,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20915666",
+      "final_price": "0.23124502",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -639,10 +639,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16941442",
+      "final_price": "0.17298181",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -652,10 +652,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16941442",
+      "final_price": "0.17298181",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -665,10 +665,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16941442",
+      "final_price": "0.17298181",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -678,10 +678,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16903707",
+      "final_price": "0.17244003",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -691,10 +691,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16903707",
+      "final_price": "0.17244003",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -704,10 +704,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16903707",
+      "final_price": "0.17244003",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -717,10 +717,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16841841",
+      "final_price": "0.17156016",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -730,10 +730,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16841841",
+      "final_price": "0.17156016",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -743,10 +743,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16841841",
+      "final_price": "0.17156016",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -756,10 +756,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16781225",
+      "final_price": "0.17000935",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -769,10 +769,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16781225",
+      "final_price": "0.17000935",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -782,10 +782,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16781225",
+      "final_price": "0.17000935",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -795,10 +795,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18188512",
+      "final_price": "0.19104650",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -808,10 +808,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18188512",
+      "final_price": "0.19104650",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -821,10 +821,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18188512",
+      "final_price": "0.19104650",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -834,10 +834,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18147664",
+      "final_price": "0.19044114",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -847,10 +847,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18147664",
+      "final_price": "0.19044114",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -860,10 +860,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18147664",
+      "final_price": "0.19044114",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -873,10 +873,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18080695",
+      "final_price": "0.18945817",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -886,10 +886,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18080695",
+      "final_price": "0.18945817",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -899,10 +899,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18080695",
+      "final_price": "0.18945817",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -912,10 +912,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18015083",
+      "final_price": "0.18772230",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -925,10 +925,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18015083",
+      "final_price": "0.18772230",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -938,10 +938,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.18015083",
+      "final_price": "0.18772230",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -951,10 +951,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19448546",
+      "final_price": "0.20944153",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -964,10 +964,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19448546",
+      "final_price": "0.20944153",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -977,10 +977,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19448546",
+      "final_price": "0.20944153",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -990,10 +990,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19404527",
+      "final_price": "0.20877065",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1003,10 +1003,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19404527",
+      "final_price": "0.20877065",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1016,10 +1016,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19404527",
+      "final_price": "0.20877065",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1029,10 +1029,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19332363",
+      "final_price": "0.20768145",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1042,10 +1042,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19332363",
+      "final_price": "0.20768145",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1055,10 +1055,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19332363",
+      "final_price": "0.20768145",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1068,10 +1068,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19261663",
+      "final_price": "0.20575463",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1081,10 +1081,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19261663",
+      "final_price": "0.20575463",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1094,10 +1094,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19261663",
+      "final_price": "0.20575463",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1107,10 +1107,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20720651",
+      "final_price": "0.22813923",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1120,10 +1120,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20720651",
+      "final_price": "0.22813923",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1133,10 +1133,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20720651",
+      "final_price": "0.22813923",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1146,10 +1146,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20673407",
+      "final_price": "0.22740102",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1159,10 +1159,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20673407",
+      "final_price": "0.22740102",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1172,10 +1172,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20673407",
+      "final_price": "0.22740102",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1185,10 +1185,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20595959",
+      "final_price": "0.22620267",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1198,10 +1198,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20595959",
+      "final_price": "0.22620267",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1211,10 +1211,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20595959",
+      "final_price": "0.22620267",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1224,10 +1224,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20520085",
+      "final_price": "0.22407939",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1237,10 +1237,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20520085",
+      "final_price": "0.22407939",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "1.5",
@@ -1250,10 +1250,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20520085",
+      "final_price": "0.22407939",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1263,10 +1263,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1276,10 +1276,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1289,10 +1289,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1302,10 +1302,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1315,10 +1315,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1328,10 +1328,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1341,10 +1341,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1354,10 +1354,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1367,10 +1367,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1380,10 +1380,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1393,10 +1393,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1406,10 +1406,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1419,10 +1419,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1432,10 +1432,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1445,10 +1445,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1458,10 +1458,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1471,10 +1471,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1484,10 +1484,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1497,10 +1497,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1510,10 +1510,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1523,10 +1523,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1536,10 +1536,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1549,10 +1549,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1562,10 +1562,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1575,10 +1575,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1588,10 +1588,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1601,10 +1601,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1614,10 +1614,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1627,10 +1627,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1640,10 +1640,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1653,10 +1653,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1666,10 +1666,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1679,10 +1679,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1692,10 +1692,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1705,10 +1705,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1718,10 +1718,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1731,10 +1731,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1744,10 +1744,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1757,10 +1757,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1770,10 +1770,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1783,10 +1783,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1796,10 +1796,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1809,10 +1809,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1822,10 +1822,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1835,10 +1835,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1848,10 +1848,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1861,10 +1861,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.0",
@@ -1874,10 +1874,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1887,10 +1887,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1900,10 +1900,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1913,10 +1913,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1926,10 +1926,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1939,10 +1939,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1952,10 +1952,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1965,10 +1965,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1978,10 +1978,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -1991,10 +1991,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2004,10 +2004,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2017,10 +2017,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2030,10 +2030,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.16692572",
+      "final_price": "0.16867486",
       "min_price": "0.16317073",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2043,10 +2043,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2056,10 +2056,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2069,10 +2069,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2082,10 +2082,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2095,10 +2095,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2108,10 +2108,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2121,10 +2121,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2134,10 +2134,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2147,10 +2147,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2160,10 +2160,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2173,10 +2173,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2186,10 +2186,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.17919127",
+      "final_price": "0.18623126",
       "min_price": "0.16365854",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2199,10 +2199,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2212,10 +2212,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2225,10 +2225,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2238,10 +2238,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2251,10 +2251,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2264,10 +2264,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2277,10 +2277,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2290,10 +2290,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2303,10 +2303,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2316,10 +2316,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2329,10 +2329,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2342,10 +2342,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.19158270",
+      "final_price": "0.20410232",
       "min_price": "0.16414634",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2355,10 +2355,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2368,10 +2368,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2381,10 +2381,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2394,10 +2394,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2407,10 +2407,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2420,10 +2420,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2433,10 +2433,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2446,10 +2446,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2459,10 +2459,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2472,10 +2472,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2485,10 +2485,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     },
     {
       "K_target": "2.5",
@@ -2498,10 +2498,10 @@
       "economically_stable": true,
       "invariants_clean": true,
       "failures": [],
-      "final_price": "0.20409130",
+      "final_price": "0.22226137",
       "min_price": "0.16463415",
       "coverage_ok_ratio": "1",
-      "violation_tick_ratio": "0.1666666666666666666666666667"
+      "violation_tick_ratio": "0.2666666666666666666666666667"
     }
   ]
 }

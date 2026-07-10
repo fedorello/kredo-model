@@ -21,7 +21,7 @@
     "max_frozen_ratio": "0",
     "violation_tick_ratio": "0.2333333333333333333333333333",
     "final_supply": "108483.410792",
-    "invariant_violations": 72
+    "invariant_violations": 77
   },
   "aggressive_bank_run": {
     "stable": true,
@@ -34,6 +34,6 @@
     "max_frozen_ratio": "0",
     "violation_tick_ratio": "0.3333333333333333333333333333",
     "final_supply": "104500.000000",
-    "invariant_violations": 103
+    "invariant_violations": 113
   }
 }

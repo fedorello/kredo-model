@@ -13,6 +13,7 @@ from app.domain.entities import ClubState
 from app.domain.operations import (
     Command,
     make_accrue_tenure,
+    make_decay_reputation,
     make_enforce_concentration_response,
     make_process_overdue,
     make_process_withdrawal_queue,
@@ -35,6 +36,7 @@ class PeriodicOperationRunner:
             make_run_stochastic_audit(),
             make_process_overdue(),
             make_accrue_tenure(),
+            make_decay_reputation(),
             make_recalculate_turnover(),
             make_enforce_concentration_response(),
         ]

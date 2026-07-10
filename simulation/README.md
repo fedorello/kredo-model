@@ -41,6 +41,20 @@ python -m experiments.parameter_sweep     # 192 parameter combinations
 python -m experiments.stress_tests        # combined attacks
 ```
 
+### Kredo v2 — design-extension experiments ([`../improvements/`](../improvements))
+
+```bash
+python -m experiments.retention_analysis  # 01: survival at constant revenue + currency board
+python -m experiments.sybil_attack        # 03: diversity-weighted votes, R-decay, vouching cost
+python -m experiments.fraud_deterrence    # 04: dynamic lock-up & audit escalation (Thm 4–5)
+python -m experiments.collusive_drift     # 05: two-window + CUSUM price-drift detector
+```
+
+These exercise the v2 mechanisms; the five improvements are opt-in parameters
+(`emission_budget_share`, `reputation_half_life_days`, `lockup_per_v`,
+`audit_rate_flagged`, plus the diversity/vouching/drift services), so every
+legacy run above is byte-for-byte unchanged.
+
 Results are written to [`../results/`](../results). Runs are deterministic — the same seed gives a
 byte-for-byte identical result.
 

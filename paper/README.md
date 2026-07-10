@@ -38,9 +38,9 @@ English version.
 - `main.tex` / `main-ru.tex` — the paper (self-contained: theorems with proofs,
   tables, embedded bibliography — no BibTeX pass needed).
 
-## Notes for submission
+## Submission
 
-- The mechanism, derivations, simulator, protocols, and raw results referenced by
-  the paper are the rest of this repository.
-- Suggested arXiv categories: `econ.TH` (Theoretical Economics), cross-list
-  `cs.GT` (Computer Science and Game Theory).
+Everything needed to publish the preprint (step-by-step instructions in Russian,
+copy-paste metadata in English, per platform) is in
+**[`submission/`](./submission)** — Zenodo, SSRN, and arXiv
+(suggested categories: `econ.TH`, cross-list `cs.GT`).

@@ -117,6 +117,19 @@ class QuarterlyDistribution:
 
 
 @dataclass(frozen=True, slots=True)
+class FraudRemediated:
+    """A detected fraud cluster was frozen and its stake forfeited (v2).
+
+    ``burned_v`` is the total positive V balance burned across the cluster —
+    the forfeited stake Λ of Theorems 4–5 (plus burned escrow, reported
+    separately by the LoanDefaulted events this remediation triggers)."""
+
+    members: int
+    burned_v: V
+    burned_escrow: V
+
+
+@dataclass(frozen=True, slots=True)
 class InvariantViolated:
     """Surfaced when an invariant check returns ``is_violation()`` is True."""
 
@@ -138,6 +151,7 @@ DomainEvent = (
     | Invested
     | ExternalRevenueRecorded
     | QuarterlyDistribution
+    | FraudRemediated
     | InvariantViolated
 )
 
@@ -146,6 +160,7 @@ __all__ = [
     "DomainEvent",
     "EscrowReleased",
     "ExternalRevenueRecorded",
+    "FraudRemediated",
     "FundConverted",
     "FundQueued",
     "InvariantViolated",

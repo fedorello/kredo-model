@@ -8,3 +8,6 @@ __pycache__/
 *.log
 *.out
 *.toc
+
+# Generated experiment logs
+simulation/experiments/logs/

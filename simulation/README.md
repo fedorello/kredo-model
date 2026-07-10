@@ -48,7 +48,13 @@ python -m experiments.retention_analysis  # 01: survival at constant revenue + c
 python -m experiments.sybil_attack        # 03: diversity-weighted votes, R-decay, vouching cost
 python -m experiments.fraud_deterrence    # 04: dynamic lock-up & audit escalation (Thm 4–5)
 python -m experiments.collusive_drift     # 05: two-window + CUSUM price-drift detector
+python -m experiments.phase6_fraud        # end-to-end adversary: real ops, E[π] vs closed form
 ```
+
+`phase6_fraud` runs an actual wash-trading cluster through the real
+`Transact` / `Convert` / fraud-remediation operations with stochastic
+detection, and writes a full per-event trace to
+`experiments/logs/phase6_fraud.log`.
 
 These exercise the v2 mechanisms; the five improvements are opt-in parameters
 (`emission_budget_share`, `reputation_half_life_days`, `lockup_per_v`,

@@ -83,6 +83,17 @@ class RecordExternalRevenueCommand:
         return CommandKind.RECORD_EXTERNAL_REVENUE
 
 
+@dataclass(frozen=True, slots=True)
+class RemediateFraudCommand:
+    """Freeze a detected fraud cluster and forfeit its stake (v2, Phase 6)."""
+
+    members: tuple[MemberId, ...]
+
+    @property
+    def kind(self) -> CommandKind:
+        return CommandKind.REMEDIATE_FRAUD
+
+
 # Periodic, parameterless commands:
 
 

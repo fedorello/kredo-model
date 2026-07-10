@@ -24,6 +24,7 @@ from app.domain.operations.recalculate_turnover import RecalculateTurnoverOperat
 from app.domain.operations.record_external_revenue import (
     RecordExternalRevenueOperation,
 )
+from app.domain.operations.remediate_fraud import RemediateFraudOperation
 from app.domain.operations.run_audit import RunStochasticAuditOperation
 from app.domain.operations.transact import TransactOperation
 
@@ -72,6 +73,7 @@ def default_registry() -> OperationRegistry:
             CommandKind.RUN_STOCHASTIC_AUDIT: RunStochasticAuditOperation(),
             CommandKind.ENFORCE_CONCENTRATION_RESPONSE: EnforceConcentrationResponseOperation(),
             CommandKind.DECAY_REPUTATION: DecayReputationOperation(),
+            CommandKind.REMEDIATE_FRAUD: RemediateFraudOperation(),
             # DEFAULT_LOAN handled internally by ProcessOverdueLoansOperation.
         }
     )

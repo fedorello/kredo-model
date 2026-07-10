@@ -1,0 +1,91 @@
+{
+  "stake": "300",
+  "seeds": 30,
+  "baseline_v1": {
+    "500": {
+      "theft": "500",
+      "escapes": 20,
+      "seeds": 30,
+      "q_empirical": "0.6666666666666666666666666667",
+      "mean_profit_empirical": "233.3333333333333333333333333",
+      "q_closed_form": "0.7374241268949282604899999971",
+      "expected_profit_closed_form": "289.9393015159426083919999977"
+    },
+    "1000": {
+      "theft": "1000",
+      "escapes": 14,
+      "seeds": 30,
+      "q_empirical": "0.4666666666666666666666666667",
+      "mean_profit_empirical": "306.6666666666666666666666667",
+      "q_closed_form": "0.5437943429267472574499737506",
+      "expected_profit_closed_form": "406.9326458047714346849658758"
+    },
+    "2500": {
+      "theft": "2500",
+      "escapes": 6,
+      "seeds": 30,
+      "q_empirical": "0.2",
+      "mean_profit_empirical": "260",
+      "q_closed_form": "0.2180653753474075974706842124",
+      "expected_profit_closed_form": "310.5830509727412729179157947"
+    }
+  },
+  "v2_vesting": {
+    "500": {
+      "theft": "500",
+      "escapes": 7,
+      "seeds": 30,
+      "q_empirical": "0.2333333333333333333333333333",
+      "mean_profit_empirical": "-113.3333333333333333333333333",
+      "q_closed_form": "0.1894056294518584685761441672",
+      "expected_profit_closed_form": "-148.4754964385132251390846662"
+    },
+    "1000": {
+      "theft": "1000",
+      "escapes": 1,
+      "seeds": 30,
+      "q_empirical": "0.03333333333333333333333333333",
+      "mean_profit_empirical": "-256.6666666666666666666666667",
+      "q_closed_form": "0.03587449246805471612345871637",
+      "expected_profit_closed_form": "-253.3631597915288690395036687"
+    },
+    "2500": {
+      "theft": "2500",
+      "escapes": 0,
+      "seeds": 30,
+      "q_empirical": "0",
+      "mean_profit_empirical": "-300",
+      "q_closed_form": "0.0002437611073312981042648509578",
+      "expected_profit_closed_form": "-299.3174688994723653080584173"
+    }
+  },
+  "v2_flagged": {
+    "500": {
+      "theft": "500",
+      "escapes": 0,
+      "seeds": 30,
+      "q_empirical": "0",
+      "mean_profit_empirical": "-300",
+      "q_closed_form": "0.02824752489999999999999999993",
+      "expected_profit_closed_form": "-277.4019800800000000000000000"
+    },
+    "1000": {
+      "theft": "1000",
+      "escapes": 0,
+      "seeds": 30,
+      "q_empirical": "0",
+      "mean_profit_empirical": "-300",
+      "q_closed_form": "0.0007979226629761200099999999959",
+      "expected_profit_closed_form": "-298.9627005381310439870000000"
+    },
+    "2500": {
+      "theft": "2500",
+      "escapes": 0,
+      "seeds": 30,
+      "q_empirical": "0",
+      "mean_profit_empirical": "-300",
+      "q_closed_form": "1.798465042647412146620280308E-8",
+      "expected_profit_closed_form": "-299.9999496429788058724598946"
+    }
+  }
+}

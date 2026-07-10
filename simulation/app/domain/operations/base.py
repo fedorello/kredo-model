@@ -37,6 +37,7 @@ class CommandKind(StrEnum):
     ENFORCE_CONCENTRATION_RESPONSE = "enforce_concentration_response"
     RECORD_EXTERNAL_REVENUE = "record_external_revenue"
     DECAY_REPUTATION = "decay_reputation"
+    REMEDIATE_FRAUD = "remediate_fraud"
 
 
 class ErrorCode(StrEnum):

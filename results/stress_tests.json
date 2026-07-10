@@ -1,0 +1,39 @@
+{
+  "stagnant_market": {
+    "stable": true,
+    "failures": [
+      "C5 violations: 60.00% of ticks have violations"
+    ],
+    "final_price": "0.15401371",
+    "min_price": "0.15401371",
+    "coverage_ok_ratio": "1",
+    "max_frozen_ratio": "0",
+    "violation_tick_ratio": "0.6",
+    "final_supply": "64929.284239",
+    "invariant_violations": 55
+  },
+  "fraud_plus_bank_run": {
+    "stable": true,
+    "failures": [],
+    "final_price": "7.86691711",
+    "min_price": "6.97200870",
+    "coverage_ok_ratio": "1",
+    "max_frozen_ratio": "0",
+    "violation_tick_ratio": "0.2333333333333333333333333333",
+    "final_supply": "108483.410792",
+    "invariant_violations": 72
+  },
+  "aggressive_bank_run": {
+    "stable": true,
+    "failures": [
+      "C5 violations: 33.33% of ticks have violations"
+    ],
+    "final_price": "7.61089015",
+    "min_price": "6.97200870",
+    "coverage_ok_ratio": "1",
+    "max_frozen_ratio": "0",
+    "violation_tick_ratio": "0.3333333333333333333333333333",
+    "final_supply": "104500.000000",
+    "invariant_violations": 103
+  }
+}

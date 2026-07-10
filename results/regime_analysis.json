@@ -1,0 +1,35 @@
+{
+  "growth": {
+    "stable": true,
+    "failures": [
+      "C5 violations: 68.33% of ticks have violations"
+    ],
+    "p_first": "0.20826446",
+    "p_last": "1.89035115",
+    "p_delta": "1.68208669",
+    "min_price": "0.20826446",
+    "violation_tick_ratio": "0.6833333333333333333333333333"
+  },
+  "stable": {
+    "stable": true,
+    "failures": [
+      "C5 violations: 68.33% of ticks have violations"
+    ],
+    "p_first": "0.18677686",
+    "p_last": "1.20630316",
+    "p_delta": "1.01952630",
+    "min_price": "0.18677686",
+    "violation_tick_ratio": "0.6833333333333333333333333333"
+  },
+  "stagnant": {
+    "stable": true,
+    "failures": [
+      "C5 violations: 68.33% of ticks have violations"
+    ],
+    "p_first": "0.16528926",
+    "p_last": "0.14841249",
+    "p_delta": "-0.01687677",
+    "min_price": "0.14841249",
+    "violation_tick_ratio": "0.6833333333333333333333333333"
+  }
+}

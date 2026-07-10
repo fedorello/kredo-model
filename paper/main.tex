@@ -15,6 +15,7 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
 \newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{axiom}{Axiom}
@@ -599,7 +600,51 @@ Total & $315$ & $0$\\
 
 \section{Limitations}\label{sec:limitations}
 
-Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation and political organization by real participants are out of scope; the optimal fraud over independently detected clusters is characterized in Theorem~\ref{thm:deter}, but a fully coordinated adversary (correlating clusters to defeat monitoring) and dynamic timing are not tested empirically. A further strategic gap concerns pricing itself: the auto-score \eqref{eq:autoscore} anchors to the category's rolling price distribution, so a coordinated, gradual drift of declared prices---each step within $|z|\le1$---could shift the reference mean $\mu_c$ over time without ever triggering review. Concentration monitoring and the stochastic audit narrow this channel but the paper does not model such collusive drift. Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established.
+Empirical stability is necessary but not sufficient. Our runs cover $1$--$3$ months of virtual time; slow effects over multi-year horizons are untested. The agents are statistical rather than strategic, so adaptation and political organization by real participants are out of scope; the optimal fraud over independently detected clusters is characterized in Theorem~\ref{thm:deter}, but a fully coordinated adversary (correlating clusters to defeat monitoring) and dynamic timing are not tested empirically. A further strategic gap concerns pricing itself: the auto-score \eqref{eq:autoscore} anchors to the category's rolling price distribution, so a coordinated, gradual drift of declared prices---each step within $|z|\le1$---could shift the reference mean $\mu_c$ over time without ever triggering review. Concentration monitoring and the stochastic audit narrow this channel but the paper does not model such collusive drift. Legal and fiscal questions---jurisdiction, identity/KYC, and the taxation of micro-transactions---lie outside the model. The mechanism therefore constitutes a structurally sound foundation whose behavior with real human participants remains to be established. Section~\ref{sec:extensions} presents design extensions (\emph{Kredo v2}) that address the fraud-stake gap, the collusive-drift channel, the ``grow-or-die'' revenue requirement, and the honest limits of the Sybil argument; each is implemented and verified in the released simulator.
+
+\section{Design extensions (Kredo v2)}\label{sec:extensions}
+
+The audit above surfaced four things worth strengthening: the default fraud stake falls short of the deterrence threshold (Section~\ref{sec:guidance}); the survival condition demands \emph{growth}, not merely a revenue level (Proposition~\ref{prop:survival}); the collusive price drift of Section~\ref{sec:limitations} is unmodeled; and the Sybil argument rests on the per-identity cost rather than the vote rule (Proposition~\ref{prop:sybil}). We describe five extensions that close these gaps. Each is an \emph{opt-in} parameter or service in the released simulator---the default configuration reproduces the results above byte-for-byte---and each carries a numerical check from a released experiment.
+
+\subsection{Retention channel and revenue-backed emission}
+
+Proposition~\ref{prop:survival} treats external revenue as an inflow whose \emph{growth} must offset emission. But a fixed share $s$ of realised revenue is retained in the fund each period (the $50/30/15/5$ split of Section~\ref{sec:emission}), which the continuous model omits. Writing $R$ for the trailing revenue \emph{level} and folding retention into $\dot{\mathcal A}=\lambda_{\mathrm{inv}}+sR+\mu\dot{\ExtRev}$, the non-declining-price condition at a constant revenue level ($\dot{\ExtRev}=0$) becomes
+\[
+R \ \ge\ \frac{e\,P-\lambda_{\mathrm{inv}}}{s},
+\]
+a \emph{level}, not a growth rate: a steady business sustains the price, converting ``grow or die'' into ``earn steadily.'' A second lever makes the money supply endogenous to earnings---a currency board that caps credit emission at $e(t)\le\eta\,R(t)/P_{\mathrm{target}}$ with the design rule $\eta\le s$; a revenue stop then throttles emission instead of diluting the price. In the simulator, a constant revenue level holds the economy stable ($P:0.21\to4.8$), and with the cap active a mid-run revenue stop halves post-stop supply growth ($36.2\mathrm{k}\to17.4\mathrm{k}$), leaving the price $24\%$ higher than with emission unconstrained.
+
+\subsection{Closed-loop cooperative form}
+
+Two risks the model does not price are legal and arbitrage-theoretic: a freely transferable $\V$ carrying a profit claim resembles a security, and any secondary market in $\V$ would arbitrage against the administered price (I5). Both shrink under a \emph{closed-loop cooperative} reading: $\V$ transfers only between verified members (no external venue, as in the WIR franc), and the activity-weighted dividend is a \emph{patronage refund}---return by participation, not by capital---a long-established cooperative-law construct. With no external venue there is no second price to arbitrage, so (I5) remains the only price by construction. The closedness of the contour is best treated as constitutional, lest ordinary governance re-open it and reintroduce the arbitrage channel. Where an external market is nonetheless wanted, the fund can act as a bounded market-maker quoting a coverage-dependent band around the fundamental price, with its defence capacity published openly (Theorem~\ref{thm:norun}).
+
+\subsection{Sybil defense beyond the vote rule}
+
+Proposition~\ref{prop:sybil} is honest that $\sqrt{\R}$ weighting does not by itself deter splitting. Three additions make the per-identity cost real. \emph{Diversity weighting} sets the vote to $\sqrt{\R}\cdot D$ with $D=\max(d_{\min},1-\mathrm{HHI})$ from the member's counterparty Herfindahl (already computed for anti-fraud): a wash cluster trading within itself has $\mathrm{HHI}\to1$, so $D\to d_{\min}$. \emph{Inactivity decay} $r(t)=r_0\,2^{-\max(0,\Delta t-\text{grace})/T_{1/2}}$ forces every fake to sustain genuine activity or lose its weight. \emph{Vouching with slashing} makes each joiner stake the reputation of $m$ existing vouchers, so an attacker must corrupt real members rather than defeat a KYC provider. In the simulator, at $d_{\min}=0.2$ the diversity weight lifts a reputation-majority attack on a $10^3$-member community from ${\approx}1.4\times10^4$ to ${\approx}6.4\times10^4$ fake identities; decay ($T_{1/2}=180$~d) melts an idle fleet's weight to $56\%$/$27\%$/$7\%$ at $180$/$365$/$730$ days; and at an illustrative reputation price, vouching puts the majority attack near \$$0.78$M.
+
+\subsection{Deterring fraud at the default stake}
+
+Section~\ref{sec:guidance} noted the default stake $\Lambda=300~\V$ is below the threshold $1/\beta\approx1642~\V$. Rather than raise $\Lambda$ punitively, make the lock-up grow with the amount, $\tau_{\mathrm{lock}}(W)=\tau_0+wW$, which steepens the survival decay of Theorem~\ref{thm:deter}.
+
+\begin{corollary}[Deterrence at the default stake via vesting]\label{cor:vesting}
+Under the amount-scaled lock-up $\tau_{\mathrm{lock}}(W)=\tau_0+wW$, the survival probability becomes $q(W)=c_0\,e^{-\beta' W}$ with $\beta'=\beta+w\,\ln\!\bigl(1/(1-p)\bigr)$ and $c_0=(1-p)^{\tau_0}$. Hence the deterrence threshold $\Lambda\ge1/\beta'$ is met for a fixed $\Lambda$ by any
+\[
+w\ \ge\ \frac{1/\Lambda-\beta}{\ln\!\bigl(1/(1-p)\bigr)} .
+\]
+\end{corollary}
+\begin{proof}
+Each of the $\tau_0+wW$ lock-up periods survives detection with probability $1-p$, contributing $(1-p)^{\tau_0+wW}=c_0\,e^{-wW\ln(1/(1-p))}$; multiplying by the audit factor $(1-a)^{W/\bar N}=e^{-\beta W}$ gives $q(W)=c_0e^{-\beta'W}$ with the stated $\beta'$. Replacing $\beta$ by $\beta'$ in Theorem~\ref{thm:deter}, $\Lambda\ge1/\beta'$ forces $W^\dagger\le0$; solving $\beta+w\ln(1/(1-p))\ge1/\Lambda$ for $w$ gives the bound.
+\end{proof}
+
+With a per-day cluster-detection probability $p=0.05$, the bound gives $w\approx0.053$ days per V---about $5.3$ days of extra vesting per $100~\V$---which turns the profitable baseline optimum ($+425~\V$) into a loss ($-286~\V$) at the unchanged $\Lambda=300~\V$; the simulator's \texttt{FraudDeterrenceService} reproduces both. Escalating a flagged cluster's audit to $a=0.30$ is even sharper, giving $1/\beta\approx140~\V<\Lambda$ outright.
+
+\subsection{A collusive-drift detector}
+
+The collusive drift of Section~\ref{sec:limitations} is caught by comparing the category's short ($T_s$) and long ($T_l$) price windows: a linear drift $v$ holds their medians a steady $v(T_l-T_s)/2$ apart, so flagging $|\mu_s-\mu_l|>\kappa\sigma$ bounds the sustainable undetected drift to
+\[
+v^\ast=\frac{\kappa\sigma}{(T_l-T_s)/2}\ \bigl(=\kappa\sigma/137.5\ \text{at }T_l/T_s=365/90\bigr).
+\]
+The variance $\sigma$ must be estimated on \emph{detrended} prices (first differences), or a large drift inflates the threshold and hides itself; a CUSUM chart complements the windowed rule by catching small-step drift. In the simulator ($\kappa=1.5$, $\sigma=10$), $v^\ast\approx0.11~\V$/day: a drift at half $v^\ast$ escapes the window rule but takes ${\approx}5$ years to double a price---economically pointless while the cluster stays exposed to concentration monitoring---and a drift at twice $v^\ast$ is flagged; the CUSUM catches the slow drift the window smooths over.
 
 \section{Conclusion}
 
@@ -607,7 +652,7 @@ Kredo demonstrates that a coherent ethical stance---reward for creation, symmetr
 
 \section*{Data and code availability}
 
-The mechanism specification, full derivations, the simulator, the experiment protocols, and the raw results are openly available at \url{https://github.com/fedorello/kredo-model} under the MIT license.
+The mechanism specification, full derivations, the simulator, the experiment protocols, and the raw results are openly available at \url{https://github.com/fedorello/kredo-model} under the MIT license. The v2 design extensions of Section~\ref{sec:extensions} are documented under \texttt{improvements/} and verified by the \texttt{retention\_analysis}, \texttt{sybil\_attack}, \texttt{fraud\_deterrence}, and \texttt{collusive\_drift} experiments.
 
 \begin{thebibliography}{99}
 \bibitem{gesell1916} S.~Gesell. \emph{The Natural Economic Order}. Self-published, 1916 (English translation, Peter Owen, 1958).

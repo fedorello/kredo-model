@@ -5,26 +5,38 @@ Preprint of the Kredo mechanism, formatted for arXiv / journal submission.
 **Kredo: A Contribution-Based Mutual-Credit Economy with Soulbound Reputation and Compensatory Emission**
 — Fedor Chishchin.
 
+Two language versions, identical content:
+
+- `main.tex` — English (`main.pdf`).
+- `main-ru.tex` — Russian (`main-ru.pdf`), a precise translation.
+
 ## Build
 
-With [Tectonic](https://tectonic-typesetting.github.io/) (self-contained, downloads packages on demand):
+The **English** version compiles with any engine:
 
 ```bash
-tectonic main.tex        # produces main.pdf
+tectonic main.tex          # produces main.pdf
+# or: pdflatex main.tex && pdflatex main.tex
+# or open on Overleaf
 ```
 
-Or with a full TeX distribution:
+The **Russian** version uses `fontspec` for Cyrillic, so it needs a Unicode
+engine — **XeLaTeX** (via Tectonic) or LuaLaTeX, **not** pdfLaTeX:
 
 ```bash
-pdflatex main.tex && pdflatex main.tex
+tectonic main-ru.tex       # produces main-ru.pdf  (recommended)
+# or: xelatex main-ru.tex
+# on Overleaf: set the compiler to XeLaTeX
 ```
 
-Or open `main.tex` on [Overleaf](https://overleaf.com) and compile there.
+It sets the main font to CMU Serif (`cmunrm.otf`, Computer Modern Unicode with
+full Cyrillic) so the Russian text matches the Computer Modern look of the
+English version.
 
 ## Contents
 
-- `main.tex` — the paper (self-contained: `article` class, `amsmath`/`amsthm`,
-  theorems with proofs, tables, and an embedded bibliography — no BibTeX pass needed).
+- `main.tex` / `main-ru.tex` — the paper (self-contained: theorems with proofs,
+  tables, embedded bibliography — no BibTeX pass needed).
 
 ## Notes for submission
 

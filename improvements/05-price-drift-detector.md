@@ -1,115 +1,121 @@
-# 05 — Детектор сговорного дрейфа цен (два окна + CUSUM)
+# 05 — Collusive price drift detector (two windows + CUSUM)
 
-## Проблема
+## Problem
 
-Открытый канал из Limitations статьи: автооценка (auto-score) привязана к
-**скользящему** распределению цен категории за 90 дней. Сговорившиеся участники
-могут двигать заявленные цены маленькими шагами — каждый шаг внутри $|z|\le1$
-— и опорное среднее $\mu_c$ поедет вслед, **ни разу не запустив ревью**.
-Медленная координированная накачка цены категории = скрытая эмиссия
-(завышенные $N$ → завышенные кредиты → необеспеченный V).
+An open channel from the paper's Limitations: the auto-score is tied to the
+**rolling** 90-day price distribution of a category. Colluding participants
+can move their declared prices in small steps — each step within $|z|\le1$ —
+and the anchor mean $\mu_c$ will drift along with them, **never once triggering
+a review**. A slow coordinated pump of a category's price = hidden emission
+(inflated $N$ → inflated credits → unbacked V).
 
-## Решение
+## Solution
 
-### 1. Детектор двух окон
+### 1. Two-window detector
 
-Считать статистики категории в двух окнах — коротком (90 дней, как сейчас) и
-длинном (365 дней), и флагатъ расхождение:
+Compute a category's statistics in two windows — a short one (90 days, as now)
+and a long one (365 days) — and flag the divergence:
 
-$$\boxed{\ \bigl|\mu_c^{90}(t) - \mu_c^{365}(t)\bigr| \ >\ \kappa_d\cdot\sigma_c^{365}\ \Rightarrow\ \text{категория под ревью}\ }$$
+$$\boxed{\ \bigl|\mu_c^{90}(t) - \mu_c^{365}(t)\bigr| \ >\ \kappa_d\cdot\sigma_c^{365}\ \Rightarrow\ \text{category under review}\ }$$
 
-**Почему это работает (расчёт).** Пусть атакующие ведут линейный дрейф со
-скоростью $v$ (USDC/день). Среднее окна длины $T$ отстаёт от текущего уровня
-на $vT/2$:
+**Why it works (calculation).** Suppose the attackers run a linear drift at
+speed $v$ (USDC/day). The mean of a window of length $T$ lags the current level
+by $vT/2$:
 
 $$\mu^{90} \approx \mu(t) - 45\,v,\qquad \mu^{365} \approx \mu(t) - 182.5\,v
 \quad\Rightarrow\quad \mu^{90}-\mu^{365} \approx 137.5\,v .$$
 
-Порог срабатывания задаёт **максимальную незаметную скорость дрейфа**:
+The trigger threshold sets the **maximum undetectable drift speed**:
 
-$$v^* = \frac{\kappa_d\,\sigma_c}{137.5}\ \text{в день}.$$
+$$v^* = \frac{\kappa_d\,\sigma_c}{137.5}\ \text{per day}.$$
 
-**Числовой пример.** Категория с $\mu_c=100$ V, $\sigma_c=10$ V, $\kappa_d=1$:
-$v^* = 10/137.5 \approx 0.073$ V/день. Чтобы удвоить цену (+100 V), сговору
-потребуется $100/0.073 \approx 1375$ дней ≈ **3.8 года** непрерывной
-координации — при том, что любой шаг быстрее немедленно флагается, а всё это
-время кластер светится в мониторинге концентрации/взаимности. Канал не
-закрывается абсолютно, но становится экономически бессмысленным.
+**Numeric example.** A category with $\mu_c=100$ V, $\sigma_c=10$ V,
+$\kappa_d=1$: $v^* = 10/137.5 \approx 0.073$ V/day. To double the price
+(+100 V), the collusion would need $100/0.073 \approx 1375$ days ≈ **3.8 years**
+of continuous coordination — while any faster step is flagged immediately, and
+the whole time the cluster shows up in concentration/reciprocity monitoring. The
+channel is not closed absolutely, but it becomes economically pointless.
 
-### 2. CUSUM как усиление (ловит и «ступеньки»)
+### 2. CUSUM as a reinforcement (also catches "steps")
 
-Двухоконный детектор — фильтр низких частот; классический CUSUM ловит и
-медленный дрейф, и серии мелких ступенек:
+The two-window detector is a low-pass filter; the classic CUSUM catches both
+slow drift and series of small steps:
 
 $$S_t = \max\bigl(0,\ S_{t-1} + (x_t - \mu_c^{365} - k_s)\bigr),\qquad
-S_t > h_s \Rightarrow \text{флаг},$$
+S_t > h_s \Rightarrow \text{flag},$$
 
-где $x_t$ — цена очередной сделки, $k_s\approx\sigma_c/2$ (допуск),
-$h_s\approx 5\sigma_c$ (порог). Стандартные свойства: среднее время до ложной
-тревоги и до детекции настраиваются парой $(k_s,h_s)$.
+where $x_t$ is the price of the next trade, $k_s\approx\sigma_c/2$ (tolerance),
+$h_s\approx 5\sigma_c$ (threshold). Standard properties: the mean time to a
+false alarm and to detection are tuned by the pair $(k_s,h_s)$.
 
-### 3. Робастность опорных статистик (гигиена)
+### 3. Robustness of the anchor statistics (hygiene)
 
-- $\mu_c$ считать **медианой**, $\sigma_c$ — через MAD (или винзоризовать 5%):
-  выбросы и «пробные» сделки атакующих не тянут якорь. (Ревью уже использует
-  медиану — унифицировать.)
-- Для товароподобных категорий — опциональный внешний ориентир (оракул) как
-  третий якорь с большим весом допуска.
-- Вырожденное окно $\sigma_c=0$ → обязательное ревью (уже добавлено в статью).
+- Compute $\mu_c$ as the **median**, $\sigma_c$ via MAD (or winsorize 5%):
+  outliers and the attackers' "probe" trades do not drag the anchor. (Review
+  already uses the median — unify.)
+- For commodity-like categories — an optional external reference (oracle) as a
+  third anchor with a large tolerance weight.
+- A degenerate window $\sigma_c=0$ → mandatory review (already added in the
+  paper).
 
-### 4. Реакция на флаг (связка с 04)
+### 4. Response to a flag (link with 04)
 
-Флаг категории по дрейфу →
-1) **заморозка якоря**: авто-оценка временно считает $z$ от $\mu_c^{365}$
-   (длинного окна), а не от короткого — дрейф перестаёт «самоподтверждаться»;
-2) эскалация аудита $a\to a_{\mathrm{flag}}=0.30$ (см. 04 — порог сдерживания
-   после флага выполняется с запасом);
-3) приостановка компенсаторной эмиссии по сделкам категории (механизм уже есть);
-4) при повторе — вынесение на голосование.
+A category flagged for drift →
+1) **anchor freeze**: the auto-score temporarily computes $z$ from
+   $\mu_c^{365}$ (the long window) rather than the short one — the drift stops
+   "self-confirming";
+2) audit escalation $a\to a_{\mathrm{flag}}=0.30$ (see 04 — the deterrence
+   threshold after a flag is met with margin);
+3) suspension of compensatory emission on the category's trades (the mechanism
+   already exists);
+4) on repetition — escalation to a vote.
 
-## Изменения
+## Changes
 
-**В статье:** абзац в Limitations о сговорном дрейфе дополнить ссылкой на
-механизм: «a two-window drift detector bounds the sustainable undetected drift
-to $\kappa_d\sigma_c/137.5$ per day»; можно оформить как короткое Предложение
-с выкладкой выше (лаг среднего $vT/2$ — одна строка).
+**In the paper:** supplement the Limitations paragraph on collusive drift with a
+reference to the mechanism: "a two-window drift detector bounds the sustainable
+undetected drift to $\kappa_d\sigma_c/137.5$ per day"; it can be framed as a
+short Proposition with the derivation above (the mean lag $vT/2$ — one line).
 
-**В симуляторе:**
-- `app/domain/services/auto_score.py`: второе окно 365d, медиана/MAD;
-- новый сервис `drift_detector.py` (два окна + CUSUM) + периодическая операция
-  по образцу `enforce_concentration`;
-- связка с `run_audit` (двухфазная $a$) и приостановкой эмиссии;
-- эксперимент `collusive_drift`: кластер двигает цены с $v\in\{0.5v^*, 2v^*\}$
-  — ожидание: медленный дрейф не окупается за горизонт, быстрый флагается за
-  $\approx 137.5\,\kappa_d\sigma/v$ дней; измерить необеспеченную эмиссию до флага.
+**In the simulator:**
+- `app/domain/services/auto_score.py`: a second window 365d, median/MAD;
+- a new service `drift_detector.py` (two windows + CUSUM) + a periodic
+  operation modeled on `enforce_concentration`;
+- link with `run_audit` (two-phase $a$) and emission suspension;
+- experiment `collusive_drift`: a cluster moves prices at $v\in\{0.5v^*, 2v^*\}$
+  — expectation: slow drift does not pay off over the horizon, fast drift is
+  flagged within $\approx 137.5\,\kappa_d\sigma/v$ days; measure the unbacked
+  emission before the flag.
 
-## Трейдоффы
+## Trade-offs
 
-- Ложные срабатывания при **честном** росте цен категории (инфляция навыка,
-  сезонность): флаг ≠ наказание — это ревью+аудит; честная категория проходит
-  ревью и якорь обновляется. Настройка $\kappa_d$: начать с 1.5–2.0.
-- Годовое окно требует year+ истории — для новых категорий использовать
-  глобальный якорь (медиана по родственным категориям) до накопления данных.
-- CUSUM чувствителен к выбору $k_s,h_s$ — калибровать на симуляторе.
+- False positives on an **honest** rise in a category's prices (skill
+  inflation, seasonality): a flag ≠ a penalty — it is a review+audit; an honest
+  category passes review and the anchor is updated. Tuning $\kappa_d$: start
+  with 1.5–2.0.
+- The yearly window requires year+ of history — for new categories use a global
+  anchor (the median over related categories) until enough data accumulates.
+- CUSUM is sensitive to the choice of $k_s,h_s$ — calibrate on the simulator.
 
-## Статус
+## Status
 
-**Реализовано (Kredo v2).** `DriftDetectorService` (два окна + CUSUM + робастные
-median/MAD-якоря; детрендированная σ через первые разности, чтобы дрейф не
-раздувал порог и не маскировал себя). Эксперимент
+**Implemented (Kredo v2).** `DriftDetectorService` (two windows + CUSUM +
+robust median/MAD anchors; detrended σ via first differences, so the drift does
+not inflate the threshold and mask itself). Experiment
 `experiments/collusive_drift.py`.
 
-Результаты (`results/collusive_drift.json`, κ = 1.5, σ = 10):
-- **v\* = 0.109 V/день** — потолок незаметного дрейфа.
-- **Медленный дрейф** (0.5·v\*): не флагается, но удвоить цену — **1835 дней
-  ≈ 5 лет** (экономически бессмысленно).
-- **Быстрый дрейф** (2·v\*): флагается (разрыв 30 > κσ = 15).
-- **CUSUM** ловит медленный дрейф, который двухоконное среднее сглаживает.
+Results (`results/collusive_drift.json`, κ = 1.5, σ = 10):
+- **v\* = 0.109 V/day** — the ceiling of undetectable drift.
+- **Slow drift** (0.5·v\*): not flagged, but to double the price — **1835 days
+  ≈ 5 years** (economically pointless).
+- **Fast drift** (2·v\*): flagged (gap 30 > κσ = 15).
+- **CUSUM** catches the slow drift that the two-window mean smooths out.
 
-Тонкость аудита: наивная MAD-σ длинного окна раздувается самим дрейфом —
-поэтому σ оценивается по первым разностям (детренд).
+Audit subtlety: the naive MAD-σ of the long window is inflated by the drift
+itself — so σ is estimated from first differences (detrending).
 
-`DriftDetectorService` — **автономный аналитический сервис**, не вшит в
-`auto_score`/движок: у категорий в симуляторе статичные μ/σ (нет скользящего
-окна цен), поэтому канал дрейфа в самом прогоне не воспроизводится, и детектор
-проверен на синтетических рядах, а не end-to-end.
+`DriftDetectorService` is a **standalone analytical service**, not wired into
+`auto_score`/the engine: categories in the simulator have static μ/σ (there is
+no rolling price window), so the drift channel is not reproduced in the run
+itself, and the detector is validated on synthetic series rather than
+end-to-end.

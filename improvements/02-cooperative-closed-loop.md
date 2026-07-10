@@ -1,108 +1,113 @@
-# 02 — Кооперативная форма и закрытый контур V
+# 02 — Cooperative form and closed loop V
 
-## Проблема (двойная)
+## Problem (twofold)
 
-**(a) Регуляторная.** V сегодня = рабочие деньги **плюс** право на долю
-прибыли (дивиденд + рост курса через фонд). Комбинация «вложение денег +
-общее предприятие + ожидание прибыли от усилий других» — это почти дословно
-тест Howey: в большинстве юрисдикций V рискует квалифицироваться как security.
-Статья честно выносит это в Limitations, но для запуска это, вероятно,
-**связывающее ограничение** — жёстче любого математического.
+**(a) Regulatory.** V today = working money **plus** a right to a share of
+profit (dividend + price appreciation via the fund). The combination "investing
+money + common enterprise + expectation of profit from the efforts of others"
+is almost word-for-word the Howey test: in most jurisdictions V risks being
+classified as a security. The article honestly flags this in Limitations, but
+for launch this is likely a **binding constraint** — harder than any
+mathematical one.
 
-**(b) Арбитражная.** Курс $P=(F+\mu\,\mathrm{ExtRev})/S$ — административная
-формула (I5), не рыночная цена. Как только появляется вторичный рынок V
-(OTC-чат достаточно), возникает вторая цена, и арбитраж бьёт по фонду:
-- вторичная цена < формульной → все продают фонду, покупая дёшево на стороне;
-- вторичная > формульной → фонд «раздаёт» дешёвый V инвесторам (Invest).
-История формульно-оценённых токенов почти вся об этом.
+**(b) Arbitrage.** The price $P=(F+\mu\,\mathrm{ExtRev})/S$ is an administrative
+formula (I5), not a market price. As soon as a secondary market for V appears
+(an OTC chat is enough), a second price arises, and arbitrage hits the fund:
+- secondary price < formula price → everyone sells to the fund, buying cheap
+  elsewhere;
+- secondary > formula → the fund "hands out" cheap V to investors (Invest).
+The history of formula-priced tokens is almost entirely about this.
 
-## Решение
+## Solution
 
-### 1. Юридическая форма: платформенный кооператив
+### 1. Legal form: a platform cooperative
 
-Ключевое наблюдение: механика Kredo почти изоморфна классическому кооперативу
-с взаимным кредитом. Дивиденд, взвешенный по активности, — это юридически
-**patronage dividend** (возврат пропорционально участию, а не капиталу),
-легальная и десятилетиями отработанная конструкция кооперативного права.
+Key observation: Kredo's mechanics are almost isomorphic to a classic
+cooperative with mutual credit. The activity-weighted dividend is legally a
+**patronage dividend** (a return proportional to participation, not capital) — a
+legal construction that cooperative law has road-tested for decades.
 
-Таблица соответствия:
+Correspondence table:
 
-| Kredo | Кооперативный аналог |
+| Kredo | Cooperative analog |
 |---|---|
-| V (внутренние расчёты) | внутренний клиринговый кредит (как франк WIR) |
-| Дивиденд по активности (30%) | patronage refund |
-| R (репутация) | членский статус / стаж |
-| Genesis grant | вступительный членский кредит |
-| Инвесторы через Invest | инвесторские паи кооператива (ограниченные права) |
-| Двойной кворум √R + V | **⚠ проверить**: многие ко-оп статуты требуют «один член — один голос» |
+| V (internal settlements) | internal clearing credit (like the WIR franc) |
+| Activity dividend (30%) | patronage refund |
+| R (reputation) | membership status / seniority |
+| Genesis grant | joining membership credit |
+| Investors via Invest | cooperative investor shares (limited rights) |
+| Dual quorum √R + V | **⚠ check**: many co-op statutes require "one member — one vote" |
 
-Открытый юридический вопрос (флаг для юриста): совместимость двойного кворума
-с императивом «one member — one vote» в конкретной юрисдикции; варианты —
-консультативный V-кворум + решающий членский, либо юрисдикция с гибким
-кооперативным правом.
+Open legal question (flag for a lawyer): compatibility of the dual quorum with
+the "one member — one vote" imperative in a specific jurisdiction; options — an
+advisory V-quorum + a decisive membership one, or a jurisdiction with flexible
+cooperative law.
 
-### 2. Закрытый контур: V не передаётся наружу
+### 2. Closed loop: V is not transferable outward
 
-Правило: V переводится **только между верифицированными членами**; никакого
-листинга, никаких переводов на внешние адреса; выход в USDC — только через
-фонд (Convert). Прецедент — WIR (90+ лет): франки WIR не обмениваются вовне.
+Rule: V is transferred **only between verified members**; no listing, no
+transfers to external addresses; exit into USDC only through the fund (Convert).
+The precedent is WIR (90+ years): WIR francs are not exchanged outward.
 
-Что это даёт:
-- **Нет вторичного рынка → нет второй цены → нет арбитража против (I5).**
-  Формула остаётся единственной ценой по построению.
-- Регуляторно: закрытая система расчётов между членами кооператива — на
-  порядок более защитимая позиция, чем свободно обращающийся токен.
-- Механика фонда не меняется: Теоремы о нейтральности и неисчерпаемости
-  (norun) действуют как есть.
+What this gives:
+- **No secondary market → no second price → no arbitrage against (I5).** The
+  formula remains the only price by construction.
+- Regulatory: a closed settlement system among cooperative members is an
+  order of magnitude more defensible position than a freely circulating token.
+- The fund's mechanics do not change: the Theorems on neutrality and
+  inexhaustibility (norun) hold as-is.
 
-Цена: ниже ликвидность и «инвестиционная привлекательность» V. Для клуба это
-согласуется с философией (Аксиома 1: не спекуляция, а вклад).
+The cost: lower liquidity and "investment attractiveness" of V. For a club this
+aligns with the philosophy (Axiom 1: not speculation, but contribution).
 
-### 3. Если внешний рынок всё же нужен: фонд как ограниченный маркет-мейкер
+### 3. If an external market is nonetheless needed: the fund as a limited market-maker
 
-Компромиссный вариант вместо жёсткой формулы — **коридор** вокруг
-фундаментальной цены $P_f=(F+\mu\,\mathrm{ExtRev})/S$:
+A compromise option instead of the rigid formula is a **band** around the
+fundamental price $P_f=(F+\mu\,\mathrm{ExtRev})/S$:
 
 $$\mathrm{bid} = P_f\,(1-\sigma), \qquad \mathrm{ask} = P_f\,(1+\sigma),
 \qquad \sigma(\rho) = \sigma_0\cdot\max\!\Bigl(1,\ \frac{\rho^*}{\rho}\Bigr).$$
 
-- Спред расширяется при падении покрытия $\rho=F/(P_fS)$ — та же логика, что
-  дисконтная очередь; при $\rho\ge\rho^*$ спред минимальный $\sigma_0$ (1–2%).
-- Фонд сам арбитражит отклонения вторичной цены от коридора: выше ask —
-  продаёт (обеспеченный Invest), ниже bid — выкупает (Convert+burn).
-- **Честная граница**: способность защищать bid ограничена фондом; действует
-  та же кривая $F=F_0(S/S_0)^{1/\rho^*}$ (Теорема norun) — публиковать
-  «огневую мощь» открыто, не обещать peg сверх неё.
+- The spread widens as coverage $\rho=F/(P_fS)$ falls — the same logic as the
+  discount queue; at $\rho\ge\rho^*$ the spread is minimal $\sigma_0$ (1–2%).
+- The fund itself arbitrages deviations of the secondary price from the band:
+  above ask — it sells (backed Invest), below bid — it buys back (Convert+burn).
+- **Honest boundary**: the ability to defend the bid is limited by the fund; the
+  same curve $F=F_0(S/S_0)^{1/\rho^*}$ (Theorem norun) applies — publish the
+  "firepower" openly, do not promise a peg beyond it.
 
-## Влияние на аксиомы и инварианты
+## Impact on axioms and invariants
 
-- I1–I7 сохраняются; I5 в закрытом контуре становится строже (единственная цена).
-- Аксиома 3 (симметрия): инвесторские паи не должны получать приоритет —
-  требование сохраняется и в кооперативной форме (паи без старшинства).
-- Конституционный список: добавить «закрытость контура» как конституционное
-  положение (меняется только референдумом), иначе управление сможет «открыть»
-  контур простым голосованием и вернуть арбитражный риск.
+- I1–I7 are preserved; I5 in the closed loop becomes stricter (the only price).
+- Axiom 3 (symmetry): investor shares must not receive priority — the
+  requirement holds in the cooperative form too (shares without seniority).
+- Constitutional list: add "closedness of the loop" as a constitutional
+  provision (changed only by referendum), otherwise governance could "open" the
+  loop by a simple vote and bring back the arbitrage risk.
 
-## План применения
+## How to apply
 
-1. **Решение о форме** (до пилота): кооператив + закрытый контур = базовый
-   вариант; коридорный маркет-мейкер — отложенная опция v2.
-2. Юрист: выбор юрисдикции (гибкое кооперативное право, отношение к внутренним
-   клиринговым единицам), проверка двойного кворума, статус USDC-фонда.
-3. В whitepaper/статье: раздел «Legal form» с таблицей соответствия выше.
-4. В симуляторе менять нечего (механика та же); для коридора — добавить
-   параметр $\sigma_0$ и сценарий с внешним рыночным шоком.
+1. **Decision on the form** (before the pilot): cooperative + closed loop = the
+   base variant; the band market-maker is a deferred v2 option.
+2. Lawyer: choice of jurisdiction (flexible cooperative law, treatment of
+   internal clearing units), verification of the dual quorum, status of the
+   USDC fund.
+3. In the whitepaper/article: a "Legal form" section with the correspondence
+   table above.
+4. Nothing to change in the simulator (the mechanics are the same); for the
+   band — add the parameter $\sigma_0$ and a scenario with an external market
+   shock.
 
-## Трейдоффы
+## Trade-offs
 
-| Вариант | Регуляторный риск | Арбитраж | Ликвидность | Привлекательность для инвестора |
+| Variant | Regulatory risk | Arbitrage | Liquidity | Attractiveness for an investor |
 |---|---|---|---|---|
-| Открытый токен (сейчас) | высокий | высокий | высокая | высокая |
-| **Кооп + закрытый контур** | **низкий** | **нулевой** | средняя (через фонд) | средняя (паи + patronage) |
-| Кооп + коридор | средний | ограниченный | высокая | высокая |
+| Open token (current) | high | high | high | high |
+| **Co-op + closed loop** | **low** | **zero** | medium (via the fund) | medium (shares + patronage) |
+| Co-op + band | medium | limited | high | high |
 
-## Статус
+## Status
 
-Не решено — стратегический выбор основателя. Рекомендация: кооператив +
-закрытый контур для пилота; коридор рассматривать только после устойчивой
-внешней выручки (см. 01).
+Undecided — a strategic choice for the founder. Recommendation: cooperative +
+closed loop for the pilot; consider the band only after sustained external
+revenue (see 01).

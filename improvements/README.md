@@ -1,34 +1,37 @@
-# Улучшения модели Kredo (Kredo v2 — реализовано)
+# Kredo model improvements (Kredo v2 — implemented)
 
-Пять проработанных решений, закрывающих слабости, найденные при аудите статьи
-(paper/main.tex). **Все реализованы** как Kredo v2: opt-in параметры/сервисы в
-симуляторе (по умолчанию 315 legacy-прогонов бит-в-бит идентичны), отражены в
-статье §14 (EN+RU) и на сайте. Плюс сквозной противник в движке (Phase 6,
-`experiments/phase6_fraud.py`). Статус каждого — в конце соответствующего
-документа. Каждый документ самодостаточен: проблема → решение → формулы →
-расчёты → изменения в механизме → как проверить симулятором → трейдоффы → **статус**.
+> 🇷🇺 **Русская версия:** [README_ru.md](./README_ru.md)
 
-| № | Документ | Слабость, которую закрывает | Сложность | Приоритет |
+Five worked-out solutions closing the weaknesses found while auditing the paper
+(`paper/main.tex`). **All are implemented** as Kredo v2: opt-in
+parameters/services in the simulator (with defaults off, all 315 legacy runs are
+byte-for-byte identical), reflected in the paper §14 (EN+RU) and on the website.
+Plus an end-to-end adversary in the engine (Phase 6,
+`experiments/phase6_fraud.py`). Each document's status is at its end. Every
+document is self-contained: problem → solution → formulas → calculations →
+mechanism changes → how to check with the simulator → trade-offs → **status**.
+
+| # | Document | Weakness it closes | Effort | Priority |
 |---|---|---|---|---|
-| 1 | [01-retention-channel.md](./01-retention-channel.md) | «Беговая дорожка выручки»: условие выживания требует вечного роста | Модель + параметры | **Первый** |
-| 2 | [02-cooperative-closed-loop.md](./02-cooperative-closed-loop.md) | Регуляторный риск (V как security) + арбитраж против формульной цены | Стратегическое решение | До пилота |
-| 3 | [03-sybil-defense.md](./03-sybil-defense.md) | Sybil: √-правило поощряет дробление, вся защита — цена личности | Механизм + код | До 100 участников |
-| 4 | [04-dynamic-lockup.md](./04-dynamic-lockup.md) | Порог сдерживания фрода Λ≥N̄/a не выполнен дефолтами (300 vs 1642) | Дешёвый механизм | **Первый** (вместе с №1) |
-| 5 | [05-price-drift-detector.md](./05-price-drift-detector.md) | Сговорный дрейф μ_c внутри \|z\|≤1 (открытый канал из Limitations) | Дешёвый механизм | Вместе с №4 |
+| 1 | [01-retention-channel.md](./01-retention-channel.md) | "Revenue treadmill": the survival condition demands perpetual growth | Model + parameters | **First** |
+| 2 | [02-cooperative-closed-loop.md](./02-cooperative-closed-loop.md) | Regulatory risk (V as a security) + arbitrage against the formula price | Strategic decision | Before the pilot |
+| 3 | [03-sybil-defense.md](./03-sybil-defense.md) | Sybil: the √-rule rewards splitting, the whole defense is the per-identity cost | Mechanism + code | Before 100 members |
+| 4 | [04-dynamic-lockup.md](./04-dynamic-lockup.md) | Fraud deterrence threshold Λ≥N̄/a unmet by defaults (300 vs 1642) | Cheap mechanism | **First** (with #1) |
+| 5 | [05-price-drift-detector.md](./05-price-drift-detector.md) | Collusive drift of μ_c within \|z\|≤1 (the open channel from Limitations) | Cheap mechanism | With #4 |
 
-## Зависимости и порядок
+## Dependencies and order
 
-- №1 и №4–5 — чисто технические, проверяются существующим симулятором
-  (`simulation/`), не требуют внешних решений. Делать первыми.
-- №2 — юридико-архитектурное решение; влияет на №1 (закрытый контур упрощает
-  ценообразование) — принять до пилота с живыми людьми.
-- №3 — социальный механизм; нужен до того, как сообщество станет достаточно
-  большим, чтобы быть целью.
+- #1 and #4–5 are purely technical, verified by the existing simulator
+  (`simulation/`), and need no external decisions. Do these first.
+- #2 is a legal-and-architectural decision; it affects #1 (a closed loop
+  simplifies pricing) — settle it before a pilot with real people.
+- #3 is a social mechanism; needed before the community grows large enough to
+  become a target.
 
-## Связь со статьёй
+## Link to the paper
 
-Каждое решение ссылается на конкретные теоремы/разделы препринта:
-Теорема 1 (устойчивость), Теорема 2 (нейтральность), Предложение о выживании,
-Теоремы 4–5 (фрод и сдерживание), Предложение о Sybil, раздел Limitations.
-После реализации и прогонов эти материалы — готовая основа для раздела
-«Design extensions» следующей версии статьи (или отдельной статьи v2).
+Each solution references specific theorems/sections of the preprint:
+Theorem 1 (stability), Theorem 2 (neutrality), the survival proposition,
+Theorems 4–5 (fraud and deterrence), the Sybil proposition, the Limitations
+section. Once implemented and run, this material became the basis for the
+"Design extensions (Kredo v2)" section (§14) of the paper.

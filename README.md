@@ -27,6 +27,7 @@ behind it — open for anyone to read, check, run, and build on.
 | [`formulas.md`](formulas.md) | Language-neutral formula reference, labelled in EN/RU/ES/ZH |
 | [`simulation/`](simulation) | The pure simulation code (domain = formulas, engine, protocols) — runnable |
 | [`results/`](results) | Raw JSON outputs of the validation runs |
+| [`improvements/`](improvements) | Proposed v1.1 design extensions (in Russian): retention channel, cooperative form, Sybil defense, dynamic lock-up, drift detector |
 
 ## The idea in one minute
 

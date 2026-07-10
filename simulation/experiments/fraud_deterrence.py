@@ -54,28 +54,47 @@ def baseline() -> dict:  # type: ignore[type-arg]
     return _table(service, _STAKE)
 
 
+def _vesting_service(w: Decimal) -> FraudDeterrenceService:
+    """Isolate the amount-scaled vesting's marginal effect.
+
+    The base lock-up is treated as non-detecting (``lockup_days=0`` ⇒ c₀=1),
+    matching the paper's conservative audit-only baseline (Theorem 5, p=0):
+    at w=0 this reproduces the +425 V optimum exactly. Only the incremental
+    vesting ``w·W`` carries the per-day detection hazard p, so the crossover
+    to non-positive profit is attributable to the vesting alone, not to
+    crediting the pre-existing 60-day lock-up with detection.
+    """
+    return FraudDeterrenceService(
+        mean_tx_size=_N_BAR,
+        audit_rate=Decimal("0.03"),
+        lockup_days=0,
+        detection_per_day=_DETECTION_PER_DAY,
+        lockup_per_v=w,
+    )
+
+
 def dynamic_lockup() -> dict:  # type: ignore[type-arg]
     """Lever 1 — vesting w chosen to meet the threshold at the default stake."""
     # Required β' ≥ 1/Λ ⇒ w ≥ (1/Λ − β)/p'. Solve, then verify.
-    probe = FraudDeterrenceService(
-        mean_tx_size=_N_BAR,
-        audit_rate=Decimal("0.03"),
-        lockup_days=60,
-        detection_per_day=_DETECTION_PER_DAY,
-    )
-    beta = probe.beta
+    beta = _vesting_service(Decimal("0")).beta
     p_prime = (Decimal(1) / (Decimal(1) - _DETECTION_PER_DAY)).ln()
     required_w = (Decimal(1) / _STAKE - beta) / p_prime
-    service = FraudDeterrenceService(
-        mean_tx_size=_N_BAR,
-        audit_rate=Decimal("0.03"),
-        lockup_days=60,
-        detection_per_day=_DETECTION_PER_DAY,
-        lockup_per_v=required_w,
-    )
+    service = _vesting_service(required_w)
     out = _table(service, _STAKE)
     out["required_w_days_per_v"] = str(required_w)
     out["extra_lockup_per_100v_days"] = str(required_w * 100)
+    return out
+
+
+def lockup_sweep() -> dict:  # type: ignore[type-arg]
+    """Sweep the vesting rate w at p=5%/day: max profit falls from +425 to ≤0."""
+    out = {}
+    for w in ("0", "0.02", "0.053", "0.1", "0.2"):
+        service = _vesting_service(Decimal(w))
+        out[w] = {
+            "max_profit": str(service.max_profit(_STAKE)),
+            "deterred": service.is_deterred(_STAKE),
+        }
     return out
 
 
@@ -98,6 +117,7 @@ def main() -> None:
         "stake": str(_STAKE),
         "baseline": baseline(),
         "dynamic_lockup": dynamic_lockup(),
+        "lockup_sweep": lockup_sweep(),
         "flagged_audit": flagged_audit(),
     }
 
@@ -111,6 +131,10 @@ def main() -> None:
     print(f"  required w = {float(d['required_w_days_per_v']):.3f} d/V "
           f"(≈ {float(d['extra_lockup_per_100v_days']):.1f} d per 100 V)")
     print(f"  max profit = {float(d['max_profit']):+.2f} V, deterred = {d['deterred']}")
+
+    print("\n=== Vesting sweep (p=5%/day, Λ=300) — max profit vs w ===")
+    for w, r in results["lockup_sweep"].items():
+        print(f"  w={w:>5} d/V: max profit {float(r['max_profit']):+8.1f} V  deterred={r['deterred']}")
 
     f = results["flagged_audit"]
     print("\n=== Flagged audit (a=0.30) ===")

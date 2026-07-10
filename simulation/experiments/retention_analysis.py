@@ -92,13 +92,30 @@ def _run(params: ClubParameters, market: object, *, ticks: int, seed: int) -> di
 
 
 def survival_at_constant_revenue(*, ticks: int = 180, seed: int = 23) -> dict:  # type: ignore[type-arg]
-    """Claim 1 — steady revenue level, no growth, retention keeps price alive."""
-    market = ConstantInflowMarket(
-        daily_invest=USDC("100"),
-        daily_revenue=USDC("200"),
-        investor_ids=_INVESTORS,
-    )
-    return _run(ClubParameters(), market, ticks=ticks, seed=seed)
+    """Claim 1 — a constant revenue *level* (no growth) governs the long-run
+    price: sweeping the level from 0 upward walks the economy from a falling
+    to a rising regime (survival condition ``R ≥ (eP−λ_inv)/s`` is a level).
+    """
+    levels = ["0", "25", "50", "100", "200"]
+    sweep = {}
+    for lvl in levels:
+        market = ConstantInflowMarket(
+            daily_invest=USDC("100"),
+            daily_revenue=USDC(lvl),
+            investor_ids=_INVESTORS,
+        )
+        run = _run(ClubParameters(), market, ticks=ticks, seed=seed)
+        p_first = float(run["p_first"])
+        p_last = float(run["p_last"])
+        sweep[lvl] = {
+            "p_first": run["p_first"],
+            "p_last": run["p_last"],
+            "regime": "growth" if p_last > p_first * 1.02
+            else "falling" if p_last < p_first * 0.98
+            else "plateau",
+            "economically_stable": run["economically_stable"],
+        }
+    return {"revenue_level_sweep": sweep}
 
 
 def currency_board_comparison(*, ticks: int = 180, stop: int = 90, seed: int = 23) -> dict:  # type: ignore[type-arg]
@@ -127,18 +144,21 @@ def main() -> None:
         "currency_board": currency_board_comparison(),
     }
 
-    survival = results["survival_constant_revenue"]
-    print("=== Claim 1: survival at constant revenue ===")
-    print(f"  price {survival['p_first']} -> {survival['p_last']} (min {survival['min_price']})")
-    print(f"  economically_stable: {survival['economically_stable']}")
+    print("=== Claim 1: constant revenue LEVEL sets the regime ===")
+    for lvl, r in results["survival_constant_revenue"]["revenue_level_sweep"].items():
+        print(f"  revenue {lvl:>3}/day: price {r['p_first']} -> {r['p_last']}  [{r['regime']}]")
 
     board = results["currency_board"]
     off, on = board["cap_off"], board["cap_on"]
-    print(f"\n=== Claim 2: revenue stops at tick {board['stop_tick']} ===")
-    print(f"  cap OFF: price {off['p_first']} -> {off['p_last']}, "
-          f"supply {off['supply_first']} -> {off['supply_last']}")
-    print(f"  cap ON : price {on['p_first']} -> {on['p_last']}, "
-          f"supply {on['supply_first']} -> {on['supply_last']}")
+    stop = board["stop_tick"]
+    off_s = [float(x) for x in off["supply_series"]]
+    on_s = [float(x) for x in on["supply_series"]]
+    print(f"\n=== Claim 2: currency board — revenue stops at tick {stop} ===")
+    print(f"  cap OFF: price {off['p_first']} -> {off['p_last']}; "
+          f"post-stop supply growth {off_s[-1]-off_s[stop]:+.0f}")
+    print(f"  cap ON : price {on['p_first']} -> {on['p_last']}; "
+          f"post-stop supply growth {on_s[-1]-on_s[stop]:+.0f}")
+    print(f"  whole-run supply growth: OFF {off_s[-1]-off_s[0]:.0f} -> ON {on_s[-1]-on_s[0]:.0f}")
 
     out.write_text(json.dumps(results, indent=2))
     print(f"\nSaved to {out}")
